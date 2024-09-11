@@ -1,16 +1,60 @@
-html,
-body {
-  padding: 0;
+/* ROOT VARS */
+:root {
+  --clr-primary: #0000a8;
+  --clr-primary-idle: #87888f;
+  --clr-secondary: ;
+  --clr-background: #57a8a8;
+  --clr-ui-trim: #c0c7c8;
+  --clr-ui-trim-highlight: #fbfbfb;
+  --clr-ui-trim-shadow: #98999f;
+  --clr-drop-shadow: black;
+  /* Border system: left & top - gradient from highlight inner to outer background */
+  /* Border system: right & bottom - gradient from shadow inner to outer BLACK*/
+  /* Dark mode later */
+}
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* CORE META */
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem;
+  background: black;
+}
+header {
+}
+nav {
+}
+main {
+}
+section {
+}
+footer {
 }
 
+/* SMALL META */
 a {
   color: inherit;
   text-decoration: none;
 }
-
-* {
-  box-sizing: border-box;
+img {
+  display: block;
+  max-width: 100%;
+}
+ul {
+  list-style: none;
+}
+/**/
+.one {
+  background: var(--clr-ui-trim);
+}
+.two {
+  background: var(--clr-ui-trim-highlight);
+}
+.three {
+  background: var(--clr-ui-trim-shadow);
 }

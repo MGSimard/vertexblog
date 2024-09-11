@@ -1,7 +1,9 @@
 import "@/styles/globals.css";
 
-import { GeistSans } from "geist/font/sans";
-import { type Metadata } from "next";
+import { Handjet } from "next/font/google";
+import type { Metadata } from "next";
+
+const handjet = Handjet({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "VertexBlog",
@@ -12,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={GeistSans.className}>{children}</body>
+      <body className={handjet.className}>{children}</body>
     </html>
   );
 }
