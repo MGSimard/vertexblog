@@ -1,7 +1,7 @@
-This is a terrible good idea
-Yes I'm making a blogging platform in the shape of an OS file directory
-Yes I'm tweaking after spending so much time working on VertexDB while learning everything about Nextjs, Backend and all its related technologies
-No I don't care, ooga booga monke
+- This is a terrible good idea
+- Yes I'm making a blogging platform in the shape of an OS file directory
+- Yes I'm tweaking after spending so much time working on VertexDB while learning everything about Nextjs, Backend and all its related technologies
+- No I don't care, ooga booga monke
 
 ## TASK LIST
 
