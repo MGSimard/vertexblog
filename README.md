@@ -7,7 +7,8 @@
 - [ ] Documents folder (page or component) as explorer window
 - [ ] Within, blog folders navigates the explorer window to that blog
 - [ ] Within, .txt files - opening them opens a new notepad window
-- [ ]
+- [ ] Set up auth
+- [ ] Set up database
 - [ ]
 - [ ]
 - [ ]
