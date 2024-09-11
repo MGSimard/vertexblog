@@ -1,6 +1,7 @@
 ## TASK LIST
 
 - [ ] Update to latest Nextjs, react etc canaries
+- [ ] Deploy to vercel
 - [ ] Scaffold basic layout
 - [ ] Desktop layout.tsx
 - [ ] Documents folder (page or component) as explorer window
