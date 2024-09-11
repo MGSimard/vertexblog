@@ -4,14 +4,14 @@
   --clr-primary-idle: #87888f;
   --clr-secondary: ;
   --clr-background: #57a8a8;
-  --clr-ui-trim: #c0c7c8;
-  --clr-ui-trim-highlight: #fbfbfb;
-  --clr-ui-trim-shadow: #98999f;
+  --clr-ui-trim: hsl(255, 7%, 77%);
+  --clr-ui-trim-light: hsl(from var(--clr-ui-trim) h s 97%);
+  --clr-ui-trim-dark: hsl(from var(--clr-ui-trim) h s 60%);
   --clr-drop-shadow: black;
-  /* Border system: left & top - gradient from highlight inner to outer background */
-  /* Border system: right & bottom - gradient from shadow inner to outer BLACK*/
   /* Dark mode later */
+  --ui-padding: 0.4rem;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -23,17 +23,22 @@ html {
 }
 body {
   font-size: 1.6rem;
-  background: black;
+  background: var(--clr-background);
+  overflow: hidden;
+  height: 100dvh;
 }
 header {
+  height: 100%;
 }
 nav {
+  height: 100%;
+  padding: 1rem;
 }
 main {
+  position: absolute;
+  inset: 0;
 }
 section {
-}
-footer {
 }
 
 /* SMALL META */
@@ -48,13 +53,116 @@ img {
 ul {
   list-style: none;
 }
-/**/
-.one {
+button {
+  border: none;
+  cursor: pointer;
+}
+.link-as-button {
+  cursor: pointer;
+  padding: 0 0.4rem;
   background: var(--clr-ui-trim);
 }
-.two {
-  background: var(--clr-ui-trim-highlight);
+/* "NAV" STUFF */
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 1rem;
+
+  height: calc(100% - 5rem);
 }
-.three {
-  background: var(--clr-ui-trim-shadow);
+.desktop-icons a {
+  display: block;
+  width: 8rem;
+  height: 8rem;
+  border: 1px solid red;
+}
+#taskbar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 5rem;
+  padding: var(--ui-padding);
+  border-top: 3px outset var(--clr-ui-trim-light);
+  background: var(--clr-ui-trim);
+}
+.start-button {
+  height: 100%;
+  padding: 0 1rem;
+  background: var(--clr-ui-trim);
+}
+/* FILE EXPLORER */
+.file-explorer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
+  gap: 0.5rem;
+  padding: var(--ui-padding);
+  background: var(--clr-ui-trim);
+  resize: both;
+  overflow: hidden;
+}
+.fe-header,
+.fe-footer {
+  flex-shrink: 0;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  height: 3rem;
+  padding: 0 0.3rem;
+}
+.fe-header span,
+.fe-footer span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fe-header {
+  display: flex;
+  justify-content: space-between;
+  background: var(--clr-primary);
+}
+.fe-header span {
+  color: white;
+}
+.fe-content {
+  flex-grow: 1;
+  padding: 1rem;
+  background: white;
+  overflow: scroll;
+}
+.explorer-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.explorer-icons a {
+  display: block;
+  width: 8rem;
+  height: 8rem;
+  border: 1px solid red;
+}
+
+/* HELPER CLASSES */
+.inset {
+  border: 3px solid;
+  border-top-color: var(--clr-ui-trim-dark);
+  border-right-color: var(--clr-ui-trim-light);
+  border-bottom-color: var(--clr-ui-trim-light);
+  border-left-color: var(--clr-ui-trim-dark);
+}
+.outset {
+  border: 3px solid;
+  border-top-color: var(--clr-ui-trim-light);
+  border-right-color: var(--clr-ui-trim-dark);
+  border-bottom-color: var(--clr-ui-trim-dark);
+  border-left-color: var(--clr-ui-trim-light);
+  box-shadow: 1px 1px 1px var(--clr-drop-shadow);
 }
