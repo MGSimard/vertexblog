@@ -55,6 +55,84 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   <img alt="ICON" />
                   <span>Documents</span>
                 </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
+              </li>{" "}
+              <li>
+                <Link href="/documents">
+                  <img alt="ICON" />
+                  <span>Documents</span>
+                </Link>
               </li>
             </ul>
             <Taskbar />
