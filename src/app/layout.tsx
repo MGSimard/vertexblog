@@ -47,97 +47,95 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={handjet.className}>
-        <header>
-          <nav>
-            <ul className="desktop-icons">
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>{" "}
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-            </ul>
-            <Taskbar />
-          </nav>
-        </header>
+        <nav>
+          <ul className="desktop-icons">
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>{" "}
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/documents">
+                <img alt="ICON" />
+                <span>Documents</span>
+              </Link>
+            </li>
+          </ul>
+          <Taskbar />
+        </nav>
         {children}
       </body>
     </html>

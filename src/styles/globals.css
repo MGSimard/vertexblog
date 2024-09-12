@@ -20,18 +20,17 @@
 /* CORE META */
 html {
   font-size: 62.5%;
-  height: 100%;
+
   overflow: hidden;
 }
 body {
-  height: 100%;
+  height: 100dvh;
   background: var(--clr-background);
   overflow: hidden;
   font-size: 1.8rem;
   font-weight: 600;
 }
 header {
-  height: 100%;
 }
 nav {
   height: 100%;
@@ -100,6 +99,7 @@ input {
   padding: var(--ui-padding);
   border-top: 3px outset var(--clr-ui-trim-light);
   background: var(--clr-ui-trim);
+  transform: translateZ(0);
 }
 .start-button {
   position: relative;
