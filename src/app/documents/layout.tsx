@@ -4,17 +4,17 @@ import Link from "next/link";
 
 export default function FileExplorerLayout({ children }: { children: React.ReactNode }) {
   return (
-    <section className="file-explorer outset">
+    <div className="file-explorer outset">
       <div className="fe-header noselect">
         <span>Current Location</span>
         <Link href="/" className="link-as-button outset">
           X
         </Link>
       </div>
-      <div className="fe-content inset">{children}</div>
+      {children}
       <div className="fe-footer noselect">
         <span>Description of current action.</span>
       </div>
-    </section>
+    </div>
   );
 }

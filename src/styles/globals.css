@@ -22,10 +22,11 @@ html {
   font-size: 62.5%;
 }
 body {
-  font-size: 1.6rem;
+  height: 100dvh;
   background: var(--clr-background);
   overflow: hidden;
-  height: 100dvh;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 header {
   height: 100%;
@@ -55,6 +56,9 @@ button {
   font: inherit;
   border: none;
   cursor: pointer;
+}
+input {
+  outline: none;
 }
 .link-as-button {
   cursor: pointer;
@@ -156,6 +160,35 @@ button {
 }
 .fe-header span {
   color: white;
+}
+.fe-controls {
+  padding: 0 1rem;
+}
+.fe-options button {
+  padding: 0 1rem;
+  border: 3px solid;
+  border-color: transparent;
+  background: none;
+}
+.fe-options button:active {
+  border-top-color: var(--clr-ui-trim-dark);
+  border-right-color: var(--clr-ui-trim-light);
+  border-bottom-color: var(--clr-ui-trim-light);
+  border-left-color: var(--clr-ui-trim-dark);
+}
+.fe-options button::first-letter {
+  text-decoration: underline;
+}
+.fe-address {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.fe-address span {
+  flex-shrink: 0;
+}
+.fe-address input {
+  flex-grow: 1;
 }
 .fe-content {
   flex-grow: 1;

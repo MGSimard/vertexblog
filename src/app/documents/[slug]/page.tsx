@@ -2,5 +2,9 @@
 
 export default function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
-  return <div>WE ARE CURRENTLY WITHIN: DOCUMENTS/{slug}</div>;
+  return (
+    <div className="fe-content inset">
+      <div>WE ARE CURRENTLY WITHIN: DOCUMENTS/{slug}</div>
+    </div>
+  );
 }
