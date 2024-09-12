@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CurrentPath } from "@/components/CurrentPath";
 
 // THIS IS THE LAYOUT FOR RECURRING FILE EXPLORER WINDOW, WE RENDER THE CURRENT FOLDER WE'RE IN WITHIN THAT LAYOUT (WINDOW)
 
@@ -11,6 +12,10 @@ export default function FileExplorerLayout({ children }: { children: React.React
           X
         </Link>
       </div>
+      <label className="fe-address">
+        <span>Address</span>
+        <CurrentPath />
+      </label>
       {children}
       <div className="fe-footer noselect">
         <span>Description of current action.</span>

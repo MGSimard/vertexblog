@@ -8,9 +8,9 @@
 - [ ] Update to latest Nextjs, react etc canaries
 - [ ] Deploy to vercel
 - [ ] Scaffold basic layout
-- [ ] Desktop layout.tsx
-- [ ] Documents folder (page or component) as explorer window
-- [ ] Within, blog folders navigates the explorer window to that blog
+- [x] Desktop layout.tsx
+- [x] Documents folder (page or component) as explorer window
+- [x] Within, blog folders navigates the explorer window to that blog
 - [ ] Within, .txt files - opening them opens a new notepad window
 - [ ] Set up auth (Hopefully Lucia)
 - [ ] Set up database (Vercel PostgreSQL w/ Drizzle ORM)

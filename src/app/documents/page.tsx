@@ -1,13 +1,9 @@
 import Link from "next/link";
-import { headers } from "next/headers";
+import { CurrentPath } from "@/components/CurrentPath";
 
 // THIS IS WHERE WE WILL LIST ALL THE CREATED BLOGS AS FOLDERS
 
 export default function Page() {
-  const headersList = headers();
-  const fullUrl = headersList.get("x-url") || "";
-  const pathname = headersList.get("x-pathname") || "";
-
   return (
     <>
       <div className="fe-controls">
@@ -20,14 +16,6 @@ export default function Page() {
           {/* SHOW USER'S FAVORITE BLOGS? */}
           <button type="button">Help</button>
         </div>
-        <label className="fe-address">
-          <span>Address</span>
-          <input type="search" className="inset" value={fullUrl} disabled />
-        </label>
-        <label className="fe-address">
-          <span>Address</span>
-          <input type="search" className="inset" value={pathname} disabled />
-        </label>
       </div>
 
       <div className="fe-content inset">
