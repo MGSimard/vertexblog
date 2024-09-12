@@ -1,36 +1,42 @@
-// Example model schema from the Drizzle docs
-// https://orm.drizzle.team/docs/sql-schema-declaration
-
 import { sql } from "drizzle-orm";
-import {
-  index,
-  pgTableCreator,
-  serial,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { index, pgTableCreator, serial, timestamp, varchar, integer, boolean } from "drizzle-orm/pg-core";
 
-/**
- * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
- * database instance for multiple projects.
- *
- * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
- */
 export const createTable = pgTableCreator((name) => `vertexblog_${name}`);
 
-export const posts = createTable(
-  "post",
+export const blogs = createTable(
+  "blogs",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
-    createdAt: timestamp("created_at", { withTimezone: true })
+    author: varchar("author", { length: 255 }).notNull(),
+    title: varchar("title", { length: 255 }).unique().notNull(),
+    active: boolean("active").default(false).notNull(),
+    createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-      () => new Date()
-    ),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+    deletedAt: timestamp("deleted_at"),
   },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
+  (table) => ({
+    blogTitleIndex: index("blog_title_idx").on(table.title),
+  })
+);
+
+export const posts = createTable(
+  "posts",
+  {
+    id: serial("id").primaryKey(),
+    parentBlog: integer("parent_blog")
+      .notNull()
+      .references(() => blogs.id),
+    title: varchar("title", { length: 255 }),
+    content: varchar("content", { length: 40000 }).notNull(),
+    createdAt: timestamp("created_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+    deletedAt: timestamp("deleted_at"),
+  },
+  (table) => ({
+    postTitleIndex: index("post_title_idx").on(table.title),
   })
 );

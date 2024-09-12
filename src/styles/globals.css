@@ -138,6 +138,21 @@ input {
   resize: both;
   overflow: hidden;
 }
+.fe-header {
+  order: 1;
+}
+.fe-options {
+  order: 2;
+}
+.fe-address {
+  order: 3;
+}
+.fe-content {
+  order: 4;
+}
+.fe-footer {
+  order: 5;
+}
 .fe-header,
 .fe-footer {
   flex-shrink: 0;
@@ -160,9 +175,6 @@ input {
 }
 .fe-header span {
   color: white;
-}
-.fe-controls {
-  padding: 0 1rem;
 }
 .fe-options button {
   padding: 0 1rem;
@@ -189,6 +201,10 @@ input {
 }
 .fe-address input {
   flex-grow: 1;
+  padding: 0.5rem 0.5rem;
+}
+.fe-address input:disabled {
+  background: var(--clr-ui-trim);
 }
 .fe-content {
   flex-grow: 1;
@@ -215,6 +231,7 @@ input {
   border-right-color: var(--clr-ui-trim-light);
   border-bottom-color: var(--clr-ui-trim-light);
   border-left-color: var(--clr-ui-trim-dark);
+  box-shadow: inset 1px 1px 1px black;
 }
 .outset {
   border: 3px solid;
