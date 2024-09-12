@@ -9,7 +9,7 @@ export default function Page({ params }: { params: { slug: number } }) {
 
   return (
     <>
-      <div className="fe-options">
+      <div className="fe-options noselect">
         <BackButton />
         <button type="button">File</button>
         <button type="button">Edit</button>

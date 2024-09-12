@@ -13,7 +13,7 @@ export default function FileExplorerLayout({ children }: { children: React.React
         </Link>
       </div>
       <label className="fe-address">
-        <span>Address</span>
+        <span className="noselect">Address</span>
         <CurrentPath />
       </label>
       {children}

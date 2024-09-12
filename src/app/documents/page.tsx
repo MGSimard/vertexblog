@@ -8,7 +8,7 @@ import blogs from "../placeholderBlogs.json";
 export default function Page() {
   return (
     <>
-      <div className="fe-options">
+      <div className="fe-options noselect">
         <BackButton />
         <button type="button">File</button>
         <button type="button">Edit</button>
