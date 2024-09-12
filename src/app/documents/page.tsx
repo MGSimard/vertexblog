@@ -20,7 +20,7 @@ export default function Page() {
         <ul className="explorer-icons">
           {[...Array(32)].map((icon, i) => (
             <li key={i}>
-              <Link href="/documents/testfolder">Testfolder link</Link>
+              <Link href={`/documents/testfolder${i}`}>Testfolder link {i}</Link>
             </li>
           ))}
         </ul>
