@@ -57,7 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 </Link>
               </li>
             </ul>
-            {/* <Taskbar /> */}
+            <Taskbar />
           </nav>
         </header>
         {children}
