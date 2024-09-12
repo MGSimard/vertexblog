@@ -29,6 +29,7 @@ body {
   overflow: hidden;
 }
 header {
+  height: 100%;
 }
 nav {
   height: 100%;
