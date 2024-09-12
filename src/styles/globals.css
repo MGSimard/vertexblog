@@ -20,15 +20,13 @@
 /* CORE META */
 html {
   font-size: 62.5%;
-
-  overflow: hidden;
 }
 body {
   height: 100dvh;
   background: var(--clr-background);
-  overflow: hidden;
   font-size: 1.8rem;
   font-weight: 600;
+  overflow: hidden;
 }
 header {
 }
@@ -89,9 +87,9 @@ input {
   border: 1px solid red;
 }
 #taskbar {
-  position: fixed;
+  position: absolute;
   right: 0;
-  bottom: 0;
+  top: calc(100dvh - 5rem);
   left: 0;
   display: flex;
   align-items: center;
@@ -99,7 +97,6 @@ input {
   padding: var(--ui-padding);
   border-top: 3px outset var(--clr-ui-trim-light);
   background: var(--clr-ui-trim);
-  transform: translateZ(0);
 }
 .start-button {
   position: relative;
