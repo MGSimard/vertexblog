@@ -5,7 +5,6 @@
 
 ## TASK LIST
 
-- [ ] Not allowed to use any images anywhere
 - [ ] Update to latest Nextjs, react etc canaries
 - [ ] Deploy to vercel
 - [ ] Scaffold basic layout

@@ -52,6 +52,7 @@ ul {
   list-style: none;
 }
 button {
+  font: inherit;
   border: none;
   cursor: pointer;
 }
@@ -74,7 +75,6 @@ button {
   flex-wrap: wrap;
   align-content: flex-start;
   gap: 1rem;
-
   height: calc(100% - 5rem);
 }
 .desktop-icons a {
@@ -94,17 +94,31 @@ button {
   background: var(--clr-ui-trim);
 }
 .start-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   height: 100%;
   padding: 0 1rem;
   background: var(--clr-ui-trim);
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.start-button span {
+  line-height: 0.8;
 }
 .start-button.outset:active {
   border-top-color: var(--clr-ui-trim-dark);
   border-right-color: var(--clr-ui-trim-light);
   border-bottom-color: var(--clr-ui-trim-light);
   border-left-color: var(--clr-ui-trim-dark);
-  box-shadow: none;
+  box-shadow: inset 1px 1px 1px black;
 }
+.start-button img {
+  height: 0.8em;
+  width: 100%;
+}
+
 /* FILE EXPLORER */
 .file-explorer {
   position: absolute;
