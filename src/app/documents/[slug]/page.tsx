@@ -1,9 +1,12 @@
 import { BackButton } from "@/components/BackButton";
+// Temp data
+import posts from "../../placeholderPosts.json";
 
 // THIS WILL BE THE ACTUAL BLOG PATHS (WITHIN THE BLOG FOLDER)
 
-export default function Page({ params }: { params: { slug: string } }) {
-  const slug = params.slug;
+export default function Page({ params }: { params: { slug: number } }) {
+  const blogPosts = posts.filter((post) => post.parent_blog === Number(params.slug));
+
   return (
     <>
       <div className="fe-options">
@@ -16,7 +19,13 @@ export default function Page({ params }: { params: { slug: string } }) {
         <button type="button">Help</button>
       </div>
       <div className="fe-content inset">
-        <div>WE ARE CURRENTLY WITHIN: DOCUMENTS/{slug}</div>
+        <ul className="explorer-icons">
+          {blogPosts.map((post) => (
+            <li key={post.id}>
+              <button type="button">{post.title}</button>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );

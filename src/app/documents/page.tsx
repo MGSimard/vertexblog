@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { BackButton } from "@/components/BackButton";
+// Temp data
+import blogs from "../placeholderBlogs.json";
 
 // THIS IS WHERE WE WILL LIST ALL THE CREATED BLOGS AS FOLDERS
 
@@ -18,9 +20,9 @@ export default function Page() {
 
       <div className="fe-content inset">
         <ul className="explorer-icons">
-          {[...Array(32)].map((icon, i) => (
-            <li key={i}>
-              <Link href={`/documents/testfolder${i}`}>Testfolder link {i}</Link>
+          {blogs.map((blog) => (
+            <li key={blog.id}>
+              <Link href={`/documents/${blog.id}`}>{blog.title}</Link>
             </li>
           ))}
         </ul>
