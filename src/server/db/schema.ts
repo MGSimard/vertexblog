@@ -34,7 +34,7 @@ export const blogs = createTable(
   "blogs",
   {
     id: serial("id").primaryKey(),
-    author: varchar("author")
+    author: varchar("author", { length: 20 })
       .notNull()
       .references(() => userTable.username),
     title: varchar("title", { length: 255 }).notNull(),
