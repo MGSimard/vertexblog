@@ -13,7 +13,8 @@
 - [x] Within, blog folders navigates the explorer window to that blog
 - [ ] Set up database (Vercel PostgreSQL w/ Drizzle ORM)
 - [x] Complain on Github about months-long multi-project schema drizzle bug that tries to kill your DB with a sequence drop
-- [ ] Wait until Drizzle makes use of their funding and unfucks this major fuckup instead of risking my DB
+- [x] Complain on Github about another driizzle bug where .default(false) & .default(sql`FALSE`) don't work on boolean()
+- [ ] Wait until Drizzle makes use of their funding and unfucks this major fuckups
 - [x] Figure out how to minimize "use client" impact of making file explorer draggable
 - [x] Make file explorer draggable on blue header area
 - [x] Constrain draggable elements to inner window
