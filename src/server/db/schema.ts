@@ -41,7 +41,7 @@ export const sessionTable = createTable("session", {
 });
 
 export const blogs = createTable(
-  "blog",
+  "blogs",
   {
     id: serial("id").primaryKey(),
     author: varchar("author", { length: 20 })
@@ -61,7 +61,7 @@ export const blogs = createTable(
 );
 
 export const posts = createTable(
-  "post",
+  "posts",
   {
     id: serial("id").primaryKey(),
     parentBlog: integer("parent_blog")
