@@ -16,8 +16,8 @@
 - [x] Figure out how to minimize "use client" impact of making file explorer draggable
 - [x] Make file explorer draggable on blue header area
 - [x] Constrain draggable elements to inner window
-- [ ] Work on minimize & maximize buttons - maximized window shouldn't be draggable
-- [ ] Show windows in task bar, minimize should display: none, clicking on taskbar item should display: block;
+- [x] Work on maximize button - maximized window shouldn't be draggable
+- [ ] Consider windows in task bar
 - [ ] Create text file component
 - [ ] Text file components should render as draggable window (Important choice here, either render them as dynamic routes in the blog, or render them without routes as a modal - I think I prefer dynamic route for ease of access through URL)
 - [ ] Set up auth (Hopefully Lucia)
