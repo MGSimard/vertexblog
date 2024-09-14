@@ -13,9 +13,10 @@
 - [x] Within, blog folders navigates the explorer window to that blog
 - [x] Complain on Github about months-long multi-project schema drizzle bug that tries to kill your DB with a sequence drop
 - [ ] Wait until Drizzle makes use of their funding and unfucks this major fuckup instead of risking my DB
-- [ ] Figure out how to minimize "use client" impact of making file explorer draggable
-- [ ] Make file explorer draggable on blue header area
+- [x] Figure out how to minimize "use client" impact of making file explorer draggable
+- [x] Make file explorer draggable on blue header area
 - [ ] Within, .txt files - opening them opens a new notepad window
+- [ ] Constraint draggable elements to inner window
 - [ ] Set up auth (Hopefully Lucia)
 - [ ] Set up database (Vercel PostgreSQL w/ Drizzle ORM)
 - [ ]
