@@ -11,6 +11,7 @@
 - [x] Desktop layout.tsx
 - [x] Documents folder (page or component) as explorer window
 - [x] Within, blog folders navigates the explorer window to that blog
+- [ ] Set up database (Vercel PostgreSQL w/ Drizzle ORM)
 - [x] Complain on Github about months-long multi-project schema drizzle bug that tries to kill your DB with a sequence drop
 - [ ] Wait until Drizzle makes use of their funding and unfucks this major fuckup instead of risking my DB
 - [x] Figure out how to minimize "use client" impact of making file explorer draggable
@@ -22,7 +23,6 @@
 - [ ] Create text file component
 - [ ] Text file components should render as draggable window (Important choice here, either render them as dynamic routes in the blog, or render them without routes as a modal - I think I prefer dynamic route for ease of access through URL)
 - [ ] Set up auth (Hopefully Lucia)
-- [ ] Set up database (Vercel PostgreSQL w/ Drizzle ORM)
 - [ ]
 - [ ]
 - [ ]
