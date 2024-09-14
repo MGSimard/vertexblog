@@ -18,7 +18,14 @@ export function DragProvider({ children }: { children: React.ReactNode }) {
   };
 
   const handleMouseMove = (e: MouseEvent) => {
-    if (dragging && dragEleRef.current) {
+    const taskbarHeight = 5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const isInWindow =
+      e.clientX >= 0 &&
+      e.clientX <= window.innerWidth &&
+      e.clientY >= 0 &&
+      e.clientY <= window.innerHeight - taskbarHeight;
+
+    if (isInWindow && dragging && dragEleRef.current) {
       const xPos = e.clientX - dragOffset.x;
       const yPos = e.clientY - dragOffset.y;
       dragEleRef.current.style.left = `${xPos}px`;
