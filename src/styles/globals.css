@@ -10,6 +10,7 @@
   --clr-drop-shadow: black;
   /* Dark mode later */
   --ui-padding: 0.4rem;
+  --taskbarHeight: 5rem;
 }
 
 * {
@@ -58,6 +59,13 @@ button {
   border: none;
   cursor: pointer;
 }
+button.outset:active {
+  border-top-color: var(--clr-ui-trim-dark);
+  border-right-color: var(--clr-ui-trim-light);
+  border-bottom-color: var(--clr-ui-trim-light);
+  border-left-color: var(--clr-ui-trim-dark);
+  box-shadow: inset 1px 1px 1px black;
+}
 input {
   outline: none;
 }
@@ -80,7 +88,7 @@ input {
   flex-wrap: wrap;
   align-content: flex-start;
   gap: 1rem;
-  height: calc(100% - 5rem);
+  height: calc(100% - var(--taskbarHeight));
 }
 .desktop-icons a {
   display: block;
@@ -95,7 +103,7 @@ input {
   left: 0;
   display: flex;
   align-items: center;
-  height: 5rem;
+  height: var(--taskbarHeight);
   padding: var(--ui-padding);
   border-top: 3px outset var(--clr-ui-trim-light);
   background: var(--clr-ui-trim);
@@ -115,18 +123,10 @@ input {
 .start-button span {
   line-height: 0.8;
 }
-.start-button.outset:active {
-  border-top-color: var(--clr-ui-trim-dark);
-  border-right-color: var(--clr-ui-trim-light);
-  border-bottom-color: var(--clr-ui-trim-light);
-  border-left-color: var(--clr-ui-trim-dark);
-  box-shadow: inset 1px 1px 1px black;
-}
 .start-button img {
   height: 0.8em;
   width: 100%;
 }
-
 /* FILE EXPLORER */
 .file-explorer {
   position: absolute;
@@ -146,7 +146,7 @@ input {
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
-  height: 100% !important;
+  height: calc(100% - var(--taskbarHeight)) !important;
   resize: none;
 }
 /* Disable ability to drag window when maximized */
