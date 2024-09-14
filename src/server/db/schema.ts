@@ -44,7 +44,7 @@ export const blogs = createTable(
   "blogs",
   {
     id: serial("id").primaryKey(),
-    author: varchar("author", { length: 20 })
+    author: varchar("author")
       .notNull()
       .references(() => userTable.username),
     title: varchar("title", { length: 255 }).notNull(),
@@ -57,6 +57,9 @@ export const blogs = createTable(
   },
   (table) => ({
     blogTitleUniqueIndex: uniqueIndex("blog_title_uniqueIdx").on(table.title),
+    unq: uniqueIndex()
+      .on(table.author)
+      .where(sql`"deleted_at" IS NULL`),
   })
 );
 
