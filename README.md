@@ -15,7 +15,8 @@
 - [ ] Wait until Drizzle makes use of their funding and unfucks this major fuckup instead of risking my DB
 - [x] Figure out how to minimize "use client" impact of making file explorer draggable
 - [x] Make file explorer draggable on blue header area
-- [ ] Within, .txt files - opening them opens a new notepad window
+- [ ] Create text file component
+- [ ] Text file components should render as draggable window (Important choice here, either render them as dynamic routes in the blog, or render them without routes as a modal - I think I prefer dynamic route for ease of access through URL)
 - [ ] Constraint draggable elements to inner window
 - [ ] Set up auth (Hopefully Lucia)
 - [ ] Set up database (Vercel PostgreSQL w/ Drizzle ORM)
