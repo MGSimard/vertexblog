@@ -143,12 +143,11 @@ input {
   overflow: hidden;
 }
 .file-explorer:has(.maximized) {
-  inset: 0;
   top: 0 !important;
   left: 0 !important;
-}
-.file-explorer:has(.minimized) {
-  display: none;
+  width: 100% !important;
+  height: 100% !important;
+  resize: none;
 }
 /* Disable ability to drag window when maximized */
 .fe-header:has(.maximized) {
