@@ -23,7 +23,9 @@
 - [ ] Create text file component
 - [ ] Text file components should render as draggable window (Important choice here, either render them as dynamic routes in the blog, or render them without routes as a modal - I think I prefer dynamic route for ease of access through URL)
 - [ ] Set up auth (Hopefully Lucia)
-- [ ]
+- [ ] Move signup process to a component within taskbar start menu instead of page
+- [ ] If not signed in show signin/signup in start menu
+- [ ] If signed in show current user/signout in start menu
 - [ ]
 - [ ]
 - [ ]
