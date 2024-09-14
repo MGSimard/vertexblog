@@ -67,7 +67,7 @@ export const posts = createTable(
     parentBlog: integer("parent_blog")
       .notNull()
       .references(() => blogs.id),
-    title: varchar("title", { length: 255 }),
+    title: varchar("title", { length: 255 }).notNull(),
     content: varchar("content", { length: 40000 }).notNull(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
