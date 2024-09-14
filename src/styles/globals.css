@@ -53,6 +53,7 @@ ul {
   list-style: none;
 }
 button {
+  background: var(--clr-ui-trim);
   font: inherit;
   border: none;
   cursor: pointer;
@@ -140,6 +141,22 @@ input {
   background: var(--clr-ui-trim);
   resize: both;
   overflow: hidden;
+}
+.file-explorer:has(.maximized) {
+  inset: 0;
+  top: 0 !important;
+  left: 0 !important;
+}
+.file-explorer:has(.minimized) {
+  display: none;
+}
+/* Disable ability to drag window when maximized */
+.fe-header:has(.maximized) {
+  pointer-events: none;
+}
+/* Restore pointer events for the button due to above */
+.fe-header-buttons {
+  pointer-events: auto;
 }
 .fe-header {
   order: 1;

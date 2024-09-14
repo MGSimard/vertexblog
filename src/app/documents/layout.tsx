@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
+import { MaximizeButton } from "@/components/MaximizeButton";
 
 // THIS IS THE LAYOUT FOR RECURRING FILE EXPLORER WINDOW, WE RENDER THE CURRENT FOLDER WE'RE IN WITHIN THAT LAYOUT (WINDOW)
 
@@ -8,13 +9,8 @@ export default function FileExplorerLayout({ children }: { children: React.React
     <div className="file-explorer outset" data-draggable="true">
       <div className="fe-header noselect" data-dragcontrol="true">
         <span>Current Location</span>
-        <div>
-          <button className="link-as-button outset" type="button" aria-label="Minimize">
-            _
-          </button>
-          <button className="link-as-button outset" type="button" aria-label="Maximize">
-            []
-          </button>
+        <div className="fe-header-buttons">
+          <MaximizeButton />
           <Link href="/" className="link-as-button outset" aria-label="Close">
             X
           </Link>
