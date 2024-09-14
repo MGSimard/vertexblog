@@ -38,6 +38,10 @@ export const blogs = createTable(
       .notNull()
       .references(() => userTable.username),
     title: varchar("title", { length: 255 }).notNull(),
+    /**
+     * TODO: .default(false) & .default(sql`FALSE`) IS CURRENTLY BUGGED ON DRIZZLE AND DOES NOT WORK.
+     * https://github.com/drizzle-team/drizzle-orm/issues/2559
+     */
     active: boolean("active").default(false).notNull(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
