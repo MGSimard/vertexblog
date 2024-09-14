@@ -17,6 +17,7 @@
 - [x] Make file explorer draggable on blue header area
 - [x] Constrain draggable elements to inner window
 - [x] Work on maximize button - maximized window shouldn't be draggable
+- [ ] Initial position & size of file explorer on first render
 - [ ] Consider windows in task bar
 - [ ] Create text file component
 - [ ] Text file components should render as draggable window (Important choice here, either render them as dynamic routes in the blog, or render them without routes as a modal - I think I prefer dynamic route for ease of access through URL)
