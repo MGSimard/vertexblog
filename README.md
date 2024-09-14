@@ -5,9 +5,9 @@
 
 ## TASK LIST
 
-- [ ] Update to latest Nextjs, react etc canaries
-- [ ] Deploy to vercel
-- [ ] Scaffold basic layout
+- [x] Update to latest Nextjs, react etc canaries
+- [x] Deploy to vercel
+- [x] Scaffold basic layout
 - [x] Desktop layout.tsx
 - [x] Documents folder (page or component) as explorer window
 - [x] Within, blog folders navigates the explorer window to that blog
