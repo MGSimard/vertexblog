@@ -1,15 +1,5 @@
 import { sql } from "drizzle-orm";
-import {
-  index,
-  pgTableCreator,
-  serial,
-  timestamp,
-  varchar,
-  integer,
-  boolean,
-  uniqueIndex,
-  unique,
-} from "drizzle-orm/pg-core";
+import { index, pgTableCreator, serial, timestamp, varchar, integer, boolean, uniqueIndex } from "drizzle-orm/pg-core";
 
 export const createTable = pgTableCreator((name) => `vertexblog_${name}`);
 
@@ -56,8 +46,9 @@ export const blogs = createTable(
     deletedAt: timestamp("deleted_at"),
   },
   (table) => ({
-    blogTitleUniqueIndex: uniqueIndex("blog_title_uniqueIdx").on(table.title),
-    unq: uniqueIndex()
+    blogTitleUniqueIdx: uniqueIndex("blog_title_uniqueIdx").on(table.title),
+    /* Only force uniqueness on author's "current" blog (don't include deleted ones) */
+    authorBlogUniqueIdx: uniqueIndex("author_blog_uniqueIdx")
       .on(table.author)
       .where(sql`"deleted_at" IS NULL`),
   })
@@ -79,6 +70,6 @@ export const posts = createTable(
     deletedAt: timestamp("deleted_at"),
   },
   (table) => ({
-    postTitleIndex: index("post_title_idx").on(table.title),
+    postTitleIdx: index("post_title_idx").on(table.title),
   })
 );
