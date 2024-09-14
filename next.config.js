@@ -9,6 +9,7 @@ const config = {
   devIndicators: {
     appIsrStatus: false,
   },
+  serverExternalPackages: ["@node-rs/argon2"],
 };
 
 export default config;
