@@ -5,7 +5,6 @@ export function DragProvider({ children }: { children: React.ReactNode }) {
   const dragEleRef = useRef<HTMLElement | null>(null);
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [lastPos, setLastPos] = useState({ x: 0, y: 0 });
 
   const handleMouseDown = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -30,8 +29,6 @@ export function DragProvider({ children }: { children: React.ReactNode }) {
       const yPos = e.clientY - dragOffset.y;
       dragEleRef.current.style.left = `${xPos}px`;
       dragEleRef.current.style.top = `${yPos}px`;
-      // Track last position, somehow use it to
-      setLastPos({ x: xPos, y: yPos });
     }
   };
 
