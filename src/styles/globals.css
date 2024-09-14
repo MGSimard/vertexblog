@@ -98,6 +98,7 @@ input {
   padding: var(--ui-padding);
   border-top: 3px outset var(--clr-ui-trim-light);
   background: var(--clr-ui-trim);
+  z-index: 1000;
 }
 .start-button {
   position: relative;
@@ -177,6 +178,7 @@ input {
 }
 .fe-header span {
   color: white;
+  pointer-events: none;
 }
 .fe-options button {
   padding: 0 1rem;

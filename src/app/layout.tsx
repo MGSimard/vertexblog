@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import { DragProvider } from "@/components/DragProvider";
 import { Taskbar } from "@/components/Taskbar";
 import { Handjet } from "next/font/google";
 import "@/styles/globals.css";
@@ -45,101 +46,103 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={handjet.className}>
-        <header>
-          <nav>
-            <ul className="desktop-icons">
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/documents">
-                  <img alt="ICON" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-            </ul>
-            <Taskbar />
-          </nav>
-        </header>
-        {children}
-      </body>
-    </html>
+    <DragProvider>
+      <html lang="en">
+        <body className={handjet.className}>
+          <header>
+            <nav>
+              <ul className="desktop-icons">
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/documents">
+                    <img alt="ICON" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+              </ul>
+              <Taskbar />
+            </nav>
+          </header>
+          {children}
+        </body>
+      </html>
+    </DragProvider>
   );
 }
