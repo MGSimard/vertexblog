@@ -27,7 +27,7 @@
 - [ ]
 - [ ]
 - [ ]
-- [ ]
+- [ ] Think about supporting window dragging on touch devices
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
 - [ ] Create blog + server action
 - [ ] Create post + server action
