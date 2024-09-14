@@ -53,7 +53,7 @@ export const blogs = createTable(
     blogTitleUniqueIdx: uniqueIndex("blog_title_uniqueIdx").on(table.title),
     /* Only force uniqueness on author's "current" blog (don't include deleted ones) */
     authorBlogUniqueIdx: uniqueIndex("author_blog_uniqueIdx")
-      .on(table.author)
+      .on(sql`lower(${table.author})`)
       .where(sql`"deleted_at" IS NULL`),
   })
 );
