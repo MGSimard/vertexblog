@@ -5,8 +5,10 @@ import { useEffect, Dispatch, SetStateAction } from "react";
 
 export function StartMenu({ user, setMenuOpen }: { user: UserTypes; setMenuOpen: Dispatch<SetStateAction<boolean>> }) {
   const handleOffsideClick = (e: MouseEvent) => {
-    const startMenu = document.getElementById("start-menu");
-    if (startMenu && !startMenu.contains(e.target as Node)) {
+    if (
+      !document.getElementById("start-button")?.contains(e.target as Node) &&
+      !document.getElementById("start-menu")?.contains(e.target as Node)
+    ) {
       setMenuOpen(false);
     }
   };

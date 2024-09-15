@@ -10,6 +10,7 @@ export function StartButton({ user }: { user: UserTypes }) {
   return (
     <>
       <button
+        id="start-button"
         type="button"
         className={`start-button outset${menuOpen ? " isActive" : ""}`}
         aria-haspopup="menu"
