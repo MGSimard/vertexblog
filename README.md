@@ -47,3 +47,4 @@
 - [ ] Submit/Modify/Delete post + server actions
 - [ ] Analytics (Posthog?)
 - [ ] Sentry mayhaps?
+- [ ] Make a cooler start menu style
