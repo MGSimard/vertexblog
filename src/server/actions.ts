@@ -47,8 +47,11 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
   });
 
   if (!validated.success) {
-    console.log("Validation Error", validated.error.flatten().fieldErrors);
-    return { success: false, message: "VALIDATION ERROR: Invalid fields." };
+    return {
+      success: false,
+      message: "VALIDATION ERROR: Invalid fields.",
+      errors: validated.error.issues.map((issue) => issue.message),
+    };
   }
 
   console.log("Validation passed!");

@@ -4,6 +4,7 @@ import { useActionState } from "react";
 
 export default function Page() {
   const [formState, formAction, pending] = useActionState(signup, null);
+  console.log(formState);
 
   return (
     <>
@@ -23,6 +24,15 @@ export default function Page() {
         </label>
         <button type="submit">Submit</button>
       </form>
+      {/* TODO: Put all of these errors in a dismissable warning context window (toast) */}
+      {formState?.success === false && formState.message}
+      {formState?.errors && (
+        <ul>
+          {formState.errors.map((err) => (
+            <li key={err}>{err}</li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }
