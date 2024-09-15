@@ -266,7 +266,8 @@ input {
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
-.signuptest {
+.signuptest,
+.signintest {
   position: absolute;
   top: 0;
   left: 0;

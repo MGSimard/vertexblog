@@ -6,7 +6,8 @@ import { userTable } from "@/server/db/schema";
 import { FormStatusTypes } from "@/types/types";
 import { lucia } from "@/lib/auth";
 import { generateIdFromEntropySize } from "lucia";
-import { hash } from "@node-rs/argon2";
+import { hash, verify } from "@node-rs/argon2";
+import { eq, sql } from "drizzle-orm";
 
 /* CREATE USER - SIGN UP ACTION */
 const CreateUserSchema = z
@@ -44,7 +45,6 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
     password: formData.get("password"),
     confirmPassword: formData.get("confirmPassword"),
   });
-
   if (!validated.success) {
     return {
       success: false,
@@ -52,7 +52,6 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
       errors: validated.error.issues.map((issue) => issue.message),
     };
   }
-
   const { username, password } = validated.data;
 
   const passwordHash = await hash(password, {
@@ -83,4 +82,66 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
   cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 
   return { success: true, message: "SUCCESS: User created." };
+}
+
+/* SIGN IN ACTION */
+const SignInSchema = z.object({
+  username: z
+    .string()
+    .trim()
+    .min(1, "Username is required.")
+    .min(4, "Username must be at least 4 characters long.")
+    .max(20, "Username cannot exceed 20 characters.")
+    .regex(/^[A-Za-z0-9_-]+$/, "Username can only contain letters, numbers, hyphens, and underscores."),
+  password: z
+    .string()
+    .trim()
+    .min(1, "Password is required.")
+    .min(12, "Password must be at least 12 characters long.")
+    .max(64, "Password cannot exceed 64 characters."),
+});
+export async function signin(currentState: FormStatusTypes, formData: FormData) {
+  // TODO: !!!!!HEAVY!!!!!!! ADD RATELIMIT, SPECIFIC TO THIS ACTION
+  // if ratelimited return { success: false, message: "RATELIMIT ERROR: Too many actions." }
+  const validated = SignInSchema.safeParse({
+    username: formData.get("username"),
+    password: formData.get("password"),
+  });
+  if (!validated.success) {
+    return {
+      success: false,
+      message: "VALIDATION ERROR: Invalid fields.",
+    };
+  }
+
+  const { username, password } = validated.data;
+
+  try {
+    const [existingUser] = await db
+      .select()
+      .from(userTable)
+      .where(eq(sql`lower(${userTable.username})`, username.toLowerCase()));
+
+    if (!existingUser) {
+      throw new Error("AUTH ERROR: Invalid username or password.");
+    }
+
+    const validPassword = await verify(existingUser.passwordHash, password, {
+      memoryCost: 19456,
+      timeCost: 2,
+      outputLen: 32,
+      parallelism: 1,
+    });
+    if (!validPassword) {
+      throw new Error("AUTH ERROR: Invalid username or password.");
+    }
+
+    const session = await lucia.createSession(existingUser.id, {});
+    const sessionCookie = lucia.createSessionCookie(session.id);
+    cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+  } catch (err: unknown) {
+    return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
+  }
+
+  return { success: true, message: "SUCCESS: User Signed In." };
 }
