@@ -267,7 +267,8 @@ input {
   user-select: none; /* Standard syntax */
 }
 .signuptest,
-.signintest {
+.signintest,
+.signouttest {
   position: absolute;
   top: 0;
   left: 0;

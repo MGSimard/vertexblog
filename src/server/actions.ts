@@ -8,6 +8,7 @@ import { lucia } from "@/lib/auth";
 import { generateIdFromEntropySize } from "lucia";
 import { hash, verify } from "@node-rs/argon2";
 import { eq, sql } from "drizzle-orm";
+import { validateRequest } from "@/lib/auth";
 
 /* CREATE USER - SIGN UP ACTION */
 const CreateUserSchema = z
@@ -144,4 +145,20 @@ export async function signin(currentState: FormStatusTypes, formData: FormData) 
   }
 
   return { success: true, message: "SUCCESS: User Signed In." };
+}
+
+export async function signout() {
+  try {
+    const { session } = await validateRequest();
+    if (!session) {
+      throw new Error("AUTH ERROR: Unauthorized");
+    }
+    await lucia.invalidateSession(session.id);
+    const sessionCookie = lucia.createBlankSessionCookie();
+    cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+  } catch (err: unknown) {
+    return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
+  }
+
+  return { success: true, message: "SUCCESS: User Signed Out." };
 }
