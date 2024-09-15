@@ -4,7 +4,6 @@ import { useActionState } from "react";
 
 export default function Page() {
   const [formState, formAction, pending] = useActionState(signup, null);
-  console.log(formState);
 
   return (
     <>
