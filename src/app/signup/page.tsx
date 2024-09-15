@@ -11,15 +11,31 @@ export default function Page() {
       <form action={formAction}>
         <label htmlFor="username">
           Username
-          <input name="username" id="username" required />
+          <input name="username" id="username" pattern="^[^ ].+[^ ]$" minLength={4} maxLength={20} required />
         </label>
         <label htmlFor="password">
           Password
-          <input type="password" name="password" id="password" required />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            pattern="^[^ ].+[^ ]$"
+            minLength={12}
+            maxLength={64}
+            required
+          />
         </label>
         <label htmlFor="confirmPassword">
           Confirm Password
-          <input type="password" name="confirmPassword" id="confirmPassword" required />
+          <input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            pattern="^[^ ].+[^ ]$"
+            minLength={12}
+            maxLength={64}
+            required
+          />
         </label>
         <button type="submit">Submit</button>
       </form>

@@ -32,7 +32,7 @@
 - [ ] Sign in, sign out
 - [ ] Enable show password on creation and login (NIST)
 - [ ] Enter password twice prompt, crosscheck on FE & BE
-- [ ] Ensure you communicate that leading and trailing spaces aren't allowed in password
+- [ ] Ensure you communicate that leading and trailing spaces aren't allowed in password (html pattern="^[^ ].+[^ ]$")
 - [ ] So validate that part on FE first, then on BE in case they bypass it on purpose
 - [ ] Finish setting up auth (Lucia)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
