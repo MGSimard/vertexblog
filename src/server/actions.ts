@@ -9,9 +9,8 @@ import { generateIdFromEntropySize } from "lucia";
 import { hash } from "@node-rs/argon2";
 
 /* CREATE USER - SIGN UP ACTION */
-const CreateUser = z
+const CreateUserSchema = z
   .object({
-    id: z.string().length(16), // Ignore, generateIdFromEntropySize generation in action
     username: z
       .string()
       .trim()
@@ -26,13 +25,6 @@ const CreateUser = z
       .min(12, "Password must be at least 12 characters long.")
       .max(64, "Password cannot exceed 64 characters."),
     confirmPassword: z.string().min(1, "Password confirmation is required."),
-    createdAt: z.date(), // Ignore, DB auto
-    updatedAt: z.date(), // Ignore, DB auto
-  })
-  .omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
   })
   .refine(
     (values) => {
@@ -48,7 +40,7 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
   // TODO: ADD RATELIMIT
   // if ratelimited return { success: false, message: "RATELIMIT ERROR: Too many actions." }
 
-  const validated = CreateUser.safeParse({
+  const validated = CreateUserSchema.safeParse({
     username: formData.get("username"),
     password: formData.get("password"),
     confirmPassword: formData.get("confirmPassword"),
