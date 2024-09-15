@@ -33,7 +33,7 @@
 - [x] So validate that part on FE first, then on BE in case they bypass it on purpose
 - [x] Finish setting up auth (Lucia)
 - [x] Put auth in start menu
-- [ ] Close start menu when clicking outside of it
+- [x] Close start menu when clicking outside of it
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
 - [ ] Use toast for sign up/sign in/sign out errors

@@ -19,7 +19,7 @@ export function StartButton({ user }: { user: UserTypes }) {
         <Image src="/assets/startmenu.webp" alt="" width={103} height={64} priority={true} />
         <span>Start</span>
       </button>
-      {menuOpen && <StartMenu user={user} />}
+      {menuOpen && <StartMenu user={user} setMenuOpen={setMenuOpen} />}
     </>
   );
 }
