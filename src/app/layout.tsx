@@ -49,7 +49,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <DragProvider>
       <html lang="en">
         <body className={handjet.className}>
-          {/* <header>
+          <header>
             <nav>
               <ul className="desktop-icons">
                 <li>
@@ -139,7 +139,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </ul>
               <Taskbar />
             </nav>
-          </header> */}
+          </header>
           {children}
         </body>
       </html>

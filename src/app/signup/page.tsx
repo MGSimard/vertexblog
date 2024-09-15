@@ -6,8 +6,8 @@ export default function Page() {
   const [formState, formAction, pending] = useActionState(signup, null);
 
   return (
-    <>
-      <h1>Create an account</h1>
+    <div className="signuptest">
+      <h1>Temporary Signup Test</h1>
       <form action={formAction}>
         <label htmlFor="username">
           Username
@@ -32,6 +32,6 @@ export default function Page() {
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 }

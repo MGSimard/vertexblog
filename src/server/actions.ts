@@ -36,7 +36,6 @@ const CreateUserSchema = z
     }
   );
 export async function signup(currentState: FormStatusTypes, formData: FormData): Promise<FormStatusTypes> {
-  console.log("Sign Up Action Triggered");
   // TODO: ADD RATELIMIT
   // if ratelimited return { success: false, message: "RATELIMIT ERROR: Too many actions." }
 
