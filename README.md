@@ -46,4 +46,5 @@
 - [ ] Create blog + server action
 - [ ] Create post + server action
 - [ ] Submit/Modify/Delete post + server actions
-- [ ] Analytics
+- [ ] Analytics (Posthog?)
+- [ ] Sentry mayhaps?
