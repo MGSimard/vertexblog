@@ -11,15 +11,15 @@ export default function Page() {
       <form action={formAction}>
         <label htmlFor="username">
           Username
-          <input name="username" id="username" />
+          <input name="username" id="username" required />
         </label>
         <label htmlFor="password">
           Password
-          <input type="password" name="password" id="password" />
+          <input type="password" name="password" id="password" required />
         </label>
         <label htmlFor="confirmPassword">
           Confirm Password
-          <input type="password" name="confirmPassword" id="confirmPassword" />
+          <input type="password" name="confirmPassword" id="confirmPassword" required />
         </label>
         <button type="submit">Submit</button>
       </form>
