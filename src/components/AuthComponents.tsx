@@ -6,12 +6,12 @@ export function SignInOrUp() {
   const [isSignUp, setIsSignUp] = useState(false);
 
   return (
-    <div>
+    <>
       {isSignUp ? <SignUp /> : <SignIn />}
-      <button type="button" onClick={() => setIsSignUp(!isSignUp)}>
-        {isSignUp ? "Already have an account?" : "New User?"}
+      <button type="button" onClick={() => setIsSignUp(!isSignUp)} className="start-switch">
+        {isSignUp ? "Already have an account? Sign In." : "New User? Create an account."}
       </button>
-    </div>
+    </>
   );
 }
 
@@ -19,7 +19,7 @@ export function SignUp() {
   const [formState, formAction, pending] = useActionState(signup, null);
 
   return (
-    <form action={formAction}>
+    <form action={formAction} className="start-form">
       <h2>Sign Up</h2>
       <label htmlFor="username1">
         Username
@@ -49,7 +49,9 @@ export function SignUp() {
           required
         />
       </label>
-      <button type="submit">Sign Up</button>
+      <button type="submit" className="outset">
+        Sign Up
+      </button>
       {/* TODO: Put all of these errors in a dismissable warning context window (toast) */}
       {formState?.success === false && formState.message}
       {formState?.errors && (
@@ -67,8 +69,8 @@ export function SignIn() {
   const [formState, formAction, pending] = useActionState(signin, null);
 
   return (
-    <form action={formAction}>
-      <h2>Sign In</h2>
+    <form action={formAction} className="start-form">
+      <h2>Log In</h2>
       <label htmlFor="username2">
         Username
         <input name="username" id="username2" pattern="^[^ ].+[^ ]$" minLength={4} maxLength={20} required />
@@ -85,7 +87,9 @@ export function SignIn() {
           required
         />
       </label>
-      <button type="submit">Sign In</button>
+      <button type="submit" className="outset">
+        Sign In
+      </button>
       {formState?.success === false && formState.message}
     </form>
   );
@@ -98,8 +102,8 @@ export function SignOut() {
     else if (result.success) console.log("SIGNOUT SUCCESS:", result.message);
   };
   return (
-    <button type="button" onClick={handleSignOut}>
-      Sign out
+    <button type="button" className="outset" onClick={handleSignOut}>
+      Log out
     </button>
   );
 }

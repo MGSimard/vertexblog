@@ -59,7 +59,8 @@ button {
   border: none;
   cursor: pointer;
 }
-button.outset:active {
+button.outset:active,
+button.outset.isActive {
   border-top-color: var(--clr-ui-trim-dark);
   border-right-color: var(--clr-ui-trim-light);
   border-bottom-color: var(--clr-ui-trim-light);
@@ -68,6 +69,17 @@ button.outset:active {
 }
 input {
   outline: none;
+  border: 3px solid;
+  border-top-color: var(--clr-ui-trim-dark);
+  border-right-color: var(--clr-ui-trim-light);
+  border-bottom-color: var(--clr-ui-trim-light);
+  border-left-color: var(--clr-ui-trim-dark);
+  box-shadow: inset 1px 1px 1px black;
+  padding: var(--ui-padding);
+}
+hr {
+  border-top: 2px solid var(--clr-ui-trim-dark);
+  border-bottom: 2px solid var(--clr-ui-trim-light);
 }
 .link-as-button {
   cursor: pointer;
@@ -130,12 +142,42 @@ input {
 .start-menu {
   position: absolute;
   bottom: 100%;
-  left: 0;
+  left: var(--ui-padding);
   max-width: 30rem;
   width: 100%;
+  padding: var(--ui-padding);
   background: var(--clr-ui-trim);
   border: 1px solid var(--clr-ui-border);
   z-index: 999;
+  overflow: hidden;
+}
+.start-menu button {
+  width: 100%;
+}
+.start-user {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  font-size: 2rem;
+}
+.start-menu hr {
+  margin-bottom: 1rem;
+}
+.start-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.start-form:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.start-form input {
+  display: block;
+  width: 100%;
+}
+.start-switch:hover {
+  color: white;
+  background: var(--clr-primary);
 }
 /* FILE EXPLORER */
 .file-explorer {
