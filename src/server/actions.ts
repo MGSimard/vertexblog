@@ -9,27 +9,40 @@ import { generateIdFromEntropySize } from "lucia";
 import { hash } from "@node-rs/argon2";
 
 /* CREATE USER - SIGN UP ACTION */
-const signUpSchema = z.object({
-  id: z.string().length(16), // Ignore, generateIdFromEntropySize generation in action
-  username: z
-    .string()
-    .trim()
-    .min(4, "Username must be at least 4 characters long.")
-    .max(20, "Username cannot exceed 20 characters.")
-    .regex(/^[A-Za-z0-9_-]+$/, "Username can only contain letters, numbers, hyphens, and underscores."),
-  password: z
-    .string()
-    .trim()
-    .min(12, "Password must be at least 12 characters long.")
-    .max(64, "Password cannot exceed 64 characters."),
-  createdAt: z.date(), // Ignore, DB auto
-  updatedAt: z.date(), // Ignore, DB auto
-});
-const CreateUser = signUpSchema.omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
+const CreateUser = z
+  .object({
+    id: z.string().length(16), // Ignore, generateIdFromEntropySize generation in action
+    username: z
+      .string()
+      .trim()
+      .min(1, "Username is required.")
+      .min(4, "Username must be at least 4 characters long.")
+      .max(20, "Username cannot exceed 20 characters.")
+      .regex(/^[A-Za-z0-9_-]+$/, "Username can only contain letters, numbers, hyphens, and underscores."),
+    password: z
+      .string()
+      .trim()
+      .min(1, "Password is required.")
+      .min(12, "Password must be at least 12 characters long.")
+      .max(64, "Password cannot exceed 64 characters."),
+    confirmPassword: z.string().min(1, "Password confirmation is required."),
+    createdAt: z.date(), // Ignore, DB auto
+    updatedAt: z.date(), // Ignore, DB auto
+  })
+  .omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+  })
+  .refine(
+    (values) => {
+      return values.password === values.confirmPassword;
+    },
+    {
+      message: "Passwords must match.",
+      path: ["confirmPassword"],
+    }
+  );
 export async function signup(currentState: FormStatusTypes, formData: FormData): Promise<FormStatusTypes> {
   console.log("Sign Up Action Triggered");
   // TODO: ADD RATELIMIT
@@ -38,10 +51,11 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
   const validated = CreateUser.safeParse({
     username: formData.get("username"),
     password: formData.get("password"),
+    confirmPassword: formData.get("confirmPassword"),
   });
 
   if (!validated.success) {
-    console.log("Validation Error", validated.error);
+    console.log("Validation Error", validated.error.flatten().fieldErrors);
     return { success: false, message: "VALIDATION ERROR: Invalid fields." };
   }
 

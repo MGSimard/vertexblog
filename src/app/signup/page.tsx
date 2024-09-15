@@ -9,13 +9,19 @@ export default function Page() {
     <>
       <h1>Create an account</h1>
       <form action={formAction}>
-        <label htmlFor="username">Username</label>
-        <input name="username" id="username" />
-        <br />
-        <label htmlFor="password">Password</label>
-        <input type="password" name="password" id="password" />
-        <br />
-        <button>Continue</button>
+        <label htmlFor="username">
+          Username
+          <input name="username" id="username" />
+        </label>
+        <label htmlFor="password">
+          Password
+          <input type="password" name="password" id="password" />
+        </label>
+        <label htmlFor="confirmPassword">
+          Confirm Password
+          <input type="password" name="confirmPassword" id="confirmPassword" />
+        </label>
+        <button type="submit">Submit</button>
       </form>
     </>
   );
