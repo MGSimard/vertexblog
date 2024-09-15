@@ -70,7 +70,7 @@ export function SignIn() {
 
   return (
     <form action={formAction} className="start-form">
-      <h2>Log In</h2>
+      <h2>Sign In</h2>
       <label htmlFor="username2">
         Username
         <input name="username" id="username2" pattern="^[^ ].+[^ ]$" minLength={4} maxLength={20} required />
