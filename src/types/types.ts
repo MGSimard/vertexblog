@@ -4,3 +4,5 @@ interface FormResponseTypes {
   errors?: string[];
 }
 export type FormStatusTypes = FormResponseTypes | null;
+
+export type UserTypes = { username: string; id: string } | null;

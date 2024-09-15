@@ -127,6 +127,16 @@ input {
   height: 0.8em;
   width: 100%;
 }
+.start-menu {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  max-width: 30rem;
+  width: 100%;
+  background: var(--clr-ui-trim);
+  border: 1px solid var(--clr-ui-border);
+  z-index: 999;
+}
 /* FILE EXPLORER */
 .file-explorer {
   position: absolute;
@@ -265,12 +275,4 @@ input {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-}
-.signuptest,
-.signintest,
-.signouttest {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: white;
 }

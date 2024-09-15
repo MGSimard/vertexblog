@@ -35,6 +35,8 @@
 - [x] Ensure you communicate that leading and trailing spaces aren't allowed in password (html pattern="^[^ ].+[^ ]$")
 - [x] So validate that part on FE first, then on BE in case they bypass it on purpose
 - [x] Finish setting up auth (Lucia)
+- [ ] Put auth in start menu
+- [ ] Close start menu when clicking outside of it
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
 - [ ]
