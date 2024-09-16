@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BackButton } from "@/components/BackButton";
+import { CurrentPath } from "@/components/CurrentPath";
 // Temp data
 import blogs from "../placeholderBlogs.json";
 
@@ -8,7 +8,7 @@ import blogs from "../placeholderBlogs.json";
 export default function Page() {
   return (
     <>
-      <div className="window-options o2">
+      <div className="window-options">
         <button type="button">File</button>
         <button type="button">Edit</button>
         <button type="button">Go</button>
@@ -16,8 +16,11 @@ export default function Page() {
         {/* SHOW USER'S FAVORITE BLOGS? */}
         <button type="button">Help</button>
       </div>
-
-      <div className="window-content inset o4">
+      <label className="window-address">
+        <span>Address</span>
+        <CurrentPath />
+      </label>
+      <div className="window-content inset">
         <ul className="explorer-icons">
           {blogs.map((blog) => (
             <li key={blog.id}>

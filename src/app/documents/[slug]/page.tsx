@@ -1,4 +1,5 @@
 import { BackButton } from "@/components/BackButton";
+import { CurrentPath } from "@/components/CurrentPath";
 // Temp data
 import posts from "../../placeholderPosts.json";
 
@@ -9,7 +10,7 @@ export default function Page({ params }: { params: { slug: number } }) {
 
   return (
     <>
-      <div className="window-options o2">
+      <div className="window-options">
         <BackButton />
         <button type="button">File</button>
         <button type="button">Edit</button>
@@ -18,7 +19,11 @@ export default function Page({ params }: { params: { slug: number } }) {
         {/* SHOW USER'S FAVORITE POSTS? */}
         <button type="button">Help</button>
       </div>
-      <div className="window-content inset o4">
+      <label className="window-address">
+        <span>Address</span>
+        <CurrentPath />
+      </label>
+      <div className="window-content inset">
         <ul className="explorer-icons">
           {blogPosts.map((post) => (
             <li key={post.id}>

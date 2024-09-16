@@ -243,21 +243,6 @@ hr {
 .window-header-buttons .link-as-button svg {
   height: 100%;
 }
-.o1 {
-  order: 1;
-}
-.o2 {
-  order: 2;
-}
-.o3 {
-  order: 3;
-}
-.o4 {
-  order: 4;
-}
-.o5 {
-  order: 5;
-}
 .window-options button {
   padding: 0 1rem;
   border: 3px solid;
