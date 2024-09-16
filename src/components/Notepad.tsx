@@ -4,7 +4,7 @@ export function Notepad() {
   return (
     <div className="window outset notepad" data-draggable="true">
       <div className="window-header noselect" data-dragcontrol="true">
-        <span>Post Title - Notepad</span>
+        <span>Post Title - Notepa - I think I want this to be a modal not a route</span>
         <div className="window-header-buttons">
           <MaximizeButton />
           <button type="button" className="outset">
