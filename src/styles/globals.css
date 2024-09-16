@@ -59,6 +59,9 @@ button {
   border: none;
   cursor: pointer;
 }
+input {
+  font: inherit;
+}
 button.outset:active,
 button.outset.isActive {
   border-top-color: var(--clr-ui-trim-dark);
@@ -99,14 +102,40 @@ hr {
   flex-direction: column;
   flex-wrap: wrap;
   align-content: flex-start;
-  gap: 1rem;
+  gap: 3rem;
   height: calc(100% - var(--taskbarHeight));
+  color: white;
+  font-weight: 400;
 }
-.desktop-icons a {
-  display: block;
+.desktop-icons li {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
   width: 8rem;
   height: 8rem;
   border: 1px solid red;
+}
+.shortcut {
+  border: 5px solid blue;
+  text-align: center;
+}
+.shortcut img {
+  padding: 0 1rem;
+}
+.shortcut span {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: -webkit-box;
+  max-width: 130%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1;
+  word-wrap: break-word;
 }
 #taskbar {
   position: fixed;
