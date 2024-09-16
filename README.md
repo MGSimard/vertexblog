@@ -36,6 +36,7 @@
 - [x] Initial position & size of file explorer on first render
 - [ ] Consider windows in task bar
 - [x] Completely disable highlighting outside of notepad text
+- [ ] Fix address bar not scaling down past 390px viewport width
 - [ ] Consider last window clicked as focus (z-index on top, rest pushed back with header grayed out)
 - [ ] Enable show password on creation and login (NIST)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
