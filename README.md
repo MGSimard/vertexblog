@@ -30,7 +30,7 @@
 - [x] Put auth in start menu
 - [x] Close start menu when clicking outside of it
 - [x] Button icons for close/maximize/not-maximize
-- [ ] Text file components should render as draggable window (Important choice here, either render them as dynamic routes in the blog, or render them without routes as a modal - I think I prefer dynamic route for ease of access through URL)
+- [x] Text file components should render as draggable window
 - [ ] Initial position & size of file explorer on first render
 - [ ] Consider windows in task bar
 - [ ] Completely disable highlighting outside of notepad text
