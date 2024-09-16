@@ -52,14 +52,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <header>
             <nav>
               <ul className="shortcut-area">
-                {[...Array(32)].map((shortcut, i) => (
-                  <li key={i}>
-                    <Link href="/documents" className="shortcut">
-                      <img src="/assets/EmptyFolder.svg" alt="Folder" />
-                      <span>Documents</span>
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                  <Link href="/documents" className="shortcut">
+                    <img src="/assets/EmptyFolder.svg" alt="Folder" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
               </ul>
               <Taskbar />
             </nav>
