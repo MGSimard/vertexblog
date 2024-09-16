@@ -9,7 +9,7 @@ export default function Page({ params }: { params: { slug: number } }) {
 
   return (
     <>
-      <div className="window-options noselect o2">
+      <div className="window-options o2">
         <BackButton />
         <button type="button">File</button>
         <button type="button">Edit</button>

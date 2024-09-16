@@ -2,8 +2,8 @@ import { MaximizeButton } from "@/components/MaximizeButton";
 
 export function Notepad() {
   return (
-    <div className="window outset notepad" data-draggable="true">
-      <div className="window-header noselect" data-dragcontrol="true">
+    <div className="window outset notepad noselect" data-draggable="true">
+      <div className="window-header " data-dragcontrol="true">
         <span>Post Title - Notepad - I think I want this to be a modal not a route</span>
         <div className="window-header-buttons">
           <MaximizeButton />
@@ -12,7 +12,7 @@ export function Notepad() {
           </button>
         </div>
       </div>
-      <div className="window-options noselect">
+      <div className="window-options ">
         <button type="button">File</button>
         <button type="button">Edit</button>
         <button type="button">Search</button>

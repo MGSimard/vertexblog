@@ -9,8 +9,8 @@ export default function FileExplorerLayout({ children }: { children: React.React
   return (
     <>
       <Notepad />
-      <div className="window outset" data-draggable="true">
-        <div className="window-header noselect o1" data-dragcontrol="true">
+      <div className="window outset noselect" data-draggable="true">
+        <div className="window-header o1" data-dragcontrol="true">
           <span>Current Location</span>
           <div className="window-header-buttons">
             <MaximizeButton />
@@ -20,11 +20,11 @@ export default function FileExplorerLayout({ children }: { children: React.React
           </div>
         </div>
         <label className="window-address o3">
-          <span className="noselect">Address</span>
+          <span>Address</span>
           <CurrentPath />
         </label>
         {children}
-        <div className="window-footer noselect o5">
+        <div className="window-footer o5">
           <span>Description of current action.</span>
         </div>
       </div>

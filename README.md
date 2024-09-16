@@ -35,6 +35,7 @@
 - [x] Put auth in start menu
 - [x] Close start menu when clicking outside of it
 - [ ] Button icons for close/maximize/not-maximize
+- [ ] Completely disable highlighting outside of notepad text
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
 - [ ] Use toast for sign up/sign in/sign out errors
