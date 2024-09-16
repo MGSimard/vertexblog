@@ -200,6 +200,7 @@ hr {
   width: 100% !important;
   height: calc(100% - var(--taskbarHeight)) !important;
   resize: none;
+  z-index: 999;
 }
 .window-header:has(.maximized) {
   pointer-events: none;
@@ -293,7 +294,7 @@ hr {
   border: 1px solid red;
 }
 .notepad {
-  z-index: 999;
+  z-index: 900;
 }
 .notepad .window-content {
   padding: var(--ui-padding);
