@@ -1,4 +1,4 @@
-import { BackButton } from "@/components/BackButton";
+import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
 // Temp data
 import posts from "../../placeholderPosts.json";
@@ -11,7 +11,7 @@ export default function Page({ params }: { params: { blog: number } }) {
   return (
     <>
       <div className="window-options">
-        <BackButton />
+        <Link href="/documents">&lt;=</Link>
         <button type="button">File</button>
         <button type="button">Edit</button>
         <button type="button">Go</button>

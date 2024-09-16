@@ -243,19 +243,21 @@ hr {
 .window-header-buttons .link-as-button svg {
   height: 100%;
 }
-.window-options button {
+.window-options button,
+.window-options a {
   padding: 0 1rem;
   border: 3px solid;
   border-color: transparent;
   background: none;
 }
-.window-options button:active {
+.window-options button:active,
+.window-options a:active {
   border-top-color: var(--clr-ui-trim-dark);
   border-right-color: var(--clr-ui-trim-light);
   border-bottom-color: var(--clr-ui-trim-light);
   border-left-color: var(--clr-ui-trim-dark);
 }
-.window-options button::first-letter {
+.window-options button::first-letter .wiindow-options a::first-letter {
   text-decoration: underline;
 }
 .window-address {
