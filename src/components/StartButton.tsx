@@ -17,7 +17,7 @@ export function StartButton({ user }: { user: UserTypes }) {
         aria-expanded={menuOpen}
         aria-controls="start-menu"
         onClick={() => setMenuOpen(!menuOpen)}>
-        <Image src="/assets/startmenu.webp" alt="" width={103} height={64} priority={true} />
+        <img src="/assets/VB.svg" alt="" />
         <span>Start</span>
       </button>
       {menuOpen && <StartMenu user={user} setMenuOpen={setMenuOpen} />}
