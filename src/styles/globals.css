@@ -117,10 +117,12 @@ header .shortcut-area {
   height: 8rem;
   text-align: center;
 }
-.shortcut img {
-  overflow: hidden;
-  padding: 0 1rem;
+.shortcut img,
+.window-header-left img {
   filter: drop-shadow(2px 2px 1px black);
+}
+.shortcut img {
+  padding: 0 1rem;
 }
 .shortcut span {
   position: absolute;

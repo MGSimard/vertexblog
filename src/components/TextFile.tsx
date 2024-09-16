@@ -15,7 +15,7 @@ export function TextFile({ postInfo }: { postInfo: PostInfoTypes }) {
   return (
     <>
       <button title={postInfo.title} onClick={handleModalOpen} className="shortcut">
-        <img alt="TxtFile" />
+        <img src="/assets/Notepad.svg" alt="TxtFile" />
         <span>{postInfo.title}</span>
       </button>
       <Modal isOpen={isModalOpen}>

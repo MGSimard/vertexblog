@@ -7,7 +7,10 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   return (
     <div className="window outset notepad noselect" data-draggable="true">
       <div className="window-header " data-dragcontrol="true">
-        <span className="window-header-left">{postInfo.title} - Notepad</span>
+        <span className="window-header-left">
+          <img src="/assets/Notepad.svg" alt="" />
+          {postInfo.title} - Notepad
+        </span>
         <div className="window-header-buttons">
           <MaximizeButton />
           <button type="button" className="outset" onClick={onClose}>
