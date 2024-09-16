@@ -148,7 +148,7 @@ hr {
   padding: var(--ui-padding);
   background: var(--clr-ui-trim);
   border: 1px solid var(--clr-ui-border);
-  z-index: 999;
+  z-index: 1;
   overflow: hidden;
 }
 .start-menu button {
@@ -297,6 +297,9 @@ hr {
   width: 8rem;
   height: 8rem;
   border: 1px solid red;
+}
+.notepad {
+  z-index: 999;
 }
 .notepad .window-content {
   padding: var(--ui-padding);

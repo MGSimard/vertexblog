@@ -19,7 +19,7 @@ export function Notepad() {
         <button type="button">Help</button>
       </div>
       <div className="window-content inset">
-        <textarea className="notepad-textarea" />
+        <textarea className="notepad-textarea" spellCheck="false" />
       </div>
     </div>
   );
