@@ -21,10 +21,13 @@ export default function Page() {
         <CurrentPath />
       </label>
       <div className="window-content inset">
-        <ul className="explorer-icons">
+        <ul className="shortcut-area">
           {blogs.map((blog) => (
             <li key={blog.id}>
-              <Link href={`/documents/${blog.id}`}>{blog.title}</Link>
+              <Link href={`/documents/${blog.id}`} className="shortcut">
+                <img src={`/assets/${blog.active ? "FilledFolder" : "EmptyFolder"}.svg`} alt="Folder" />
+                <span>{blog.title}</span>
+              </Link>
             </li>
           ))}
         </ul>

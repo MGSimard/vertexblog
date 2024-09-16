@@ -24,7 +24,7 @@ export default function Page({ params }: { params: { blog: number } }) {
         <CurrentPath />
       </label>
       <div className="window-content inset">
-        <ul className="explorer-icons">
+        <ul className="shortcut-area">
           {blogPosts.map((post) => (
             <li key={post.id}>
               <TextFile postInfo={post} />

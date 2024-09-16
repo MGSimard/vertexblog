@@ -51,7 +51,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <body className={handjet.className}>
           <header>
             <nav>
-              <ul className="desktop-icons">
+              <ul className="shortcut-area">
                 {[...Array(32)].map((shortcut, i) => (
                   <li key={i}>
                     <Link href="/documents" className="shortcut">

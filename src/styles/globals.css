@@ -97,39 +97,38 @@ hr {
   box-shadow: none;
 }
 /* "NAV" STUFF */
-.desktop-icons {
+header .shortcut-area {
+  color: white;
+  font-weight: 400;
+}
+.shortcut-area {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: flex-start;
   gap: 3rem;
   height: calc(100% - var(--taskbarHeight));
-  color: white;
-  font-weight: 400;
 }
-.desktop-icons li {
+.shortcut-area li {
   position: relative;
   display: flex;
   align-items: flex-end;
   width: 8rem;
   height: 8rem;
-  border: 1px solid red;
-}
-.shortcut {
-  border: 5px solid blue;
   text-align: center;
 }
 .shortcut img {
   overflow: hidden;
   padding: 0 1rem;
+  filter: drop-shadow(2px 2px 1px black);
 }
 .shortcut span {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 1rem);
   left: 50%;
   transform: translateX(-50%);
   display: -webkit-box;
-  max-width: 130%;
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
@@ -315,16 +314,12 @@ hr {
   background: white;
   overflow: auto;
 }
-.explorer-icons {
+.window .shortcut-area {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-direction: row;
 }
-.explorer-icons a {
-  display: block;
-  width: 8rem;
-  height: 8rem;
-  border: 1px solid red;
+button.shortcut {
+  background: none;
 }
 .notepad {
   z-index: 900;
@@ -334,7 +329,6 @@ hr {
 }
 .notepad-textarea {
   width: 100%;
-
   border: none;
   outline: none;
   resize: none;
