@@ -201,16 +201,47 @@ hr {
   height: calc(100% - var(--taskbarHeight)) !important;
   resize: none;
 }
-/* Disable ability to drag window when maximized */
 .window-header:has(.maximized) {
   pointer-events: none;
 }
-/* Restore pointer events for the button due to above */
-.window-header-buttons {
-  pointer-events: auto;
+.window-header {
+  justify-content: space-between;
+  background: var(--clr-primary);
 }
-.window-header-buttons button {
-  padding: 0 0.4rem;
+.window-header,
+.window-footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 3rem;
+  padding: 0.3rem;
+}
+.window-header span,
+.window-footer span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.window-header span {
+  color: white;
+  pointer-events: none;
+}
+.window-header-buttons {
+  display: flex;
+  gap: 0.4rem;
+  pointer-events: auto;
+  height: 100%;
+}
+.window-header-buttons button,
+.window-header-buttons .link-as-button {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.3rem;
+}
+.window-header-buttons button svg,
+.window-header-buttons .link-as-button svg {
+  height: 100%;
 }
 .o1 {
   order: 1;
@@ -226,30 +257,6 @@ hr {
 }
 .o5 {
   order: 5;
-}
-.window-header,
-.window-footer {
-  flex-shrink: 0;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  height: 3rem;
-  padding: 0 0.3rem;
-}
-.window-header span,
-.window-footer span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.window-header {
-  display: flex;
-  justify-content: space-between;
-  background: var(--clr-primary);
-}
-.window-header span {
-  color: white;
-  pointer-events: none;
 }
 .window-options button {
   padding: 0 1rem;

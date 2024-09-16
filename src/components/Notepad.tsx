@@ -1,4 +1,5 @@
 import { MaximizeButton } from "@/components/MaximizeButton";
+import { CloseIcon } from "./icons";
 
 export function Notepad() {
   return (
@@ -8,7 +9,7 @@ export function Notepad() {
         <div className="window-header-buttons">
           <MaximizeButton />
           <button type="button" className="outset">
-            X
+            <CloseIcon />
           </button>
         </div>
       </div>

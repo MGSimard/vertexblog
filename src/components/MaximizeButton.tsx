@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { WindowIcon } from "./icons";
 
 export function MaximizeButton() {
   const [maximized, setMaximized] = useState(false);
@@ -10,7 +11,7 @@ export function MaximizeButton() {
       type="button"
       aria-label="Maximize"
       onClick={() => setMaximized(!maximized)}>
-      []
+      <WindowIcon />
     </button>
   );
 }

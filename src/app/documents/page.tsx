@@ -9,7 +9,6 @@ export default function Page() {
   return (
     <>
       <div className="window-options o2">
-        <BackButton />
         <button type="button">File</button>
         <button type="button">Edit</button>
         <button type="button">Go</button>
