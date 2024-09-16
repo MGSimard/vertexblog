@@ -16,8 +16,8 @@ export function TextFile({ postInfo }: { postInfo: PostInfoTypes }) {
 
   return (
     <>
-      <button title="" onClick={handleModalOpen}>
-        TestButton
+      <button title={postInfo.title} onClick={handleModalOpen}>
+        TEST POST - {postInfo.title}
       </button>
       <Modal isOpen={isModalOpen}>
         <Notepad postInfo={postInfo} onClose={() => setIsModalOpen(false)} />
