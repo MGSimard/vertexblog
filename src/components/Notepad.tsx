@@ -8,7 +8,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   return (
     <div className="window outset notepad noselect" data-draggable="true">
       <div className="window-header " data-dragcontrol="true">
-        <span>{postInfo.title} - Notepad</span>
+        <span className="window-header-left">{postInfo.title} - Notepad</span>
         <div className="window-header-buttons">
           <MaximizeButton />
           <button type="button" className="outset" onClick={onClose}>
@@ -22,7 +22,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
         <button type="button">Search</button>
         <button type="button">Help</button>
       </div>
-      <textarea className="notepad-textarea window-content inset" spellCheck="false" value={postInfo.content} />
+      <textarea className="notepad-textarea window-content inset" spellCheck="false" defaultValue={postInfo.content} />
     </div>
   );
 }

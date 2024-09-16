@@ -6,8 +6,6 @@ import { Notepad } from "./Notepad";
 export function TextFile({ postInfo }: { postInfo: PostInfoTypes }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(postInfo);
-
   const handleModalOpen = () => {
     if (!isModalOpen) {
       setIsModalOpen(true);
@@ -17,7 +15,7 @@ export function TextFile({ postInfo }: { postInfo: PostInfoTypes }) {
   return (
     <>
       <button title={postInfo.title} onClick={handleModalOpen} className="shortcut">
-        <img src="" alt="TxtFile" />
+        <img alt="TxtFile" />
         <span>{postInfo.title}</span>
       </button>
       <Modal isOpen={isModalOpen}>

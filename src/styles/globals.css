@@ -217,7 +217,9 @@ header .shortcut-area {
   flex-direction: column;
   gap: 0.5rem;
   max-width: 100%;
+  min-width: 20rem;
   max-height: calc(100% - var(--taskbarHeight));
+  min-height: 4.2rem;
   padding: var(--ui-padding);
   background: var(--clr-ui-trim);
   resize: both;
@@ -241,6 +243,16 @@ header .shortcut-area {
   justify-content: space-between;
   background: var(--clr-primary);
 }
+.window-header span {
+  display: block;
+  color: white;
+  pointer-events: none;
+}
+.window-header span img {
+  display: inline-block;
+  margin-right: 1rem;
+  height: 1em;
+}
 .window-header,
 .window-footer {
   flex-shrink: 0;
@@ -255,10 +267,6 @@ header .shortcut-area {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.window-header span {
-  color: white;
-  pointer-events: none;
 }
 .window-header-buttons {
   display: flex;
