@@ -35,7 +35,7 @@
 - [ ] Initial position & size of file explorer on first render
 - [ ] Consider windows in task bar
 - [ ] Completely disable highlighting outside of notepad text
-- [ ] Consider making text files a route instead of a modal/parallel in order to facilitate "post" sharing with direct links
+- [ ] Consider last window clicked as focus (z-index on top, rest pushed back with header grayed out)
 - [ ] Enable show password on creation and login (NIST)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
