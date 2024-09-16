@@ -22,9 +22,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
         <button type="button">Search</button>
         <button type="button">Help</button>
       </div>
-      <div className="window-content inset">
-        <textarea className="notepad-textarea" spellCheck="false" value={postInfo.content} />
-      </div>
+      <textarea className="notepad-textarea window-content inset" spellCheck="false" value={postInfo.content} />
     </div>
   );
 }
