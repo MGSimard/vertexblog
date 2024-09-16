@@ -5,8 +5,8 @@ import posts from "../../placeholderPosts.json";
 
 // THIS WILL BE THE ACTUAL BLOG PATHS (WITHIN THE BLOG FOLDER)
 
-export default function Page({ params }: { params: { slug: number } }) {
-  const blogPosts = posts.filter((post) => post.parent_blog === Number(params.slug));
+export default function Page({ params }: { params: { blog: number } }) {
+  const blogPosts = posts.filter((post) => post.parent_blog === Number(params.blog));
 
   return (
     <>
