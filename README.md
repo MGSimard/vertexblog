@@ -36,6 +36,7 @@
 - [x] Close start menu when clicking outside of it
 - [ ] Button icons for close/maximize/not-maximize
 - [ ] Completely disable highlighting outside of notepad text
+- [ ] Consider making text files a route instead of a modal/parallel in order to facilitate "post" sharing with direct links
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
 - [ ] Use toast for sign up/sign in/sign out errors
