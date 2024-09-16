@@ -120,6 +120,7 @@ hr {
   text-align: center;
 }
 .shortcut img {
+  overflow: hidden;
   padding: 0 1rem;
 }
 .shortcut span {
