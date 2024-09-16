@@ -5,7 +5,10 @@ import { CloseIcon } from "./icons";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
   return (
-    <div className="window outset notepad noselect" data-draggable="true">
+    <div
+      className="window outset notepad noselect"
+      data-draggable="true"
+      style={{ left: "21vw", width: "60vw", top: "21vh", height: "60vh" }}>
       <div className="window-header " data-dragcontrol="true">
         <span className="window-header-left">
           <img src="/assets/Notepad.svg" alt="" />

@@ -11,7 +11,7 @@ export default function FileExplorerLayout({ children }: { children: React.React
       <div
         className="window outset noselect"
         data-draggable="true"
-        style={{ left: "20vw", width: "60vw", top: "10vh", height: "60vh" }}>
+        style={{ left: "20vw", width: "60vw", top: "20vh", height: "60vh" }}>
         <div className="window-header" data-dragcontrol="true">
           <span className="window-header-left">
             <img src="/assets/FolderOpen.svg" alt="" />
