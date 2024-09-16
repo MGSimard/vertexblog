@@ -8,7 +8,7 @@ import blogs from "../placeholderBlogs.json";
 export default function Page() {
   return (
     <>
-      <div className="fe-options noselect">
+      <div className="window-options noselect o2">
         <BackButton />
         <button type="button">File</button>
         <button type="button">Edit</button>
@@ -18,7 +18,7 @@ export default function Page() {
         <button type="button">Help</button>
       </div>
 
-      <div className="fe-content inset">
+      <div className="window-content inset o4">
         <ul className="explorer-icons">
           {blogs.map((blog) => (
             <li key={blog.id}>

@@ -180,7 +180,7 @@ hr {
   background: var(--clr-primary);
 }
 /* FILE EXPLORER */
-.file-explorer {
+.window {
   position: absolute;
   top: 0;
   left: 0;
@@ -194,7 +194,7 @@ hr {
   resize: both;
   overflow: hidden;
 }
-.file-explorer:has(.maximized) {
+.window:has(.maximized) {
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
@@ -202,30 +202,33 @@ hr {
   resize: none;
 }
 /* Disable ability to drag window when maximized */
-.fe-header:has(.maximized) {
+.window-header:has(.maximized) {
   pointer-events: none;
 }
 /* Restore pointer events for the button due to above */
-.fe-header-buttons {
+.window-header-buttons {
   pointer-events: auto;
 }
-.fe-header {
+.window-header-buttons button {
+  padding: 0 0.4rem;
+}
+.o1 {
   order: 1;
 }
-.fe-options {
+.o2 {
   order: 2;
 }
-.fe-address {
+.o3 {
   order: 3;
 }
-.fe-content {
+.o4 {
   order: 4;
 }
-.fe-footer {
+.o5 {
   order: 5;
 }
-.fe-header,
-.fe-footer {
+.window-header,
+.window-footer {
   flex-shrink: 0;
   display: flex;
   gap: 1rem;
@@ -233,56 +236,56 @@ hr {
   height: 3rem;
   padding: 0 0.3rem;
 }
-.fe-header span,
-.fe-footer span {
+.window-header span,
+.window-footer span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.fe-header {
+.window-header {
   display: flex;
   justify-content: space-between;
   background: var(--clr-primary);
 }
-.fe-header span {
+.window-header span {
   color: white;
   pointer-events: none;
 }
-.fe-options button {
+.window-options button {
   padding: 0 1rem;
   border: 3px solid;
   border-color: transparent;
   background: none;
 }
-.fe-options button:active {
+.window-options button:active {
   border-top-color: var(--clr-ui-trim-dark);
   border-right-color: var(--clr-ui-trim-light);
   border-bottom-color: var(--clr-ui-trim-light);
   border-left-color: var(--clr-ui-trim-dark);
 }
-.fe-options button::first-letter {
+.window-options button::first-letter {
   text-decoration: underline;
 }
-.fe-address {
+.window-address {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-.fe-address span {
+.window-address span {
   flex-shrink: 0;
 }
-.fe-address input {
+.window-address input {
   flex-grow: 1;
   padding: 0.5rem 0.5rem;
 }
-.fe-address input:disabled {
+.window-address input:disabled {
   background: var(--clr-ui-trim);
 }
-.fe-content {
+.window-content {
   flex-grow: 1;
   padding: 1rem;
   background: white;
-  overflow: scroll;
+  overflow: auto;
 }
 .explorer-icons {
   display: flex;
@@ -294,6 +297,18 @@ hr {
   width: 8rem;
   height: 8rem;
   border: 1px solid red;
+}
+.notepad .window-content {
+  padding: var(--ui-padding);
+}
+.notepad-textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 2rem;
+  overflow: hidden;
 }
 
 /* HELPER CLASSES */

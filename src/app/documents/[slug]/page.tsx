@@ -9,7 +9,7 @@ export default function Page({ params }: { params: { slug: number } }) {
 
   return (
     <>
-      <div className="fe-options noselect">
+      <div className="window-options noselect o2">
         <BackButton />
         <button type="button">File</button>
         <button type="button">Edit</button>
@@ -18,7 +18,7 @@ export default function Page({ params }: { params: { slug: number } }) {
         {/* SHOW USER'S FAVORITE POSTS? */}
         <button type="button">Help</button>
       </div>
-      <div className="fe-content inset">
+      <div className="window-content inset o4">
         <ul className="explorer-icons">
           {blogPosts.map((post) => (
             <li key={post.id}>
