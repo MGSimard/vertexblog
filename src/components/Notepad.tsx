@@ -9,7 +9,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
       <div className="window-header " data-dragcontrol="true">
         <span className="window-header-left">
           <img src="/assets/Notepad.svg" alt="" />
-          {postInfo.title} - Notepad
+          <span>{postInfo.title} - Notepad</span>
         </span>
         <div className="window-header-buttons">
           <MaximizeButton />

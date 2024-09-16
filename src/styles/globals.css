@@ -219,7 +219,7 @@ header .shortcut-area {
   flex-direction: column;
   gap: 0.5rem;
   max-width: 100%;
-  min-width: 20rem;
+  /* min-width: 20rem; */
   max-height: calc(100% - var(--taskbarHeight));
   min-height: 4.2rem;
   padding: var(--ui-padding);
@@ -247,13 +247,14 @@ header .shortcut-area {
 }
 .window-header-left {
   display: flex;
-  gap: 0.6rem;
   align-items: center;
   color: white;
   pointer-events: none;
 }
 .window-header-left img {
+  display: inline-block;
   height: 1em;
+  margin-right: 0.6rem;
 }
 .window-header,
 .window-footer {

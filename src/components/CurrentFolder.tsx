@@ -8,5 +8,5 @@ export function CurrentFolder() {
     return path.split("/").join("\\");
   };
 
-  return "Current Location";
+  return <span>Current Location</span>;
 }

@@ -8,7 +8,10 @@ import { CurrentFolder } from "@/components/CurrentFolder";
 export default function FileExplorerLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="window outset noselect" data-draggable="true">
+      <div
+        className="window outset noselect"
+        data-draggable="true"
+        style={{ left: "20vw", width: "60vw", top: "10vh", height: "60vh" }}>
         <div className="window-header" data-dragcontrol="true">
           <span className="window-header-left">
             <img src="/assets/FolderOpen.svg" alt="" />
