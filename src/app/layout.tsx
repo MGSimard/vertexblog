@@ -58,6 +58,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     <span>Documents</span>
                   </Link>
                 </li>
+                <li>App will probably see a slight reskin in the later stages.</li>
+                <li>Core inspiration is obviously Windows 95, but I'll switch some things around here and there.</li>
+                <li>The goal is to follow the same contrast/ui/ux and 3d visual hierarchy.</li>
               </ul>
               <Taskbar />
             </nav>
