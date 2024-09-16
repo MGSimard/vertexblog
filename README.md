@@ -35,7 +35,7 @@
 - [x] Come up with empty folder, filled folder and notepad icons (shortcut and window header icons)
 - [x] Initial position & size of file explorer on first render
 - [ ] Consider windows in task bar
-- [ ] Completely disable highlighting outside of notepad text
+- [x] Completely disable highlighting outside of notepad text
 - [ ] Consider last window clicked as focus (z-index on top, rest pushed back with header grayed out)
 - [ ] Enable show password on creation and login (NIST)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts

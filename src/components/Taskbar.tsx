@@ -5,7 +5,7 @@ export async function Taskbar() {
   const { user } = await validateRequest();
 
   return (
-    <div id="taskbar" className="noselect">
+    <div id="taskbar">
       <StartButton user={user} />
     </div>
   );

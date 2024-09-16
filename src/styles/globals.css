@@ -28,6 +28,9 @@ body {
   font-size: 1.8rem;
   font-weight: 600;
   overflow: hidden;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 header {
   height: 100%;
@@ -362,9 +365,4 @@ button.shortcut {
   border-bottom-color: var(--clr-ui-trim-dark);
   border-left-color: var(--clr-ui-trim-light);
   box-shadow: 1px 1px 1px var(--clr-drop-shadow);
-}
-.noselect {
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
 }

@@ -9,7 +9,7 @@ export default function FileExplorerLayout({ children }: { children: React.React
   return (
     <>
       <div
-        className="window outset noselect"
+        className="window outset"
         data-draggable="true"
         style={{ left: "20vw", width: "60vw", top: "20vh", height: "60vh" }}>
         <div className="window-header" data-dragcontrol="true">
