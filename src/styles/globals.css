@@ -308,7 +308,6 @@ hr {
   outline: none;
   resize: none;
   font-size: 2rem;
-  overflow: hidden;
 }
 
 /* HELPER CLASSES */
