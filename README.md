@@ -31,6 +31,7 @@
 - [x] Close start menu when clicking outside of it
 - [x] Button icons for close/maximize/not-maximize
 - [x] Text file components should render as draggable window
+- [ ] Come up with empty folder, filled folder and notepad icons (shortcut and window header icons)
 - [ ] Initial position & size of file explorer on first render
 - [ ] Consider windows in task bar
 - [ ] Completely disable highlighting outside of notepad text

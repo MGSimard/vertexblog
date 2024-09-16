@@ -61,6 +61,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <li>App will probably see a slight reskin in the later stages.</li>
                 <li>Core inspiration is obviously Windows 95, but I'll switch some things around here and there.</li>
                 <li>The goal is to follow the same contrast/ui/ux and 3d visual hierarchy.</li>
+                <li>
+                  v- Current dev process visible here
+                  <a href="https://github.com/MGSimard/vertexblog" target="_blank">
+                    github
+                  </a>
+                </li>
               </ul>
               <Taskbar />
             </nav>
