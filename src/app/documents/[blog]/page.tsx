@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
-// Temp data
+import { TextFile } from "@/components/TextFile";
 import posts from "../../placeholderPosts.json";
 
 // THIS WILL BE THE ACTUAL BLOG PATHS (WITHIN THE BLOG FOLDER)
 
 export default function Page({ params }: { params: { blog: number } }) {
-  const blogPosts = posts.filter((post) => post.parent_blog === Number(params.blog));
+  const blogPosts = posts.filter((post) => post.parentBlog === Number(params.blog));
 
   return (
     <>
@@ -27,7 +27,7 @@ export default function Page({ params }: { params: { blog: number } }) {
         <ul className="explorer-icons">
           {blogPosts.map((post) => (
             <li key={post.id}>
-              <button type="button">{post.title}</button>
+              <TextFile postInfo={post} />
             </li>
           ))}
         </ul>

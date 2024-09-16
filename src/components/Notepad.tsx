@@ -1,14 +1,17 @@
+"use client";
+import { PostInfoTypes } from "@/types/types";
 import { MaximizeButton } from "@/components/MaximizeButton";
 import { CloseIcon } from "./icons";
+import { useState } from "react";
 
-export function Notepad() {
+export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
   return (
     <div className="window outset notepad noselect" data-draggable="true">
       <div className="window-header " data-dragcontrol="true">
-        <span>Post Title - Notepad - I think I want this to be a modal not a route</span>
+        <span>{postInfo.title} - Notepad</span>
         <div className="window-header-buttons">
           <MaximizeButton />
-          <button type="button" className="outset">
+          <button type="button" className="outset" onClick={onClose}>
             <CloseIcon />
           </button>
         </div>
@@ -20,7 +23,7 @@ export function Notepad() {
         <button type="button">Help</button>
       </div>
       <div className="window-content inset">
-        <textarea className="notepad-textarea" spellCheck="false" />
+        <textarea className="notepad-textarea" spellCheck="false" value={postInfo.content} />
       </div>
     </div>
   );

@@ -4,44 +4,44 @@
     "author": "Jeff",
     "title": "Blog Title 1",
     "active": false,
-    "created_at": "2024-09-06 21:23:07.337",
-    "updated_at": null,
-    "deleted_at": null
+    "createdAt": "2024-09-06 21:23:07.337",
+    "updatedAt": null,
+    "deletedAt": null
   },
   {
     "id": 2,
     "author": "SomeUsername",
     "title": "Another blog title",
     "active": false,
-    "created_at": "2024-09-06 21:23:07.337",
-    "updated_at": null,
-    "deleted_at": null
+    "createdAt": "2024-09-06 21:23:07.337",
+    "updatedAt": null,
+    "deletedAt": null
   },
   {
     "id": 3,
     "author": "Doublelift",
     "title": "Blog Title Three",
     "active": true,
-    "created_at": "2024-09-06 21:23:07.337",
-    "updated_at": null,
-    "deleted_at": null
+    "createdAt": "2024-09-06 21:23:07.337",
+    "updatedAt": null,
+    "deletedAt": null
   },
   {
     "id": 4,
     "author": "Blogger",
     "title": "ActiveBlogTitle",
     "active": true,
-    "created_at": "2024-09-06 21:23:07.337",
-    "updated_at": null,
-    "deleted_at": null
+    "createdAt": "2024-09-06 21:23:07.337",
+    "updatedAt": null,
+    "deletedAt": null
   },
   {
     "id": 5,
     "author": "Person",
     "title": "A blog with a title",
     "active": false,
-    "created_at": "2024-09-06 21:23:07.337",
-    "updated_at": null,
-    "deleted_at": null
+    "createdAt": "2024-09-06 21:23:07.337",
+    "updatedAt": null,
+    "deletedAt": null
   }
 ]

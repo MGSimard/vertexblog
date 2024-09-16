@@ -63,6 +63,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </nav>
           </header>
           {children}
+          <div id="portal" />
         </body>
       </html>
     </DragProvider>
