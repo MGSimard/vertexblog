@@ -2,7 +2,6 @@
 import { PostInfoTypes } from "@/types/types";
 import { MaximizeButton } from "@/components/MaximizeButton";
 import { CloseIcon } from "./icons";
-import { useState } from "react";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
   return (
