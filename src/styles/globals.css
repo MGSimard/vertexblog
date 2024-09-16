@@ -200,7 +200,9 @@ hr {
   width: 100% !important;
   height: calc(100% - var(--taskbarHeight)) !important;
   resize: none;
-  z-index: 999;
+}
+.notepad:has(.maximized) {
+  z-index: 901;
 }
 .window-header:has(.maximized) {
   pointer-events: none;
