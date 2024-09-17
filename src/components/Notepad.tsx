@@ -13,7 +13,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
    * older notepad windows).
    *
    * From there, a set of instructions in DragProvider.tsx's click event function handles setting
-   * .active-window to any window we click into, giving it the highest z-index and simulating focus.
+   * .active-window to any window we click into, giving it the highest z-index and stimulating focus.
    * A maximized window will also have 902 z-index by default (both file explorer and notepads) in
    * order to render over other notepads - unless we then swap focus by making another window .active-focus.
    */
