@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
-import { DragProvider } from "@/components/DragProvider";
+import { Providers } from "@/lib/Providers";
 import { Taskbar } from "@/components/Taskbar";
 import { Handjet } from "next/font/google";
 import "@/styles/globals.css";
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <DragProvider>
+    <Providers>
       <html lang="en">
         <body className={handjet.className}>
           <header>
@@ -66,6 +66,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <div id="portal" />
         </body>
       </html>
-    </DragProvider>
+    </Providers>
   );
 }

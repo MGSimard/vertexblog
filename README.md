@@ -39,15 +39,7 @@
 - [x] Look at mobile not being able to use the native resize control - yeah that doesn't work on mobile shame I might still support dragging on mobile though
 - [x] Maybe add local clock in task bar? Could be dope if you use website on f11
 - [ ] Fix address bar not scaling down past 390px viewport width
-- [x] Consider last window clicked as focus (z-index on top, rest pushed back with header grayed out)
-- [ ] Think about using a global context keeping track of z-index actually?
-      Keep track of number in global context, whenever a .window is clicked you increment the number and set the
-      target's z-index to that number. Unlike the current class-based focus system, this would keep track of the
-      order at which every window has been clicked. Currently if you de-focus file explorer by clicking a notepad,
-      sure it does focus the notepad but it kicks the file explorer all the way back behind every other notepad too
-      due to it just removing the z-index class. I think other non-focused notepads should remain behind the
-      file explorer window if they were focused "earlier" in the z-index hierarchy/ordering.
-      Will need to experiment.
+- [x] Create zindex context for window focus order on click
 - [ ] Enable show password on creation and login (NIST)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
