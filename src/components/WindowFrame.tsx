@@ -11,7 +11,6 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
   const windowRef = useRef<HTMLDivElement | null>(null);
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-
   const { incrementZIndex } = useZIndex();
 
   const handleMouseDown = (e: MouseEvent) => {
