@@ -1,27 +1,31 @@
 "use client";
+import { useEffect, useRef } from "react";
 import { PostInfoTypes } from "@/types/types";
 import { MaximizeButton } from "@/components/MaximizeButton";
 import { CloseIcon } from "./icons";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
-  /**
-   * When we mount a new notepad instance, remove .active-window class (z-index: 903)
-   * from every .window in the DOM. (When we open a notepad, the click event sets .active-window
-   * on the file explorer window where the notepad shortcut was, which would lead to spawning
-   * the notepad window behind it. Due to this, we clear .active-window from every .window to ensure
-   * the new notepad instance will be on top (due to z-index: 901, and due to DOM hierarchy against
-   * older notepad windows).
+  /** Bit of context regarding window focus here:
+   * When we open notepad, we clicked in file explorer which had set .active-window, so we clear it
+   * to ensure new notepad renders on top. Technically this happens without also setting .active-window
+   * on the new notepad due to explicitly higher z-index (901) and DOM hierarchy against older notepads
+   * but I reckon it's functionally/thematically correct to still set .active-window on new notepad.
    *
    * From there, a set of instructions in DragProvider.tsx's click event function handles setting
    * .active-window to any window we click into, giving it the highest z-index and simulating focus.
    * A maximized window will also have 902 z-index by default (both file explorer and notepads) in
    * order to render over other notepads - unless we then swap focus by making another window .active-focus.
    */
-  const windows = document.querySelectorAll(".window");
-  windows.forEach((window) => window.classList.remove("active-window"));
+  const notepadRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const windows = document.querySelectorAll(".window");
+    windows.forEach((window) => window.classList.remove("active-window"));
+    notepadRef.current!.classList.add("active-window");
+  }, []);
 
   return (
     <div
+      ref={notepadRef}
       className="window outset notepad"
       data-draggable="true"
       style={{ left: "21vw", width: "60vw", top: "21vh", height: "60vh" }}>
