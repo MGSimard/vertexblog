@@ -46,9 +46,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <Providers>
-      <html lang="en">
-        <body className={handjet.className}>
+    <html lang="en">
+      <body className={handjet.className}>
+        <Providers>
           <header>
             <nav>
               <ul className="shortcut-area">
@@ -64,8 +64,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </header>
           {children}
           <div id="portal" />
-        </body>
-      </html>
-    </Providers>
+        </Providers>
+      </body>
+    </html>
   );
 }
