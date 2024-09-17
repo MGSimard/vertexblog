@@ -8,7 +8,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
    * When we mount a new notepad instance, remove .active-window class (z-index: 903)
    * from every .window in the DOM. (When we open a notepad, the click event sets .active-window
    * on the file explorer window where the notepad shortcut was, which would lead to spawning
-   * the notepad window behind it. Due to this, we clear .active-window from everywhere to ensure
+   * the notepad window behind it. Due to this, we clear .active-window from every .window to ensure
    * the new notepad instance will be on top (due to z-index: 901, and due to DOM hierarchy against
    * older notepad windows).
    *
