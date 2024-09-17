@@ -19,6 +19,12 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
       setDragOffset({ x: e.clientX - eleX, y: e.clientY - eleY });
       setDragging(true);
     }
+
+    if (target.closest(".window")) {
+      const windows = document.querySelectorAll(".window");
+      windows.forEach((window) => window.classList.remove("active-window"));
+      target.closest(".window")!.classList.add("active-window");
+    }
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -40,6 +46,12 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
   const handleMouseUp = (e: MouseEvent) => {
     if (dragging) setDragging(false);
   };
+
+  useEffect(() => {
+    const windows = document.querySelectorAll(".window");
+    windows.forEach((window) => window.classList.remove("active-window"));
+    if (windowRef.current) windowRef.current.classList.add("active-window");
+  }, []);
 
   useEffect(() => {
     // Doing window stuff here it's smoother when re-entering viewport after doing
