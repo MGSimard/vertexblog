@@ -4,7 +4,6 @@ import { MaximizeButton } from "@/components/MaximizeButton";
 import { CloseIcon } from "./icons";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
-  //
   /**
    * When we mount a new notepad instance, remove .active-window class (z-index: 903)
    * from every window in the DOM. (When we open a notepad, the click event sets .active-window
