@@ -155,7 +155,7 @@ header .shortcut-area {
   padding: var(--ui-padding);
   border-top: 3px outset var(--clr-ui-trim-light);
   background: var(--clr-ui-trim);
-  z-index: 1000;
+  z-index: 2000;
 }
 .start-button {
   position: relative;
@@ -244,9 +244,6 @@ header .shortcut-area {
   resize: both;
   overflow: hidden;
 }
-.notepad {
-  z-index: 901;
-}
 .window:has(.maximized) {
   top: 0 !important;
   left: 0 !important;
@@ -254,10 +251,6 @@ header .shortcut-area {
   height: calc(100% - var(--taskbarHeight)) !important;
   resize: none;
   transition: all 0.2s linear;
-  z-index: 902;
-}
-.active-window {
-  z-index: 903;
 }
 .window-header:has(.maximized) {
   pointer-events: none;
@@ -337,7 +330,7 @@ header .shortcut-area {
   flex-grow: 1;
   padding: 0.5rem 0.5rem;
 }
-.window-address input:disabled {
+.window-address input:read-only {
   background: var(--clr-ui-trim);
 }
 .window-content {

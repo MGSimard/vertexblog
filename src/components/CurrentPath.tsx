@@ -8,5 +8,5 @@ export function CurrentPath() {
     return path.split("/").join("\\");
   };
 
-  return <input type="text" value={`C:\\VERTEXBLOG${invertSlashes(pathName)}`} disabled />;
+  return <input type="text" value={`C:\\VERTEXBLOG${invertSlashes(pathName)}`} readOnly />;
 }
