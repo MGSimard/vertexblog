@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { useZIndex } from "./ZIndexContextProvider";
 
 interface PropTypes {
   children: React.ReactNode;
@@ -11,6 +12,8 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
+  const { incrementZIndex } = useZIndex();
+
   const handleMouseDown = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
     // If target is a drag control, start dragging closest draggable parent
@@ -19,12 +22,7 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
       setDragOffset({ x: e.clientX - eleX, y: e.clientY - eleY });
       setDragging(true);
     }
-
-    if (target.closest(".window")) {
-      const windows = document.querySelectorAll(".window");
-      windows.forEach((window) => window.classList.remove("active-window"));
-      target.closest(".window")!.classList.add("active-window");
-    }
+    if (windowRef.current) windowRef.current.style.zIndex = `${incrementZIndex()}`;
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -48,9 +46,9 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
   };
 
   useEffect(() => {
-    const windows = document.querySelectorAll(".window");
-    windows.forEach((window) => window.classList.remove("active-window"));
-    if (windowRef.current) windowRef.current.classList.add("active-window");
+    if (windowRef.current) {
+      windowRef.current.style.zIndex = `${incrementZIndex()}`;
+    }
   }, []);
 
   useEffect(() => {

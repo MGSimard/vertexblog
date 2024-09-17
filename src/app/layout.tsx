@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Taskbar } from "@/components/Taskbar";
 import { Handjet } from "next/font/google";
 import "@/styles/globals.css";
+import { ZIndexContextProvider } from "@/components/ZIndexContextProvider";
 
 const handjet = Handjet({ subsets: ["latin"] });
 
@@ -47,21 +48,23 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={handjet.className}>
-        <header>
-          <nav>
-            <ul className="shortcut-area">
-              <li>
-                <Link href="/documents" className="shortcut">
-                  <img src="/assets/EmptyFolder.svg" alt="Folder" />
-                  <span>Documents</span>
-                </Link>
-              </li>
-            </ul>
-            <Taskbar />
-          </nav>
-        </header>
-        {children}
-        <div id="portal" />
+        <ZIndexContextProvider>
+          <header>
+            <nav>
+              <ul className="shortcut-area">
+                <li>
+                  <Link href="/documents" className="shortcut">
+                    <img src="/assets/EmptyFolder.svg" alt="Folder" />
+                    <span>Documents</span>
+                  </Link>
+                </li>
+              </ul>
+              <Taskbar />
+            </nav>
+          </header>
+          {children}
+          <div id="portal" />
+        </ZIndexContextProvider>
       </body>
     </html>
   );
