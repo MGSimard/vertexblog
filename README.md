@@ -44,6 +44,7 @@
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
 - [ ] Use toast for sign up/sign in/sign out errors
+- [ ] Look into date locale mismatching between server and user client
 - [ ]
 - [ ]
 - [ ] Think about supporting window dragging on touch devices
