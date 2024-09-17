@@ -149,6 +149,8 @@ header .shortcut-area {
   left: 0;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
   height: var(--taskbarHeight);
   padding: var(--ui-padding);
   border-top: 3px outset var(--clr-ui-trim-light);
@@ -212,6 +214,14 @@ header .shortcut-area {
 .start-switch:hover {
   color: white;
   background: var(--clr-primary);
+}
+.current-time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: calc(8ch + 2rem);
+  height: 100%;
 }
 /* FILE EXPLORER */
 .window {
