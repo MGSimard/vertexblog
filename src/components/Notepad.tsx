@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 import { PostInfoTypes } from "@/types/types";
 import { MaximizeButton } from "@/components/MaximizeButton";
 import { CloseIcon } from "./icons";
-import { useContext } from "react";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
   /** Bit of context regarding window focus here:

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
-import { Providers } from "@/lib/Providers";
+import { DragProvider } from "@/components/DragProvider";
 import { Taskbar } from "@/components/Taskbar";
 import { Handjet } from "next/font/google";
 import "@/styles/globals.css";
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={handjet.className}>
-        <Providers>
+        <DragProvider>
           <header>
             <nav>
               <ul className="shortcut-area">
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </header>
           {children}
           <div id="portal" />
-        </Providers>
+        </DragProvider>
       </body>
     </html>
   );

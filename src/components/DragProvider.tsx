@@ -1,12 +1,10 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { useZIndex } from "./zIndexProvider";
 
 export function DragProvider({ children }: { children: React.ReactNode }) {
   const dragEleRef = useRef<HTMLElement | null>(null);
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const { zIndex, incrementZIndex } = useZIndex();
 
   const handleMouseDown = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -16,6 +14,14 @@ export function DragProvider({ children }: { children: React.ReactNode }) {
       const { x: eleX, y: eleY } = dragEleRef.current.getBoundingClientRect();
       setDragOffset({ x: e.clientX - eleX, y: e.clientY - eleY });
       setDragging(true);
+    }
+    // This is for .window focus on click (shifts z-index)
+    // If target is .window or descendant of .window, clear .active-window class from all .window
+    // then set .active-window on the target window (z-index: 903, render on top)
+    if (target.closest(".window")) {
+      const windows = document.querySelectorAll(".window");
+      windows.forEach((window) => window.classList.remove("active-window"));
+      target.closest(".window")!.classList.add("active-window");
     }
   };
 
@@ -35,7 +41,7 @@ export function DragProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e: MouseEvent) => {
     if (dragging) setDragging(false);
   };
 
