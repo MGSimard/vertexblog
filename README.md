@@ -20,7 +20,7 @@
 - [x] Set up database (Vercel PostgreSQL w/ Drizzle ORM)
 - [x] Complain on Github about months-long multi-project schema drizzle bug that tries to kill your DB with a sequence drop
 - [x] Complain on Github about another driizzle bug where .default(false) & .default(sql`FALSE`) don't work on boolean()
-- [ ] Wait until Drizzle makes use of their funding and unfucks this major fuckups
+- [ ] Wait until Drizzle makes use of their funding and unfucks these major fuckups
 - [x] Password hashing with Argon2, NIST guideline requirements
 - [x] Sign in, sign out
 - [x] Enter password twice prompt, crosscheck on FE & BE
@@ -34,12 +34,12 @@
 - [x] Fix my piece of shit I key by desoldering page down and putting it in I's place
 - [x] Come up with empty folder, filled folder and notepad icons (shortcut and window header icons)
 - [x] Initial position & size of file explorer on first render
-- [ ] Consider windows in task bar
 - [x] Completely disable highlighting outside of notepad text
 - [x] Look at mobile not being able to use the native resize control - yeah that doesn't work on mobile shame I might still support dragging on mobile though
 - [x] Maybe add local clock in task bar? Could be dope if you use website on f11
-- [ ] Fix address bar not scaling down past 390px viewport width
 - [x] Create zindex context for window focus order on click
+- [ ] Consider windows in task bar
+- [ ] Check address bar not scaling down past 390px viewport width
 - [ ] Enable show password on creation and login (NIST)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
