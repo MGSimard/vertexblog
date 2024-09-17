@@ -3,8 +3,10 @@ import { useEffect, useRef } from "react";
 import { PostInfoTypes } from "@/types/types";
 import { MaximizeButton } from "@/components/MaximizeButton";
 import { CloseIcon } from "./icons";
+import { useZIndex } from "@/lib/zIndexProvider";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
+  const { zIndex, incrementZIndex } = useZIndex();
   /** Bit of context regarding window focus here:
    * When we open notepad, we clicked in file explorer which had set .active-window, so we clear it
    * to ensure new notepad renders on top. Technically this happens without also setting .active-window
@@ -16,6 +18,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
    * A maximized window will also have 902 z-index by default (both file explorer and notepads) in
    * order to render over other notepads - unless we then swap focus by making another window .active-focus.
    */
+
   const notepadRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const windows = document.querySelectorAll(".window");

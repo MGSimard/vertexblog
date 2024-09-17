@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 /**
  * This provider is responsible for keeping track of a z-index number for the sake of window focus hierarchy & history.
  * Whenever a .window element is clicked, increment the number by 1 and set the target element's z-index to that number.
@@ -10,7 +10,7 @@ interface ZIndexContextTypes {
   incrementZIndex: () => void;
 }
 
-const ZIndexContext = createContext<ZIndexContextTypes | undefined>(undefined);
+export const ZIndexContext = createContext<ZIndexContextTypes | undefined>(undefined);
 
 export function ZIndexProvider({ children }: { children: React.ReactNode }) {
   const [zIndex, setZIndex] = useState(500);
@@ -20,4 +20,12 @@ export function ZIndexProvider({ children }: { children: React.ReactNode }) {
   };
 
   return <ZIndexContext.Provider value={{ zIndex, incrementZIndex }}>{children}</ZIndexContext.Provider>;
+}
+
+export function useZIndex() {
+  const context = useContext(ZIndexContext);
+  if (!context) {
+    throw new Error("The ZIndex context must be utilized within the ZIndexContext Provider.");
+  }
+  return context;
 }
