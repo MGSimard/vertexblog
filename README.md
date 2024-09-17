@@ -39,11 +39,12 @@
 - [x] Look at mobile not being able to use the native resize control - yeah that doesn't work on mobile shame I might still support dragging on mobile though
 - [x] Maybe add local clock in task bar? Could be dope if you use website on f11
 - [ ] Fix address bar not scaling down past 390px viewport width
-- [ ] Consider last window clicked as focus (z-index on top, rest pushed back with header grayed out)
+- [x] Create zindex context for window focus order on click
 - [ ] Enable show password on creation and login (NIST)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
 - [ ] Use toast for sign up/sign in/sign out errors
+- [ ] Look into date locale mismatching between server and user client
 - [ ]
 - [ ]
 - [ ] Think about supporting window dragging on touch devices
