@@ -36,7 +36,7 @@
 - [x] Initial position & size of file explorer on first render
 - [ ] Consider windows in task bar
 - [x] Completely disable highlighting outside of notepad text
-- [ ] Look at mobile not being able to use the native resize control
+- [x] Look at mobile not being able to use the native resize control - yeah that doesn't work on mobile shame I might still support dragging on mobile though
 - [ ] Maybe add local clock in task bar? Could be dope if you use website on f11
 - [ ] Fix address bar not scaling down past 390px viewport width
 - [ ] Consider last window clicked as focus (z-index on top, rest pushed back with header grayed out)
