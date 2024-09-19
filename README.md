@@ -38,7 +38,7 @@
 - [x] Look at mobile not being able to use the native resize control - yeah that doesn't work on mobile shame I might still support dragging on mobile though
 - [x] Maybe add local clock in task bar? Could be dope if you use website on f11
 - [x] Create zindex context for window focus order on click
-- [ ] Consider windows in task bar
+- [x] Consider windows in task bar // NO since we opted out of doing minimization
 - [ ] Check address bar not scaling down past 390px viewport width
 - [ ] Enable show password on creation and login (NIST)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
