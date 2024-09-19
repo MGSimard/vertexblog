@@ -53,6 +53,8 @@
 - [ ] Create blog + server action
 - [ ] Create post + server action
 - [ ] Submit/Modify/Delete post + server actions
+- [ ] Set up blog & post ordering
+- [ ] Set up blog & post search filtering
 - [ ] Analytics (Posthog?)
 - [ ] Sentry mayhaps?
 - [ ] Make a cooler start menu style
