@@ -326,12 +326,13 @@ header .shortcut-area {
 .window-address span {
   flex-shrink: 0;
 }
-.window-address input {
+.window-address .address-path {
   flex-grow: 1;
   padding: 0.5rem 0.5rem;
-}
-.window-address input:read-only {
   background: var(--clr-ui-trim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .window-content {
   flex-grow: 1;
