@@ -7,7 +7,6 @@ interface PropTypes {
   isNotepad?: boolean;
 }
 
-// TODO: CLEAN EVERYTHING UP AFTER TESTING TOUCH EVENT ADDITION
 export function WindowFrame({ children, isNotepad }: PropTypes) {
   const windowRef = useRef<HTMLDivElement | null>(null);
   const [dragging, setDragging] = useState(false);
@@ -32,17 +31,15 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
     const clientX = e instanceof MouseEvent ? e.clientX : e.touches[0]?.clientX;
     const clientY = e instanceof MouseEvent ? e.clientY : e.touches[0]?.clientY;
 
-    /* Just a temp early return while I test touch events */
-    if (clientX === undefined || clientY === undefined) return;
-
-    const isInWindow =
-      clientX >= 0 && clientX <= window.innerWidth && clientY >= 0 && clientY <= window.innerHeight - taskbarHeight;
-
-    if (isInWindow && dragging && windowRef.current) {
-      const xPos = clientX - dragOffset.x;
-      const yPos = clientY - dragOffset.y;
-      windowRef.current.style.left = `${xPos}px`;
-      windowRef.current.style.top = `${yPos}px`;
+    if (clientX && clientY) {
+      const isInWindow =
+        clientX >= 0 && clientX <= window.innerWidth && clientY >= 0 && clientY <= window.innerHeight - taskbarHeight;
+      if (isInWindow && dragging && windowRef.current) {
+        const xPos = clientX - dragOffset.x;
+        const yPos = clientY - dragOffset.y;
+        windowRef.current.style.left = `${xPos}px`;
+        windowRef.current.style.top = `${yPos}px`;
+      }
     }
   };
 
@@ -57,31 +54,20 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
   }, []);
 
   useEffect(() => {
-    // Doing window stuff here it's smoother when re-entering viewport after doing
-    // erratic random mouse movements while dragging. Clear on drag end to avoid stacking window listeners.
+    const controller = new AbortController();
+    const signal = controller.signal;
     const dragWindow = windowRef.current;
-    // TODO: USE ABORTCONTROLLER IF THIS STUFF WORKS
     if (dragWindow) {
       if (dragging) {
-        window.addEventListener("mousemove", handleMouseMove);
-        window.addEventListener("mouseup", handleMouseUp);
-        window.addEventListener("touchmove", handleMouseMove);
-        window.addEventListener("touchend", handleMouseUp);
-      } else {
-        window.removeEventListener("mousemove", handleMouseMove);
-        window.removeEventListener("mouseup", handleMouseUp);
-        window.removeEventListener("touchmove", handleMouseMove);
-        window.removeEventListener("touchend", handleMouseUp);
+        window.addEventListener("mousemove", handleMouseMove, { signal });
+        window.addEventListener("mouseup", handleMouseUp, { signal });
+        window.addEventListener("touchmove", handleMouseMove, { signal });
+        window.addEventListener("touchend", handleMouseUp, { signal });
       }
-      dragWindow.addEventListener("mousedown", handleMouseDown);
-      dragWindow.addEventListener("touchstart", handleMouseDown);
+      dragWindow.addEventListener("mousedown", handleMouseDown, { signal });
+      dragWindow.addEventListener("touchstart", handleMouseDown, { signal });
       return () => {
-        dragWindow.removeEventListener("mousedown", handleMouseDown);
-        window.removeEventListener("mousemove", handleMouseMove);
-        window.removeEventListener("mouseup", handleMouseUp);
-        dragWindow.removeEventListener("touchstart", handleMouseDown);
-        window.removeEventListener("touchmove", handleMouseMove);
-        window.removeEventListener("touchend", handleMouseUp);
+        controller.abort();
       };
     }
   }, [dragging]);
