@@ -5,7 +5,8 @@ export function CurrentPath() {
   const pathName = usePathname();
 
   const invertSlashes = (path: string) => {
-    return decodeURIComponent(path.split("/").join("\\"));
+    if (path.endsWith("documents")) return "\\Documents";
+    else return decodeURIComponent(path.split("/").join("\\"));
   };
 
   return <div className="address-path inset">{`C:\\VERTEXBLOG${invertSlashes(pathName)}`}</div>;
