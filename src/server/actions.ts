@@ -183,7 +183,6 @@ const CreateBlogSchema = z.object({
 });
 export async function createBlog(currentState: FormStatusTypes, formData: FormData) {
   const { user } = await validateRequest();
-  console.log(user);
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }

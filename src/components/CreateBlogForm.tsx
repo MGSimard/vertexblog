@@ -7,6 +7,7 @@ export function CreateBlogForm() {
 
   return (
     <form action={formAction}>
+      Test Blog Creation:
       <label htmlFor="blogTitle">
         <input id="blogTitle" name="blogTitle" type="text" />
       </label>
