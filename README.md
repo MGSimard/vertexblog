@@ -41,6 +41,7 @@
 - [x] Consider windows in task bar // NO since we opted out of doing minimization
 - [x] Check address bar not scaling down past 390px viewport width (I forgot I wanted min-width on windows I'm a clown)
 - [x] Use blog title for url slug and address slug (done, use encodeuricomponent and decodeuricomponent, don't really like what it looks like in browser URL bar though)
+- [x] Think about supporting window dragging on touch devices
 - [ ] Enable show password on creation and login (NIST)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
@@ -48,7 +49,7 @@
 - [ ] Look into date locale mismatching between server and user client
 - [ ]
 - [ ]
-- [ ] Think about supporting window dragging on touch devices
+
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
 - [ ] Ratelimit
 - [ ] Create blog + server action

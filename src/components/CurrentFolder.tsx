@@ -4,9 +4,10 @@ import { usePathname } from "next/navigation";
 export function CurrentFolder() {
   const pathName = usePathname();
 
-  const invertSlashes = (path: string) => {
-    return path.split("/").join("\\");
+  const getFinalLocation = (path: string) => {
+    const split = path.split("/");
+    return split[split.length - 1];
   };
 
-  return <span>Current Location</span>;
+  return <span>{decodeURIComponent(getFinalLocation(pathName)!)}</span>;
 }

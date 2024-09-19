@@ -4,8 +4,6 @@ import { usePathname } from "next/navigation";
 export function CurrentPath() {
   const pathName = usePathname();
 
-  console.log(pathName);
-
   const invertSlashes = (path: string) => {
     return decodeURIComponent(path.split("/").join("\\"));
   };
