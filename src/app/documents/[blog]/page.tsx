@@ -22,10 +22,10 @@ export default function Page({ params }: { params: { blog: string } }) {
         {/* SHOW USER'S FAVORITE POSTS? */}
         <button type="button">Help</button>
       </div>
-      <label className="window-address">
+      <div className="window-address">
         <span>Address</span>
         <CurrentPath />
-      </label>
+      </div>
       <div className="window-content inset">
         <ul className="shortcut-area">
           {!blog && "BLOG NOT FOUND"}

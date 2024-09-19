@@ -37,7 +37,7 @@ export const blogs = createTable(
     author: varchar("author", { length: 20 })
       .notNull()
       .references(() => userTable.username),
-    title: varchar("title", { length: 255 }).notNull(),
+    title: varchar("title", { length: 60 }).notNull(),
     /**
      * TODO: .default(false) & .default(sql`FALSE`) IS CURRENTLY BUGGED ON DRIZZLE AND DOES NOT WORK.
      * https://github.com/drizzle-team/drizzle-orm/issues/2559
@@ -65,7 +65,7 @@ export const posts = createTable(
     parentBlog: integer("parent_blog")
       .notNull()
       .references(() => blogs.id),
-    title: varchar("title", { length: 255 }).notNull(),
+    title: varchar("title", { length: 60 }).notNull(),
     content: varchar("content", { length: 40000 }).notNull(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
+import { CreateBlogForm } from "@/components/CreateBlogForm";
 // Temp data
 import blogs from "../placeholderBlogs.json";
 
@@ -16,10 +17,11 @@ export default function Page() {
         {/* SHOW USER'S FAVORITE BLOGS? */}
         <button type="button">Help</button>
       </div>
-      <label className="window-address">
+      <div className="window-address">
         <span>Address</span>
         <CurrentPath />
-      </label>
+      </div>
+      <CreateBlogForm />
       <div className="window-content inset">
         <ul className="shortcut-area">
           {blogs.map((blog) => (

@@ -1,14 +1,14 @@
 "use server";
 import { cookies } from "next/headers";
-import { z } from "zod";
-import { db } from "@/server/db";
-import { userTable } from "@/server/db/schema";
-import { FormStatusTypes } from "@/types/types";
-import { lucia } from "@/lib/auth";
-import { generateIdFromEntropySize } from "lucia";
-import { hash, verify } from "@node-rs/argon2";
+import { revalidatePath } from "next/cache";
 import { eq, sql } from "drizzle-orm";
-import { validateRequest } from "@/lib/auth";
+import { db } from "@/server/db";
+import { blogs, userTable } from "@/server/db/schema";
+import { z } from "zod";
+import { lucia, validateRequest } from "@/lib/auth";
+import { generateIdFromEntropySize } from "lucia";
+import { FormStatusTypes } from "@/types/types";
+import { hash, verify } from "@node-rs/argon2";
 
 /* CREATE USER - SIGN UP ACTION */
 const CreateUserSchema = z
@@ -102,6 +102,11 @@ const SignInSchema = z.object({
     .max(64, "Password cannot exceed 64 characters."),
 });
 export async function signin(currentState: FormStatusTypes, formData: FormData) {
+  const { session } = await validateRequest();
+  if (session) {
+    throw new Error("AUTH ERROR: User is already logged in.");
+  }
+
   // TODO: !!!!!HEAVY!!!!!!! ADD RATELIMIT, SPECIFIC TO THIS ACTION
   // if ratelimited return { success: false, message: "RATELIMIT ERROR: Too many actions." }
   const validated = SignInSchema.safeParse({
@@ -161,4 +166,53 @@ export async function signout() {
   }
 
   return { success: true, message: "SUCCESS: User Signed Out." };
+}
+
+/* CREATE BLOG ACTION */
+const CreateBlogSchema = z.object({
+  blogTitle: z
+    .string()
+    .trim()
+    .min(1, "Blog title cannot be empty.")
+    .min(4, "Blog title must be at least 4 characters long.")
+    .max(60, "Blog title cannot exceed 60 characters.")
+    .regex(
+      /^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/,
+      "Blog title can only contain alphanumerical characters and nonconsecutive spaces."
+    ),
+});
+export async function createBlog(currentState: FormStatusTypes, formData: FormData) {
+  const { user } = await validateRequest();
+  console.log(user);
+  if (!user) {
+    return { success: false, message: "AUTH ERROR: Unauthorized." };
+  }
+
+  // TODO: ADD RATELIMIT
+  // if ratelimited return { success: false, message: "RATELIMIT ERROR: Too many actions." }
+
+  const validated = CreateBlogSchema.safeParse({
+    blogTitle: formData.get("blogTitle"),
+  });
+  if (!validated.success) {
+    return {
+      success: false,
+      message: "VALIDATION ERROR: Invalid fields.",
+      errors: validated.error.issues.map((issue) => issue.message),
+    };
+  }
+
+  const { blogTitle } = validated.data;
+  const author = user.username;
+
+  try {
+    // Existing entry conflict already handled by database.
+    // (Only allows one not deletedAt blog entry by same user)
+    await db.insert(blogs).values({ author, title: blogTitle, active: false });
+  } catch (err) {
+    return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
+  }
+
+  revalidatePath(`/documents`);
+  return { success: true, message: "SUCCESS: Blog created." };
 }
