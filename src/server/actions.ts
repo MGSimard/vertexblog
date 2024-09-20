@@ -210,7 +210,6 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
     // 2. Only allow one not deletedAt blog entry by same user
     await db.insert(blogs).values({ author, title: blogTitle, active: false });
   } catch (err) {
-    console.log(err);
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
 
