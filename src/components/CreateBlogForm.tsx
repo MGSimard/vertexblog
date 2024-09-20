@@ -9,6 +9,7 @@ export function CreateBlogForm() {
     <form action={formAction}>
       Test Blog Creation:
       <label htmlFor="blogTitle">
+        Blog Title
         <input id="blogTitle" name="blogTitle" type="text" />
       </label>
       <button type="submit">Submit</button>

@@ -1,9 +1,9 @@
 "use server";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
-import { eq, sql } from "drizzle-orm";
+import { eq, sql, and, isNull } from "drizzle-orm";
 import { db } from "@/server/db";
-import { blogs, userTable } from "@/server/db/schema";
+import { blogs, posts, userTable } from "@/server/db/schema";
 import { z } from "zod";
 import { lucia, validateRequest } from "@/lib/auth";
 import { generateIdFromEntropySize } from "lucia";
@@ -215,4 +215,66 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
 
   revalidatePath(`/documents`);
   return { success: true, message: "SUCCESS: Blog created." };
+}
+
+/* CREATE BLOG POST */
+const CreatePostSchema = z.object({
+  postTitle: z
+    .string()
+    .trim()
+    .min(1, "Post title cannot be empty.")
+    .max(60, "Post title cannot exceed 60 characters.")
+    .regex(
+      /^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/,
+      "Post title can only contain alphanumerical characters and nonconsecutive spaces."
+    ),
+  postContent: z
+    .string()
+    .trim()
+    .min(1, "Post content cannot be empty.")
+    .max(40000, "Post content cannot exceed 40,000 characters."),
+});
+export async function createPost(currentState: FormStatusTypes, formData: FormData) {
+  const { user } = await validateRequest();
+  if (!user) {
+    return { success: false, message: "AUTH ERROR: Unauthorized." };
+  }
+
+  // TODO: ADD RATELIMIT
+  // if ratelimited return { success: false, message: "RATELIMIT ERROR: Too many actions." }
+
+  const validated = CreatePostSchema.safeParse({
+    postTitle: formData.get("postTitle"),
+    postContent: formData.get("postContent"),
+  });
+  if (!validated.success) {
+    return {
+      success: false,
+      message: "VALIDATION ERROR: Invalid fields.",
+      errors: validated.error.issues.map((issue) => issue.message),
+    };
+  }
+
+  const { postTitle, postContent } = validated.data;
+  const author = user.username;
+
+  try {
+    // Get first blogTitle and blogID where blogAuthor is Author and deletedAt is Null
+    // (constraint always ensure you can only have one undeleted blog anyway, just being safe)
+    const [blogInfo] = await db
+      .select({ blogId: blogs.id, blogTitle: blogs.title })
+      .from(blogs)
+      .where(and(eq(blogs.author, author), isNull(blogs.deletedAt)))
+      .limit(1);
+
+    if (!blogInfo) {
+      throw new Error("DATABASE ERROR: Blog doesn't exist.");
+    }
+
+    await db.insert(posts).values({ parentBlog: blogInfo.blogId, title: postTitle, content: postContent });
+    revalidatePath(`/documents/${blogInfo.blogTitle}`);
+  } catch (err) {
+    return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
+  }
+  return { success: true, message: "SUCCESS: Post added." };
 }

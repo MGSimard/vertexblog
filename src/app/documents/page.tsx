@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
+import { CreatePostForm } from "@/components/CreatePostForm";
 // Temp data
 import blogs from "../placeholderBlogs.json";
 
@@ -22,6 +23,7 @@ export default function Page() {
         <CurrentPath />
       </div>
       <CreateBlogForm />
+      <CreatePostForm />
       <div className="window-content inset">
         <ul className="shortcut-area">
           {blogs.map((blog) => (
