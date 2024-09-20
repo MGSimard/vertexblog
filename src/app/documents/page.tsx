@@ -1,13 +1,11 @@
-import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
 import { CreatePostForm } from "@/components/CreatePostForm";
-// Temp data
-import blogs from "../placeholderBlogs.json";
+import { BlogList } from "@/components/BlogList";
 
 // THIS IS WHERE WE WILL LIST ALL THE CREATED BLOGS AS FOLDERS
 
-export default function Page() {
+export default async function Page() {
   return (
     <>
       <div className="window-options">
@@ -25,16 +23,7 @@ export default function Page() {
       <CreateBlogForm />
       <CreatePostForm />
       <div className="window-content inset">
-        <ul className="shortcut-area">
-          {blogs.map((blog) => (
-            <li key={blog.id}>
-              <Link href={`/documents/${encodeURIComponent(blog.title)}`} className="shortcut">
-                <img src={`/assets/${blog.active ? "FilledFolder" : "EmptyFolder"}.svg`} alt="Folder" />
-                <span>{blog.title}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <BlogList />
       </div>
     </>
   );

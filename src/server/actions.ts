@@ -1,13 +1,13 @@
 "use server";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
-import { eq, sql, and, isNull } from "drizzle-orm";
+import { eq, sql, and, isNull, isNotNull } from "drizzle-orm";
 import { db } from "@/server/db";
 import { blogs, posts, userTable } from "@/server/db/schema";
 import { z } from "zod";
 import { lucia, validateRequest } from "@/lib/auth";
 import { generateIdFromEntropySize } from "lucia";
-import { FormStatusTypes } from "@/types/types";
+import type { FormStatusTypes, GetBlogsResponseTypes } from "@/types/types";
 import { hash, verify } from "@node-rs/argon2";
 
 /* CREATE USER - SIGN UP ACTION */
@@ -168,6 +168,26 @@ export async function signout() {
   return { success: true, message: "SUCCESS: User Signed Out." };
 }
 
+/* GET BLOGS */
+export async function getBlogs(): Promise<GetBlogsResponseTypes> {
+  // TODO Consider light ratelimit?
+  try {
+    const blogList = await db
+      .select({
+        blogId: blogs.id,
+        blogAuthor: blogs.author,
+        blogTitle: blogs.title,
+        active: blogs.active,
+        creationDate: blogs.createdAt,
+      })
+      .from(blogs)
+      .where(isNull(blogs.deletedAt));
+    return { success: true, data: blogList, message: "SUCCESS: Blog list indexed." };
+  } catch (err) {
+    return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
+  }
+}
+
 /* CREATE BLOG ACTION */
 const CreateBlogSchema = z.object({
   blogTitle: z
@@ -269,6 +289,8 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
       throw new Error("DATABASE ERROR: Blog doesn't exist.");
     }
 
+    // TODO: Oh shit I forgot, add TRANSACTION, set blog active to true if not already true
+    // Active just tracks if the blog has a post or not, for showing different folder icons (empty, filled)
     await db.insert(posts).values({ parentBlog: blogInfo.blogId, title: postTitle, content: postContent });
     revalidatePath(`/documents/${blogInfo.blogTitle}`);
   } catch (err) {
