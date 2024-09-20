@@ -259,8 +259,6 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
   const author = user.username;
 
   try {
-    // Get first blogTitle and blogID where blogAuthor is Author and deletedAt is Null
-    // (constraint always ensure you can only have one undeleted blog anyway, just being safe)
     const [blogInfo] = await db
       .select({ blogId: blogs.id, blogTitle: blogs.title })
       .from(blogs)
