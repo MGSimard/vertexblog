@@ -318,7 +318,7 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
     // TODO: Oh shit I forgot, add TRANSACTION, set blog active to true if not already true
     // Active just tracks if the blog has a post or not, for showing different folder icons (empty, filled)
     await db.insert(posts).values({ parentBlog: blogInfo.blogId, title: postTitle, content: postContent });
-    revalidatePath(`/documents/${blogInfo.blogTitle}`);
+    revalidatePath(`/documents/${encodeURIComponent(blogInfo.blogTitle)}`);
   } catch (err: unknown) {
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }

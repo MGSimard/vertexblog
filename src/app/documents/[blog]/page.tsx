@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
 import { PostList } from "@/components/PostList";
+import { CreatePostForm } from "@/components/CreatePostForm";
 
 export default function Page({ params }: { params: { blog: string } }) {
   const currentBlog = decodeURIComponent(params.blog);
@@ -20,6 +21,7 @@ export default function Page({ params }: { params: { blog: string } }) {
         <span>Address</span>
         <CurrentPath />
       </div>
+      <CreatePostForm />
       <div className="window-content inset">
         <PostList currentBlog={currentBlog} />
       </div>

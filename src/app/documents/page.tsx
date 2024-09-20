@@ -1,6 +1,5 @@
 import { CurrentPath } from "@/components/CurrentPath";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
-import { CreatePostForm } from "@/components/CreatePostForm";
 import { BlogList } from "@/components/BlogList";
 
 export default async function Page() {
@@ -19,7 +18,6 @@ export default async function Page() {
         <CurrentPath />
       </div>
       <CreateBlogForm />
-      <CreatePostForm />
       <div className="window-content inset">
         <BlogList />
       </div>
