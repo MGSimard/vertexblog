@@ -278,11 +278,7 @@ const CreatePostSchema = z.object({
       /^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/,
       "Post title can only contain alphanumerical characters and nonconsecutive spaces."
     ),
-  postContent: z
-    .string()
-    .trim()
-    .min(1, "Post content cannot be empty.")
-    .max(40000, "Post content cannot exceed 40,000 characters."),
+  postContent: z.string().trim().max(40000, "Post content cannot exceed 40,000 characters."),
 });
 export async function createPost(currentState: FormStatusTypes, formData: FormData) {
   const { user } = await validateRequest();
