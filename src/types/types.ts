@@ -13,5 +13,15 @@ interface BlogInfoTypes {
   blogTitle: string;
   active: boolean;
   creationDate: Date;
+  updateDate: Date | null;
 }
 export type GetBlogsResponseTypes = { success: boolean; data?: BlogInfoTypes[]; message: string };
+
+export interface PostInfoTypes {
+  postId: number;
+  postTitle: string;
+  postContent: string;
+  creationDate: Date;
+  updateDate: Date | null;
+}
+export type GetPostsResponseTypes = { success: boolean; data?: PostInfoTypes[]; message: string };

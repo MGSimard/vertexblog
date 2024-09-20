@@ -1,13 +1,13 @@
 "use server";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
-import { eq, sql, and, isNull, isNotNull } from "drizzle-orm";
+import { eq, sql, and, isNull } from "drizzle-orm";
 import { db } from "@/server/db";
 import { blogs, posts, userTable } from "@/server/db/schema";
 import { z } from "zod";
 import { lucia, validateRequest } from "@/lib/auth";
 import { generateIdFromEntropySize } from "lucia";
-import type { FormStatusTypes, GetBlogsResponseTypes } from "@/types/types";
+import type { FormStatusTypes, GetBlogsResponseTypes, GetPostsResponseTypes } from "@/types/types";
 import { hash, verify } from "@node-rs/argon2";
 
 /* CREATE USER - SIGN UP ACTION */
@@ -179,11 +179,38 @@ export async function getBlogs(): Promise<GetBlogsResponseTypes> {
         blogTitle: blogs.title,
         active: blogs.active,
         creationDate: blogs.createdAt,
+        updateDate: blogs.updatedAt,
       })
       .from(blogs)
       .where(isNull(blogs.deletedAt));
     return { success: true, data: blogList, message: "SUCCESS: Blog list indexed." };
   } catch (err) {
+    return { success: false, message: "DATABASE ERROR: Failed retrieving blogs." };
+  }
+}
+
+/* GET POSTS */
+export async function getPosts(currentBlog: string): Promise<GetPostsResponseTypes> {
+  // TODO Consider light ratelimit?
+  try {
+    // GET BLOG
+    const [blogInfo] = await db.select({ blogId: blogs.id }).from(blogs).where(eq(blogs.title, currentBlog));
+
+    if (!blogInfo) throw new Error(`DATABASE ERROR: Blog not found. (${currentBlog})`);
+
+    const postList = await db
+      .select({
+        postId: posts.id,
+        postTitle: posts.title,
+        postContent: posts.content,
+        creationDate: posts.createdAt,
+        updateDate: posts.updatedAt,
+      })
+      .from(posts)
+      .where(eq(posts.parentBlog, blogInfo.blogId));
+
+    return { success: true, data: postList, message: "SUCCESS: Blog list indexed." };
+  } catch (err: unknown) {
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
 }
@@ -229,7 +256,10 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
     // 1. Blog titles have to be unique
     // 2. Only allow one not deletedAt blog entry by same user
     await db.insert(blogs).values({ author, title: blogTitle, active: false });
-  } catch (err) {
+  } catch (err: unknown) {
+    if (err instanceof Error && "code" in err && Number(err.code) === 23505) {
+      return { success: false, message: "DUPLICATE ERROR: User already has a blog." };
+    }
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
 
@@ -293,7 +323,7 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
     // Active just tracks if the blog has a post or not, for showing different folder icons (empty, filled)
     await db.insert(posts).values({ parentBlog: blogInfo.blogId, title: postTitle, content: postContent });
     revalidatePath(`/documents/${blogInfo.blogTitle}`);
-  } catch (err) {
+  } catch (err: unknown) {
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
   return { success: true, message: "SUCCESS: Post added." };

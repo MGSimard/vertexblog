@@ -3,8 +3,6 @@ import { CreateBlogForm } from "@/components/CreateBlogForm";
 import { CreatePostForm } from "@/components/CreatePostForm";
 import { BlogList } from "@/components/BlogList";
 
-// THIS IS WHERE WE WILL LIST ALL THE CREATED BLOGS AS FOLDERS
-
 export default async function Page() {
   return (
     <>

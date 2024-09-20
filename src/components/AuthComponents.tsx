@@ -99,7 +99,6 @@ export function SignOut() {
   const handleSignOut = async () => {
     const result = await signout();
     if (!result.success) console.error("SIGNOUT ERROR:", result.message);
-    else if (result.success) console.log("SIGNOUT SUCCESS:", result.message);
   };
   return (
     <button type="button" className="outset" onClick={handleSignOut}>

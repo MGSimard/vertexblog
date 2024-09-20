@@ -1,15 +1,9 @@
 import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
-import { TextFile } from "@/components/TextFile";
-import blogs from "../../placeholderBlogs.json";
-import posts from "../../placeholderPosts.json";
-
-// THIS WILL BE THE ACTUAL BLOG PATHS (WITHIN THE BLOG FOLDER)
+import { PostList } from "@/components/PostList";
 
 export default function Page({ params }: { params: { blog: string } }) {
   const currentBlog = decodeURIComponent(params.blog);
-  const [blog] = blogs.filter((blog) => blog.title.toLocaleLowerCase() === currentBlog.toLowerCase());
-  const blogPosts = posts.filter((post) => post.parentBlog === blog?.id);
 
   return (
     <>
@@ -27,15 +21,7 @@ export default function Page({ params }: { params: { blog: string } }) {
         <CurrentPath />
       </div>
       <div className="window-content inset">
-        <ul className="shortcut-area">
-          {!blog && "BLOG NOT FOUND"}
-          {blogPosts &&
-            blogPosts.map((post) => (
-              <li key={post.id}>
-                <TextFile postInfo={post} />
-              </li>
-            ))}
-        </ul>
+        <PostList currentBlog={currentBlog} />
       </div>
     </>
   );

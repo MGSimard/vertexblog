@@ -3,7 +3,9 @@ import { getBlogs } from "@/server/actions";
 
 export async function BlogList() {
   const { success, data, message } = await getBlogs();
-  // TODO: ON SUCCESS FALSE, TOAST ERROR
+  // TODO: ON SUCCESS FALSE, TOAST ERROR`
+  // TODO: DO SOMETHING WITH BLOG.CREATIONDATE AND BLOG.UPDATEDATE
+  // PROBABLY FILE SORTING
 
   return (
     <ul className="shortcut-area">
