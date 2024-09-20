@@ -207,7 +207,7 @@ export async function getPosts(currentBlog: string): Promise<GetPostsResponseTyp
         updateDate: posts.updatedAt,
       })
       .from(posts)
-      .where(eq(posts.parentBlog, blogInfo.blogId));
+      .where(and(eq(posts.parentBlog, blogInfo.blogId), isNull(posts.deletedAt)));
 
     return { success: true, data: postList, message: "SUCCESS: Blog list indexed." };
   } catch (err: unknown) {
