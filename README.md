@@ -44,6 +44,7 @@
 - [x] Think about supporting window dragging on touch devices
 - [x] Create blog + server action
 - [x] Create post + server action
+- [ ] Modify create post server action to only include title, then make new action triggered by SAVING a txt file
 - [ ] Enable show password on creation and login (NIST)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
