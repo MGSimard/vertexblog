@@ -259,7 +259,6 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
     await db.insert(blogs).values({ author, title: blogTitle, active: false });
   } catch (err: unknown) {
     if (err instanceof Error && "constraint" in err) {
-      console.log(err.constraint);
       if (err.constraint === "blog_title_uniqueIdx") {
         return { success: false, message: "DUPLICATE ERROR: This blog title is taken." };
       } else if (err.constraint === "author_blog_uniqueIdx") {
