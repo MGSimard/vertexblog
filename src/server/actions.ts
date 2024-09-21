@@ -362,7 +362,7 @@ export async function savePost(inputId: number, inputText: string | undefined) {
   const author = user.username;
 
   try {
-    console.log("this would try for savepost, checks passed");
+    console.log("This would try for savepost, checks passed:", validated.data);
     // Use postId
     // Find postId in posts, get parentBlog and content
     // look at parentBlog, get author
@@ -370,6 +370,9 @@ export async function savePost(inputId: number, inputText: string | undefined) {
     // If post doesn't exist throw error (deletedAt isNotNull)
     // If blog doesn't exist throw error (deletedAt isNotNull)
     // If not original author throw error (author doesn't match)
+    // If post content is identical (is it really a good idea to fuckin crosscheck 40k char long strings?)
+    // Maybe I just do the field dirtying thing on the front end only and if they want to fuck with it
+    // In inspect element I say whatever and let them push identical text on save anyways?
     /**
      * 1. Check if person saving is original author (and if post exists at same time)
      * 2. Check if blog we're saving to exists (Even with foreign key, we soft-delete blogs,
