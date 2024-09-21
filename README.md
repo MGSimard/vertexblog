@@ -64,3 +64,4 @@
 - [ ] Analytics (Posthog?)
 - [ ] Sentry mayhaps?
 - [ ] Make a cooler start menu style
+- [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
