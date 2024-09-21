@@ -48,6 +48,7 @@
 - [ ] Move blog and post creation into File button akin to how I have post saving set up
 - [ ] Keep track of state, if notepad file has been dirtied (modified) prompt a confirmation when they try to exit saying that the modifications haven't been saved yet.
 - [ ] Make sure there isn't a nicer way to do post update queries while retaining diff error messages
+- [ ] File exit & X button confirmation if notepad has been modified but not saved yet. onchange re-dirty the state.
 - [ ] Enable show password on creation and login (NIST)
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
