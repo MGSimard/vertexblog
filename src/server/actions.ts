@@ -373,7 +373,7 @@ export async function savePost(inputId: number, inputText: string | undefined) {
 
     // Verify ownership of the blog before updating post content
     const [matchedBlog] = await db
-      .select()
+      .select({ title: blogs.title })
       .from(blogs)
       .where(and(eq(blogs.id, postInfo.parentBlog), eq(blogs.author, author), isNull(blogs.deletedAt)));
 
