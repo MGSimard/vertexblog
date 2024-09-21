@@ -45,6 +45,7 @@
 - [x] Create blog + server action
 - [x] Create post + server action
 - [x] Modify create post server action to only include title, then make new action triggered by SAVING a txt file
+- [ ] Move blog and post creation into File button akin to how I have post saving set up
 - [ ] Keep track of state, if notepad file has been dirtied (modified) prompt a confirmation when they try to exit saying that the modifications haven't been saved yet.
 - [ ] Make sure there isn't a nicer way to do post update queries while retaining diff error messages
 - [ ] Enable show password on creation and login (NIST)
