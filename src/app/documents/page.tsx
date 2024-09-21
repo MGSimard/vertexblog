@@ -5,7 +5,7 @@ import { BlogList } from "@/components/BlogList";
 export default async function Page() {
   return (
     <>
-      <div className="window-options">
+      <div className="window-options winbtns">
         <button type="button">File</button>
         <button type="button">Edit</button>
         <button type="button">Go</button>

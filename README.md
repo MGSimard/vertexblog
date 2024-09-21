@@ -51,6 +51,7 @@
 - [ ] Set up toast for warning, success and confirmation windows
 - [ ] Use toast for sign up/sign in/sign out errors
 - [ ] Look into date locale mismatching between server and user client
+- [ ] Fix click gap between icon and text
 - [ ]
 - [ ]
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site

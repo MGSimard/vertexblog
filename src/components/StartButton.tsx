@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useState } from "react";
 import { UserTypes } from "@/types/types";
 import { StartMenu } from "./StartMenu";

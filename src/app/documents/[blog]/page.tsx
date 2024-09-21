@@ -8,7 +8,7 @@ export default function Page({ params }: { params: { blog: string } }) {
 
   return (
     <>
-      <div className="window-options">
+      <div className="window-options winbtns">
         <Link href="/documents">&lt;=</Link>
         <button type="button">File</button>
         <button type="button">Edit</button>

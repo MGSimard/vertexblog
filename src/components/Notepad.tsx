@@ -2,6 +2,7 @@
 import { PostInfoTypes } from "@/types/types";
 import { WindowFrame } from "@/components/WindowFrame";
 import { MaximizeButton } from "@/components/MaximizeButton";
+import { NotepadFileButton } from "@/components/NotepadFileButton";
 import { CloseIcon } from "@/components/icons";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
@@ -19,11 +20,8 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
           </button>
         </div>
       </div>
-      <div className="window-options ">
-        <button type="button">File</button>
-        <button type="button">Edit</button>
-        <button type="button">Search</button>
-        <button type="button">Help</button>
+      <div className="window-options npbtns">
+        <NotepadFileButton postInfo={postInfo} onClose={onClose} />
       </div>
       <textarea
         className="notepad-textarea window-content inset"

@@ -308,14 +308,15 @@ header .shortcut-area {
   border-color: transparent;
   background: none;
 }
-.window-options button:active,
-.window-options a:active {
+.winbtns button:active,
+.winbtns a:active {
   border-top-color: var(--clr-ui-trim-dark);
   border-right-color: var(--clr-ui-trim-light);
   border-bottom-color: var(--clr-ui-trim-light);
   border-left-color: var(--clr-ui-trim-dark);
 }
-.window-options button::first-letter .wiindow-options a::first-letter {
+.window-options button::first-letter,
+.window-options a::first-letter {
   text-decoration: underline;
 }
 .window-address {
@@ -356,6 +357,40 @@ button.shortcut {
   outline: none;
   resize: none;
   font-size: 2rem;
+}
+.npbtns {
+  position: relative;
+}
+.npbtns button:active,
+.npbtns button.isActive {
+  color: white;
+  background: var(--clr-primary);
+}
+.np-file-button {
+  position: relative;
+}
+.np-file-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  max-width: 30rem;
+  padding: 0;
+  background: var(--clr-ui-trim);
+  border: 1px solid var(--clr-ui-border);
+  z-index: 1;
+  overflow: hidden;
+}
+.np-file-menu button {
+  width: 100%;
+  padding: 0 3rem;
+}
+.np-file-menu button:hover {
+  color: white;
+  background: var(--clr-primary);
+}
+.np-file-menu hr {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 /* HELPER CLASSES */
