@@ -2,8 +2,9 @@
 import { useActionState } from "react";
 import { createPost } from "@/server/actions";
 
-export function CreatePostForm() {
+export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
   const [formState, formAction, pending] = useActionState(createPost, null);
+  console.log(formState);
 
   return (
     <form action={formAction}>
@@ -12,10 +13,7 @@ export function CreatePostForm() {
         Post Title
         <input id="postTitle" name="postTitle" type="text" />
       </label>
-      <label htmlFor="postContent">
-        Post Content
-        <input id="postContent" name="postContent" type="text" />
-      </label>
+      <input type="hidden" name="currentBlog" value={currentBlog} />
       <button type="submit">Submit</button>
     </form>
   );

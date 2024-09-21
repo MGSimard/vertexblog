@@ -19,6 +19,7 @@ export type GetBlogsResponseTypes = { success: boolean; data?: BlogInfoTypes[]; 
 
 export interface PostInfoTypes {
   postId: number;
+  parentBlog: number;
   postTitle: string;
   postContent: string;
   creationDate: Date;

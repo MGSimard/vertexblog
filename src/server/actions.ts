@@ -201,6 +201,7 @@ export async function getPosts(currentBlog: string): Promise<GetPostsResponseTyp
     const postList = await db
       .select({
         postId: posts.id,
+        parentBlog: posts.parentBlog,
         postTitle: posts.title,
         postContent: posts.content,
         creationDate: posts.createdAt,
@@ -257,27 +258,22 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
     // 2. Only allow one not deletedAt blog entry by same user
     await db.insert(blogs).values({ author, title: blogTitle, active: false });
   } catch (err: unknown) {
-    if (err instanceof Error && "code" in err && Number(err.code) === 23505) {
-      return { success: false, message: "DUPLICATE ERROR: User already has a blog." };
+    if (err instanceof Error && "constraint" in err) {
+      if (err.constraint === "blog_title_uniqueIdx") {
+        return { success: false, message: "DUPLICATE ERROR: This blog title is taken." };
+      } else if (err.constraint === "blog_title_uniqueIdx") {
+        return { success: false, message: "DUPLICATE ERROR: User already has a blog." };
+      }
     }
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
-
   revalidatePath(`/documents`);
   return { success: true, message: "SUCCESS: Blog created." };
 }
 
 /* CREATE BLOG POST */
-/**
- *  TODO:
- *  REMOVE CONTENT PART.
- *  I FORGOT I WANTED POST CREATION TO FUNCTION LIKE TXT FILE CREATION
- *  BASICALLY, CREATE THE FILE WITH JUST TITLE
- *  I WILL HANDLE CREATING THE POST CONTENT
- *  BY THE USER OPENING THE FILE AND EDITING THE FIELD VALUE THEN SAVING
- *  THAT WILL TRIGGER A DIFFERENT SERVER ACTION *
- */
 const CreatePostSchema = z.object({
+  targetBlog: z.string().trim().max(60),
   postTitle: z
     .string()
     .trim()
@@ -287,7 +283,6 @@ const CreatePostSchema = z.object({
       /^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/,
       "Post title can only contain alphanumerical characters and nonconsecutive spaces."
     ),
-  postContent: z.string().trim().max(40000, "Post content cannot exceed 40,000 characters."),
 });
 export async function createPost(currentState: FormStatusTypes, formData: FormData) {
   const { user } = await validateRequest();
@@ -300,7 +295,7 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
 
   const validated = CreatePostSchema.safeParse({
     postTitle: formData.get("postTitle"),
-    postContent: formData.get("postContent"),
+    targetBlog: formData.get("currentBlog"),
   });
   if (!validated.success) {
     return {
@@ -310,26 +305,80 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
     };
   }
 
-  const { postTitle, postContent } = validated.data;
+  const { postTitle, targetBlog } = validated.data;
   const author = user.username;
 
   try {
-    const [blogInfo] = await db
-      .select({ blogId: blogs.id, blogTitle: blogs.title })
-      .from(blogs)
-      .where(and(eq(blogs.author, author), isNull(blogs.deletedAt)))
-      .limit(1);
+    await db.transaction(async (tx) => {
+      const [blogInfo] = await tx
+        .update(blogs)
+        .set({ active: true })
+        .where(and(eq(blogs.title, targetBlog), eq(blogs.author, author), isNull(blogs.deletedAt)))
+        .returning({ blogId: blogs.id, blogTitle: blogs.title });
 
-    if (!blogInfo) {
-      throw new Error("DATABASE ERROR: Blog doesn't exist.");
-    }
+      if (!blogInfo) {
+        throw new Error("AUTH ERROR: User is not authorized, or blog no longer exists.");
+      }
 
-    // TODO: Oh shit I forgot, add TRANSACTION, set blog active to true if not already true
-    // Active just tracks if the blog has a post or not, for showing different folder icons (empty, filled)
-    await db.insert(posts).values({ parentBlog: blogInfo.blogId, title: postTitle, content: postContent });
-    revalidatePath(`/documents/${encodeURIComponent(blogInfo.blogTitle)}`);
+      await db.insert(posts).values({ parentBlog: blogInfo.blogId, title: postTitle, content: "" });
+      revalidatePath(`/documents/${encodeURIComponent(blogInfo.blogTitle)}`);
+    });
   } catch (err: unknown) {
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
   return { success: true, message: "SUCCESS: Post added." };
+}
+
+const SavePostSchema = z.object({
+  postId: z.number().int().positive().lte(2147483647),
+  postContent: z.string().trim().max(40000, "Post content cannot exceed 40,000 characters."),
+});
+export async function savePost(inputId: number, inputText: string | undefined) {
+  if (inputText === undefined) {
+    return { success: false, message: "INPUT ERROR: Input not recognized." };
+  }
+
+  const { user } = await validateRequest();
+  if (!user) {
+    return { success: false, message: "AUTH ERROR: Unauthorized." };
+  }
+
+  // TODO: ADD RATELIMIT
+  // if ratelimited return { success: false, message: "RATELIMIT ERROR: Too many actions." }
+
+  const validated = SavePostSchema.safeParse({
+    postId: inputId,
+    postContent: inputText,
+  });
+  if (!validated.success) {
+    return {
+      success: false,
+      message: "VALIDATION ERROR: Invalid fields.",
+      errors: validated.error.issues.map((issue) => issue.message),
+    };
+  }
+
+  const { postId, postContent } = validated.data;
+  const author = user.username;
+
+  try {
+    console.log("this would try for savepost, checks passed");
+    // Use postId
+    // Find postId in posts, get parentBlog and content
+    // look at parentBlog, get author
+    // const [result] = await db.select({}).from().where();
+    // If post doesn't exist throw error (deletedAt isNotNull)
+    // If blog doesn't exist throw error (deletedAt isNotNull)
+    // If not original author throw error (author doesn't match)
+    /**
+     * 1. Check if person saving is original author (and if post exists at same time)
+     * 2. Check if blog we're saving to exists (Even with foreign key, we soft-delete blogs,
+     *    so blog can still technically not "exist" - therefore checking post presence is not enough.)
+     * 3. If checks pass, update the post
+
+     */
+  } catch (err: unknown) {
+    return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
+  }
+  return { success: true, message: "SUCCESS: Post saved." };
 }

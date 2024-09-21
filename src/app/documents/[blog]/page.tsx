@@ -21,7 +21,7 @@ export default function Page({ params }: { params: { blog: string } }) {
         <span>Address</span>
         <CurrentPath />
       </div>
-      <CreatePostForm />
+      <CreatePostForm currentBlog={currentBlog} />
       <div className="window-content inset">
         <PostList currentBlog={currentBlog} />
       </div>

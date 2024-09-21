@@ -1,8 +1,17 @@
 "use client";
 import { useState, Dispatch, SetStateAction, useEffect } from "react";
+import { savePost } from "@/server/actions";
 import { PostInfoTypes } from "@/types/types";
 
-export function NotepadFileButton({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
+export function NotepadFileButton({
+  postInfo,
+  textRef,
+  onClose,
+}: {
+  postInfo: PostInfoTypes;
+  textRef: React.RefObject<HTMLTextAreaElement>;
+  onClose: () => void;
+}) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -17,20 +26,31 @@ export function NotepadFileButton({ postInfo, onClose }: { postInfo: PostInfoTyp
         onClick={() => setMenuOpen(!menuOpen)}>
         File
       </button>
-      {menuOpen && <NotepadButtonMenu postInfo={postInfo} onClose={onClose} setMenuOpen={setMenuOpen} />}
+      {menuOpen && (
+        <NotepadButtonMenu postInfo={postInfo} textRef={textRef} onClose={onClose} setMenuOpen={setMenuOpen} />
+      )}
     </>
   );
 }
 
 function NotepadButtonMenu({
   postInfo,
+  textRef,
   onClose,
   setMenuOpen,
 }: {
   postInfo: PostInfoTypes;
+  textRef: React.RefObject<HTMLTextAreaElement>;
   onClose: () => void;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
 }) {
+  const handleSaveFile = async () => {
+    const { postId } = postInfo;
+    const newText = textRef.current?.value;
+    const saveAttempt = await savePost(postId, newText);
+    console.log("RESULT:", saveAttempt);
+  };
+
   const handleOffsideClick = (e: MouseEvent) => {
     if (
       !document.getElementById("np-file-button")?.contains(e.target as Node) &&
@@ -47,7 +67,9 @@ function NotepadButtonMenu({
 
   return (
     <div id="np-file-menu" className="np-file-menu outset" role="np-file-menu">
-      <button type="button">Save</button>
+      <button type="submit" onClick={handleSaveFile}>
+        Save
+      </button>
       <hr />
       <button type="button" onClick={onClose}>
         Exit

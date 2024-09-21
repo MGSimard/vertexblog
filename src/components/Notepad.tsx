@@ -1,4 +1,5 @@
 "use client";
+import { useRef } from "react";
 import { PostInfoTypes } from "@/types/types";
 import { WindowFrame } from "@/components/WindowFrame";
 import { MaximizeButton } from "@/components/MaximizeButton";
@@ -6,6 +7,7 @@ import { NotepadFileButton } from "@/components/NotepadFileButton";
 import { CloseIcon } from "@/components/icons";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
+  const textRef = useRef<HTMLTextAreaElement>(null);
   return (
     <WindowFrame isNotepad>
       <div className="window-header " data-dragcontrol="true">
@@ -21,9 +23,10 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
         </div>
       </div>
       <div className="window-options npbtns">
-        <NotepadFileButton postInfo={postInfo} onClose={onClose} />
+        <NotepadFileButton postInfo={postInfo} textRef={textRef} onClose={onClose} />
       </div>
       <textarea
+        ref={textRef}
         className="notepad-textarea window-content inset"
         spellCheck="false"
         defaultValue={postInfo.postContent}
