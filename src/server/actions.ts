@@ -373,13 +373,6 @@ export async function savePost(inputId: number, inputText: string | undefined) {
     // If post content is identical (is it really a good idea to fuckin crosscheck 40k char long strings?)
     // Maybe I just do the field dirtying thing on the front end only and if they want to fuck with it
     // In inspect element I say whatever and let them push identical text on save anyways?
-    /**
-     * 1. Check if person saving is original author (and if post exists at same time)
-     * 2. Check if blog we're saving to exists (Even with foreign key, we soft-delete blogs,
-     *    so blog can still technically not "exist" - therefore checking post presence is not enough.)
-     * 3. If checks pass, update the post
-
-     */
   } catch (err: unknown) {
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
