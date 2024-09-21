@@ -4,7 +4,6 @@ import { createPost } from "@/server/actions";
 
 export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
   const [formState, formAction, pending] = useActionState(createPost, null);
-  console.log(formState);
 
   return (
     <form action={formAction}>

@@ -362,17 +362,27 @@ export async function savePost(inputId: number, inputText: string | undefined) {
   const author = user.username;
 
   try {
-    console.log("This would try for savepost, checks passed:", validated.data);
-    // Use postId
-    // Find postId in posts, get parentBlog and content
-    // look at parentBlog, get author
-    // const [result] = await db.select({}).from().where();
-    // If post doesn't exist throw error (deletedAt isNotNull)
-    // If blog doesn't exist throw error (deletedAt isNotNull)
-    // If not original author throw error (author doesn't match)
-    // If post content is identical (is it really a good idea to fuckin crosscheck 40k char long strings?)
-    // Maybe I just do the field dirtying thing on the front end only and if they want to fuck with it
-    // In inspect element I say whatever and let them push identical text on save anyways?
+    // Look for matching "live" post, retrieve its parentBlog id
+    const [postInfo] = await db
+      .select({ parentBlog: posts.parentBlog })
+      .from(posts)
+      .where(and(eq(posts.id, postId), isNull(posts.deletedAt)));
+    if (!postInfo) {
+      throw new Error("DATABASE ERROR: This post no longer exists.");
+    }
+
+    // Verify ownership of the blog before updating post content
+    const [matchedBlog] = await db
+      .select()
+      .from(blogs)
+      .where(and(eq(blogs.id, postInfo.parentBlog), eq(blogs.author, author), isNull(blogs.deletedAt)));
+
+    if (!matchedBlog) {
+      throw new Error("AUTH ERROR: Unauthorized.");
+    }
+
+    await db.update(posts).set({ content: postContent }).where(eq(posts.id, postId));
+    revalidatePath(`/documents/${encodeURIComponent(matchedBlog.title)}`);
   } catch (err: unknown) {
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
