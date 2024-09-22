@@ -38,11 +38,6 @@ nav {
   height: 100dvh;
   padding: 1rem;
 }
-main {
-  position: absolute;
-  inset: 0;
-}
-
 /* SMALL META */
 a {
   color: inherit;
@@ -236,7 +231,7 @@ header .shortcut-area {
 }
 /* FILE EXPLORER */
 .window {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
