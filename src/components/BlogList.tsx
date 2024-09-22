@@ -8,7 +8,7 @@ export async function BlogList() {
   // PROBABLY FILE SORTING
 
   return (
-    <ul className="shortcut-area">
+    <ul className="shortcut-area" id="documents-iconarea">
       {/* Temporary error message */}
       {!success && message}
       {data &&

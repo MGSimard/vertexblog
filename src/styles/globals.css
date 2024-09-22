@@ -328,40 +328,6 @@ header .shortcut-area {
 .window-options a::first-letter {
   text-decoration: underline;
 }
-.winbtns {
-  position: relative;
-}
-.winbtns > button {
-  position: relative;
-}
-.fe-menu {
-  position: absolute;
-  top: calc(100% + 0.3rem);
-  left: 0;
-  max-width: 30rem;
-  padding: 0;
-  background: var(--clr-ui-trim);
-  border: 1px solid var(--clr-ui-border);
-  z-index: 1;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.fe-menu button,
-.fe-menu a {
-  display: block;
-  width: 100%;
-  padding: 0 3rem;
-  text-align: start;
-}
-.fe-menu button:hover,
-.fe-menu a:hover {
-  color: white;
-  background: var(--clr-primary);
-}
-.fe-menu hr {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
 /**/
 .window-address {
   display: flex;
