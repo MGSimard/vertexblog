@@ -1,8 +1,11 @@
+import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
-import { BlogList } from "@/components/BlogList";
+import { getBlogs } from "@/server/actions";
 
-export default function Page() {
+export default async function Page() {
+  const { success, data, message } = await getBlogs();
+
   return (
     <>
       <div className="window-options winbtns">
@@ -17,7 +20,19 @@ export default function Page() {
       </div>
       <CreateBlogForm />
       <div className="window-content inset">
-        <BlogList />
+        <ul className="shortcut-area">
+          {/* Temporary error message */}
+          {!success && message}
+          {data &&
+            data.map((blog) => (
+              <li key={blog.blogId}>
+                <Link href={`/documents/${encodeURIComponent(blog.blogTitle)}`} className="shortcut">
+                  <img src={`/assets/${blog.active ? "FilledFolder" : "EmptyFolder"}.svg`} alt="Folder" />
+                  <span>{blog.blogTitle}</span>
+                </Link>
+              </li>
+            ))}
+        </ul>
       </div>
     </>
   );
