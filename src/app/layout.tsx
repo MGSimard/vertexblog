@@ -4,6 +4,7 @@ import { Taskbar } from "@/components/Taskbar";
 import { Handjet } from "next/font/google";
 import "@/styles/globals.css";
 import { ZIndexContextProvider } from "@/components/ZIndexContextProvider";
+import { SortContextProvider } from "@/components/SortContextProvider";
 
 const handjet = Handjet({ subsets: ["latin"] });
 
@@ -49,21 +50,23 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={handjet.className}>
         <ZIndexContextProvider>
-          <header>
-            <nav>
-              <ul className="shortcut-area">
-                <li>
-                  <Link href="/documents" className="shortcut">
-                    <img src="/assets/EmptyFolder.svg" alt="Folder" />
-                    <span>Documents</span>
-                  </Link>
-                </li>
-              </ul>
-              <Taskbar />
-            </nav>
-          </header>
-          {children}
-          <div id="portal" />
+          <SortContextProvider>
+            <header>
+              <nav>
+                <ul className="shortcut-area">
+                  <li>
+                    <Link href="/documents" className="shortcut">
+                      <img src="/assets/EmptyFolder.svg" alt="Folder" />
+                      <span>Documents</span>
+                    </Link>
+                  </li>
+                </ul>
+                <Taskbar />
+              </nav>
+            </header>
+            {children}
+            <div id="portal" />
+          </SortContextProvider>
         </ZIndexContextProvider>
       </body>
     </html>
