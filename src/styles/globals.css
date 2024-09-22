@@ -21,18 +21,17 @@
 /* CORE META */
 html {
   font-size: 62.5%;
-  overflow: hidden;
 }
 body {
-  background: var(--clr-background);
+  max-width: 100vw;
+  max-height: 100dvh;
   font-size: 1.8rem;
   font-weight: 600;
-  overflow: hidden;
+  background: var(--clr-background);
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-  max-height: 100dvh;
-  max-width: 100vw;
+  overflow: hidden;
 }
 nav {
   height: 100dvh;
