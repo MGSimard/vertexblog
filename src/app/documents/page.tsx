@@ -1,8 +1,7 @@
-import Link from "next/link";
-import { CurrentPath } from "@/components/CurrentPath";
-import { CreateBlogForm } from "@/components/CreateBlogForm";
 import { getBlogs } from "@/server/actions";
 import { FeSortButton } from "@/components/FeSortButton";
+import { CreateBlogForm } from "@/components/CreateBlogForm";
+import { CurrentPath } from "@/components/CurrentPath";
 import { BlogList } from "@/components/BlogList";
 
 export default async function Page() {
