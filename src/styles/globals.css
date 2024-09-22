@@ -21,6 +21,7 @@
 /* CORE META */
 html {
   font-size: 62.5%;
+  overflow: hidden;
 }
 body {
   height: 100dvh;
@@ -31,7 +32,6 @@ body {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-  max-width: 100vw;
 }
 header {
   height: 100%;
