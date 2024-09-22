@@ -388,3 +388,23 @@ export async function savePost(inputId: number, inputText: string | undefined) {
   }
   return { success: true, message: "SUCCESS: Post saved." };
 }
+
+export async function getCurrentUserBlog(): Promise<string | null> {
+  const { user } = await validateRequest();
+  if (!user) {
+    return null;
+  }
+  try {
+    const [blog] = await db
+      .select({ blogTitle: blogs.title })
+      .from(blogs)
+      .where(and(eq(blogs.author, user.username), isNull(blogs.deletedAt)));
+
+    if (!blog) return null;
+
+    return blog.blogTitle;
+    // return { success: true, data: blog, message: "SUCCESS: Blog indexed." };
+  } catch (err) {
+    return null;
+  }
+}

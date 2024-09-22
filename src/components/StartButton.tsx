@@ -3,7 +3,7 @@ import { useState } from "react";
 import { UserTypes } from "@/types/types";
 import { StartMenu } from "./StartMenu";
 
-export function StartButton({ user }: { user: UserTypes }) {
+export function StartButton({ user, blogTitle }: { user: UserTypes; blogTitle: string | null }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ export function StartButton({ user }: { user: UserTypes }) {
         <img src="/assets/VB.svg" alt="" />
         <span>Start</span>
       </button>
-      {menuOpen && <StartMenu user={user} setMenuOpen={setMenuOpen} />}
+      {menuOpen && <StartMenu user={user} blogTitle={blogTitle} setMenuOpen={setMenuOpen} />}
     </>
   );
 }
