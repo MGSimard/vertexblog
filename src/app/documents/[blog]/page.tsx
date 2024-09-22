@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
-import { PostList } from "@/components/PostList";
+import { getPosts } from "@/server/actions";
 import { CreatePostForm } from "@/components/CreatePostForm";
+import { TextFile } from "@/components/TextFile";
 
-export default function Page({ params }: { params: { blog: string } }) {
+export default async function Page({ params }: { params: { blog: string } }) {
   const currentBlog = decodeURIComponent(params.blog);
+  const { success, data, message } = await getPosts(currentBlog);
 
   return (
     <>
@@ -23,7 +25,15 @@ export default function Page({ params }: { params: { blog: string } }) {
       </div>
       <CreatePostForm currentBlog={currentBlog} />
       <div className="window-content inset">
-        <PostList currentBlog={currentBlog} />
+        <ul className="shortcut-area">
+          {!success && message}
+          {data &&
+            data.map((post) => (
+              <li key={post.postId}>
+                <TextFile postInfo={post} />
+              </li>
+            ))}
+        </ul>
       </div>
     </>
   );
