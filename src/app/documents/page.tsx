@@ -1,13 +1,15 @@
 import { CurrentPath } from "@/components/CurrentPath";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
 import { BlogList } from "@/components/BlogList";
+import { FeFileButton } from "@/components/FeFileButton";
+import { FeViewButton } from "@/components/FeViewButton";
 
 export default function Page() {
   return (
     <>
       <div className="window-options winbtns">
-        <button type="button">File</button>
-        <button type="button">View</button>
+        <FeFileButton />
+        <FeViewButton />
         <button type="button">Sort</button>
         {/* SHOW USER'S FAVORITE BLOGS? */}
       </div>
