@@ -45,7 +45,7 @@
 - [x] Create blog + server action
 - [x] Create post + server action
 - [x] Modify create post server action to only include title, then make new action triggered by SAVING a txt file
-- [ ] Set up blog & post ordering
+- [x] Set up blog & post ordering
 - [x] Consolidate control buttons menu style stuff classes w/e with notepad too, also wrap notepad file btn in span and make that relative instead of entire bar
 - [ ] Check if I can make cursor a grab cursor when dragging windows
 - [ ] Move blog and post creation into File button akin to how I have post saving set up
@@ -69,3 +69,4 @@
 - [ ] Sentry mayhaps?
 - [ ] Make a cooler start menu style
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
+- [ ] Metadata, especially important for blog links
