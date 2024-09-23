@@ -309,9 +309,15 @@ header .shortcut-area {
   border-color: transparent;
   background: none;
 }
-.winbtns > button:active,
-.winbtns > button.isActive,
-.winbtns > a:active {
+.fe-btn-relative > button:hover {
+  border-top-color: var(--clr-ui-trim-light);
+  border-right-color: var(--clr-ui-trim-dark);
+  border-bottom-color: var(--clr-ui-trim-dark);
+  border-left-color: var(--clr-ui-trim-light);
+}
+.fe-btn-relative > button:active,
+.fe-btn-relative > button.isActive,
+.fe-btn-relative > a:active {
   border-top-color: var(--clr-ui-trim-dark);
   border-right-color: var(--clr-ui-trim-light);
   border-bottom-color: var(--clr-ui-trim-light);

@@ -9,7 +9,7 @@ export function FeViewButton() {
       <button
         id="fe-view-button"
         type="button"
-        className={menuOpen ? " isActive" : ""}
+        className={menuOpen ? "isActive" : ""}
         aria-haspopup="menu"
         aria-expanded={menuOpen}
         aria-controls="fe-view-menu"
