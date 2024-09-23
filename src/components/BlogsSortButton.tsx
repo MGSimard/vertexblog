@@ -46,13 +46,25 @@ function BlogsSortMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<b
 
   return (
     <div id="blogs-sort-menu" className="fe-menu outset" role="menu">
-      <button type="button" onClick={() => handleBlogSort("name")} role="menuitem">
+      <button
+        type="button"
+        onClick={() => handleBlogSort("name")}
+        role="menuitem"
+        className={blogSortType === "name" ? "applied" : ""}>
         Name
       </button>
-      <button type="button" onClick={() => handleBlogSort("created")} role="menuitem">
+      <button
+        type="button"
+        onClick={() => handleBlogSort("created")}
+        role="menuitem"
+        className={blogSortType === "created" ? "applied" : ""}>
         Created
       </button>
-      <button type="button" onClick={() => handleBlogSort("updated")} role="menuitem">
+      <button
+        type="button"
+        onClick={() => handleBlogSort("updated")}
+        role="menuitem"
+        className={blogSortType === "updated" ? "applied" : ""}>
         Updated
       </button>
     </div>

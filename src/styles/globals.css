@@ -394,10 +394,20 @@ button.shortcut {
 .np-file-menu button,
 .fe-menu button,
 .fe-menu a {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
   padding: 0 3rem;
   text-align: start;
+}
+.applied::before {
+  content: "";
+  position: absolute;
+  left: 1.5rem;
+  height: 0.3em;
+  width: 0.3em;
+  background: black;
+  border-radius: 999rem;
 }
 .np-file-menu button:hover,
 .fe-menu button:hover,
