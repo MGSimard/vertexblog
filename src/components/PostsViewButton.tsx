@@ -1,35 +1,35 @@
 "use client";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
-export function FeViewButton() {
+export function PostsViewButton() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <span className="fe-btn-relative">
       <button
-        id="fe-view-button"
+        id="posts-view-button"
         type="button"
         className={menuOpen ? "isActive" : ""}
         aria-haspopup="menu"
         aria-expanded={menuOpen}
-        aria-controls="fe-view-menu"
+        aria-controls="posts-view-menu"
         onClick={() => setMenuOpen(!menuOpen)}>
         View
       </button>
-      {menuOpen && <FeViewMenu setMenuOpen={setMenuOpen} />}
+      {menuOpen && <PostsViewMenu setMenuOpen={setMenuOpen} />}
     </span>
   );
 }
 
-function FeViewMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<boolean>> }) {
+function PostsViewMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<boolean>> }) {
   const handleView = (arg: string) => {
     console.log(arg);
   };
 
   const handleOffsideClick = (e: MouseEvent) => {
     if (
-      !document.getElementById("fe-view-button")?.contains(e.target as Node) &&
-      !document.getElementById("fe-view-menu")?.contains(e.target as Node)
+      !document.getElementById("posts-view-button")?.contains(e.target as Node) &&
+      !document.getElementById("posts-view-menu")?.contains(e.target as Node)
     ) {
       setMenuOpen(false);
     }
@@ -41,21 +41,18 @@ function FeViewMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<bool
   }, []);
 
   return (
-    <div id="fe-view-menu" className="fe-menu outset" role="menu">
-      <button type="button" onClick={() => handleView("TODO")} role="menuitem">
-        TODO:
-      </button>
+    <div id="posts-view-menu" className="fe-menu outset" role="menu">
       <button type="button" onClick={() => handleView("large")} role="menuitem">
-        Large Icons
+        TODO: Large Icons
       </button>
       <button type="button" onClick={() => handleView("small")} role="menuitem">
-        Small Icons
+        TODO: Small Icons
       </button>
       <button type="button" onClick={() => handleView("list")} role="menuitem">
-        List
+        TODO: List
       </button>
       <button type="button" onClick={() => handleView("refresh")} role="menuitem">
-        Refresh
+        TODO: Refresh
       </button>
     </div>
   );

@@ -1,7 +1,7 @@
 import { getBlogs } from "@/server/actions";
-import { FeFileButton } from "@/components/FeFileButton";
-import { FeViewButton } from "@/components/FeViewButton";
-import { FeSortButton } from "@/components/FeSortButton";
+import { BlogsFileButton } from "@/components/BlogsFileButton";
+import { BlogsViewButton } from "@/components/BlogsViewButton";
+import { BlogsSortButton } from "@/components/BlogsSortButton";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
 import { CurrentPath } from "@/components/CurrentPath";
 import { BlogList } from "@/components/BlogList";
@@ -12,9 +12,9 @@ export default async function Page() {
   return (
     <>
       <div className="window-options winbtns">
-        <FeFileButton />
-        <FeViewButton />
-        <FeSortButton />
+        <BlogsFileButton />
+        <BlogsViewButton />
+        <BlogsSortButton />
         {/* SHOW USER'S FAVORITE BLOGS? */}
       </div>
       <div className="window-address">

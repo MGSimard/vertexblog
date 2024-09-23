@@ -48,7 +48,6 @@ function NotepadButtonMenu({
     const { postId } = postInfo;
     const newText = textRef.current?.value;
     const saveAttempt = await savePost(postId, newText);
-    console.log("RESULT:", saveAttempt);
   };
 
   const handleOffsideClick = (e: MouseEvent) => {

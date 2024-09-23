@@ -2,35 +2,35 @@
 import Link from "next/link";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
-export function FeFileButton() {
+export function BlogsFileButton() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <span className="fe-btn-relative">
       <button
-        id="fe-file-button"
+        id="blogs-file-button"
         type="button"
         className={menuOpen ? "isActive" : ""}
         aria-haspopup="menu"
         aria-expanded={menuOpen}
-        aria-controls="fe-file-menu"
+        aria-controls="blogs-file-menu"
         onClick={() => setMenuOpen(!menuOpen)}>
         File
       </button>
-      {menuOpen && <FeFileMenu setMenuOpen={setMenuOpen} />}
+      {menuOpen && <BlogsFileMenu setMenuOpen={setMenuOpen} />}
     </span>
   );
 }
 
-function FeFileMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<boolean>> }) {
+function BlogsFileMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<boolean>> }) {
   const handleNewBlog = () => {
     console.log("new blog clicked");
   };
 
   const handleOffsideClick = (e: MouseEvent) => {
     if (
-      !document.getElementById("fe-file-button")?.contains(e.target as Node) &&
-      !document.getElementById("fe-file-menu")?.contains(e.target as Node)
+      !document.getElementById("blogs-file-button")?.contains(e.target as Node) &&
+      !document.getElementById("blogs-file-menu")?.contains(e.target as Node)
     ) {
       setMenuOpen(false);
     }
@@ -42,9 +42,9 @@ function FeFileMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<bool
   }, []);
 
   return (
-    <div id="fe-file-menu" className="fe-menu outset" role="menu">
+    <div id="blogs-file-menu" className="fe-menu outset" role="menu">
       <button type="button" onClick={handleNewBlog} role="menuitem">
-        New
+        TODO: New Folder
       </button>
       <hr />
       <Link href="/" role="menuitem">

@@ -382,7 +382,7 @@ button.shortcut {
 .np-file-menu,
 .fe-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 0.3rem);
   left: 0;
   max-width: 30rem;
   padding: 0;
