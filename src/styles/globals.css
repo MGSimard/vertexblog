@@ -376,7 +376,6 @@ button.shortcut {
   max-width: 30rem;
   padding: 0;
   background: var(--clr-ui-trim);
-  border: 1px solid var(--clr-ui-border);
   z-index: 1;
   overflow: hidden;
 }
@@ -410,4 +409,28 @@ button.shortcut {
   border-bottom-color: var(--clr-ui-trim-dark);
   border-left-color: var(--clr-ui-trim-light);
   box-shadow: 1px 1px 1px var(--clr-drop-shadow);
+}
+.fe-btn-relative {
+  position: relative;
+}
+.fe-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  max-width: 30rem;
+  padding: 0;
+  background: var(--clr-ui-trim);
+  z-index: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.fe-menu button {
+  display: block;
+  width: 100%;
+  padding: 0 3rem;
+  text-align: start;
+}
+.fe-menu button:hover {
+  color: white;
+  background: var(--clr-primary);
 }

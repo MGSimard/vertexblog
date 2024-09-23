@@ -66,12 +66,12 @@ function NotepadButtonMenu({
   }, []);
 
   return (
-    <div id="np-file-menu" className="np-file-menu outset" role="np-file-menu">
-      <button type="submit" onClick={handleSaveFile}>
+    <div id="np-file-menu" className="np-file-menu outset" role="menu">
+      <button type="submit" onClick={handleSaveFile} role="menuitem">
         Save
       </button>
       <hr />
-      <button type="button" onClick={onClose}>
+      <button type="button" onClick={onClose} role="menuitem">
         Exit
       </button>
     </div>

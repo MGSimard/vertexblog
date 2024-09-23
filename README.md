@@ -45,6 +45,8 @@
 - [x] Create blog + server action
 - [x] Create post + server action
 - [x] Modify create post server action to only include title, then make new action triggered by SAVING a txt file
+- [ ] Set up blog & post ordering
+- [ ] Consolidate control buttons menu style stuff classes w/e with notepad too, also wrap notepad file btn in span and make that relative instead of entire bar
 - [ ] Move blog and post creation into File button akin to how I have post saving set up
 - [ ] Keep track of state, if notepad file has been dirtied (modified) prompt a confirmation when they try to exit saying that the modifications haven't been saved yet.
 - [ ] Make sure there isn't a nicer way to do post update queries while retaining diff error messages
@@ -60,7 +62,6 @@
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
 - [ ] Ratelimit
 - [ ] Submit/Modify/Delete post + server actions
-- [ ] Set up blog & post ordering
 - [ ] Set up blog & post search filtering
 - [ ] Make some error catch route
 - [ ] Analytics (Posthog?)
