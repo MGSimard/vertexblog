@@ -42,6 +42,9 @@ function FeViewMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<bool
 
   return (
     <div id="fe-view-menu" className="fe-menu outset" role="menu">
+      <button type="button" onClick={() => handleView("TODO")} role="menuitem">
+        TODO:
+      </button>
       <button type="button" onClick={() => handleView("large")} role="menuitem">
         Large Icons
       </button>
