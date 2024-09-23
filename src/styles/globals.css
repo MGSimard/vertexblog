@@ -392,14 +392,16 @@ button.shortcut {
   white-space: nowrap;
 }
 .np-file-menu button,
-.fe-menu button {
+.fe-menu button,
+.fe-menu a {
   display: block;
   width: 100%;
   padding: 0 3rem;
   text-align: start;
 }
 .np-file-menu button:hover,
-.fe-menu button:hover {
+.fe-menu button:hover,
+.fe-menu a:hover {
   color: white;
   background: var(--clr-primary);
 }
