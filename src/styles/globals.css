@@ -361,7 +361,8 @@ button.shortcut {
   resize: none;
   font-size: 2rem;
 }
-.npbtns {
+.np-btn-relative,
+.fe-btn-relative {
   position: relative;
 }
 .npbtns button:active,
@@ -369,7 +370,11 @@ button.shortcut {
   color: white;
   background: var(--clr-primary);
 }
-.np-file-menu {
+.fe-btn-relative {
+  position: relative;
+}
+.np-file-menu,
+.fe-menu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -378,13 +383,17 @@ button.shortcut {
   background: var(--clr-ui-trim);
   z-index: 1;
   overflow: hidden;
+  white-space: nowrap;
 }
-.np-file-menu button {
+.np-file-menu button,
+.fe-menu button {
+  display: block;
   width: 100%;
   padding: 0 3rem;
   text-align: start;
 }
-.np-file-menu button:hover {
+.np-file-menu button:hover,
+.fe-menu button:hover {
   color: white;
   background: var(--clr-primary);
 }
@@ -409,28 +418,4 @@ button.shortcut {
   border-bottom-color: var(--clr-ui-trim-dark);
   border-left-color: var(--clr-ui-trim-light);
   box-shadow: 1px 1px 1px var(--clr-drop-shadow);
-}
-.fe-btn-relative {
-  position: relative;
-}
-.fe-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  max-width: 30rem;
-  padding: 0;
-  background: var(--clr-ui-trim);
-  z-index: 1;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.fe-menu button {
-  display: block;
-  width: 100%;
-  padding: 0 3rem;
-  text-align: start;
-}
-.fe-menu button:hover {
-  color: white;
-  background: var(--clr-primary);
 }

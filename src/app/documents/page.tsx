@@ -3,6 +3,7 @@ import { FeSortButton } from "@/components/FeSortButton";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
 import { CurrentPath } from "@/components/CurrentPath";
 import { BlogList } from "@/components/BlogList";
+import { FeViewButton } from "@/components/FeViewButton";
 
 export default async function Page() {
   const blogList = await getBlogs();
@@ -15,7 +16,7 @@ export default async function Page() {
     <>
       <div className="window-options winbtns">
         <button type="button">File</button>
-        <button type="button">View</button>
+        <FeViewButton />
         <FeSortButton />
         {/* SHOW USER'S FAVORITE BLOGS? */}
       </div>

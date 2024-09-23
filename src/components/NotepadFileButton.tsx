@@ -15,11 +15,11 @@ export function NotepadFileButton({
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <>
+    <span className="np-btn-relative">
       <button
         id="np-file-button"
         type="button"
-        className={`np-file-button${menuOpen ? " isActive" : ""}`}
+        className={menuOpen ? "isActive" : ""}
         aria-haspopup="menu"
         aria-expanded={menuOpen}
         aria-controls="np-file-menu"
@@ -29,7 +29,7 @@ export function NotepadFileButton({
       {menuOpen && (
         <NotepadButtonMenu postInfo={postInfo} textRef={textRef} onClose={onClose} setMenuOpen={setMenuOpen} />
       )}
-    </>
+    </span>
   );
 }
 

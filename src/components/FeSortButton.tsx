@@ -10,7 +10,7 @@ export function FeSortButton() {
       <button
         id="fe-sort-button"
         type="button"
-        className={`fe-sort-button${menuOpen ? " isActive" : ""}`}
+        className={menuOpen ? "isActive" : ""}
         aria-haspopup="menu"
         aria-expanded={menuOpen}
         aria-controls="fe-sort-menu"
