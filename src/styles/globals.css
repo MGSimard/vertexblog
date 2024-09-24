@@ -446,6 +446,9 @@ button.shortcut {
   background: black;
   border-radius: 999rem;
 }
+.applied:hover::before {
+  background: white;
+}
 .np-file-menu button:hover,
 .fe-menu button:hover,
 .fe-menu a:hover {
