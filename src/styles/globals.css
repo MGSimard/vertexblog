@@ -470,3 +470,16 @@ button.shortcut {
   border-left-color: var(--clr-ui-trim-light);
   box-shadow: 1px 1px 1px var(--clr-drop-shadow);
 }
+
+.notfound {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  min-width: 20rem;
+  max-height: calc(100% - var(--taskbarHeight));
+  min-height: 4.2rem;
+  background: orange;
+  z-index: 999;
+}
