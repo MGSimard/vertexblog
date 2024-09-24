@@ -62,7 +62,7 @@
 - [ ]
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
 - [ ] Ratelimit
-- [ ] Submit/Modify/Delete post + server actions
+- [ ] Delete post/blog + server actions
 - [ ] Set up blog & post search filtering
 - [ ] Make some error catch route
 - [ ] Analytics (Posthog?)
