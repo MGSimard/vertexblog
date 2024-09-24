@@ -26,7 +26,8 @@ export function CreateBlogForm() {
         setIsCreatingBlog(false);
         alert("Blog successfully created.");
       } else {
-        alert(formState.message);
+        if (formState.errors) alert(formState.errors);
+        else alert(formState.message);
       }
     }
   }, [formState]);
@@ -46,7 +47,7 @@ export function CreateBlogForm() {
           <label htmlFor="blogTitle">
             <img src="/assets/EmptyFolder.svg" alt="Folder" />
             <fieldset>
-              <input id="blogTitle" name="blogTitle" type="text" autoFocus spellCheck="false" />
+              <input id="blogTitle" name="blogTitle" type="text" autoFocus spellCheck="false" maxLength={40} required />
               <button type="submit">
                 <AddFolderIcon />
               </button>

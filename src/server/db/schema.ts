@@ -37,7 +37,7 @@ export const blogs = createTable(
     author: varchar("author", { length: 20 })
       .notNull()
       .references(() => userTable.username),
-    title: varchar("title", { length: 60 }).notNull(),
+    title: varchar("title", { length: 40 }).notNull(),
     /**
      * TODO: .default(false) & .default(sql`FALSE`) IS CURRENTLY BUGGED ON DRIZZLE AND DOES NOT WORK.
      * https://github.com/drizzle-team/drizzle-orm/issues/2559

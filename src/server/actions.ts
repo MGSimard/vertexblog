@@ -223,12 +223,14 @@ const CreateBlogSchema = z.object({
     .trim()
     .min(1, "Blog title cannot be empty.")
     .min(4, "Blog title must be at least 4 characters long.")
-    .max(60, "Blog title cannot exceed 60 characters.")
-    .regex(
-      /^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/,
-      "Blog title can only contain alphanumerical characters, nonconsecutive spaces and general punctuation."
-    ),
+    .max(40, "Blog title cannot exceed 40 characters.")
+    .regex(/^[^\\/:*?"<>|]+$/, 'Blog title cannot contain any of the following characters: \\/:*?"<>|'),
 });
+// Punctuation is classified as the follow characters: -_,'.
+// Allow alphanumerical, spaces, apostrophes, hyphens, underscores, commas and periods.
+// Punctuation can only be preceeded by alphanumerical characters
+// Spaces can only be preceeded by alphanumerical characters and ',. unless the pattern is space hyphen space between two words
+// Whatever happens don't add these to the regex \/:*?"<>|
 export async function createBlog(currentState: FormStatusTypes, formData: FormData) {
   const { user } = await validateRequest();
   if (!user) {
@@ -279,10 +281,7 @@ const CreatePostSchema = z.object({
     .trim()
     .min(1, "Post title cannot be empty.")
     .max(60, "Post title cannot exceed 60 characters.")
-    .regex(
-      /^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/,
-      "Post title can only contain alphanumerical characters and nonconsecutive spaces."
-    ),
+    .regex(/^[^\\/:*?"<>|]+$/, 'Post title cannot contain any of the following characters: \\/:*?"<>|'),
 });
 export async function createPost(currentState: FormStatusTypes, formData: FormData) {
   const { user } = await validateRequest();

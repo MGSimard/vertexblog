@@ -26,7 +26,8 @@ export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
         setIsCreatingPost(false);
         alert("Post successfully created.");
       } else {
-        alert(formState.message);
+        if (formState.errors) alert(formState.errors);
+        else alert(formState.message);
       }
     }
   }, [formState]);
@@ -46,7 +47,7 @@ export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
           <label htmlFor="postTitle">
             <img src="/assets/Notepad.svg" alt="Folder" />
             <fieldset>
-              <input id="postTitle" name="postTitle" type="text" autoFocus spellCheck="false" />
+              <input id="postTitle" name="postTitle" type="text" autoFocus spellCheck="false" maxLength={60} required />
               <button type="submit">
                 <AddTxtIcon />
               </button>
