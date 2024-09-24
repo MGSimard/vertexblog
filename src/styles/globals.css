@@ -438,16 +438,9 @@ button.shortcut {
   text-align: start;
 }
 .applied::before {
-  content: "";
+  content: "•";
   position: absolute;
   left: 1.5rem;
-  height: 0.3em;
-  width: 0.3em;
-  background: black;
-  border-radius: 999rem;
-}
-.applied:hover::before {
-  background: white;
 }
 .np-file-menu button:hover,
 .fe-menu button:hover,
