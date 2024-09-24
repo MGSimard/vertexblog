@@ -135,6 +135,45 @@ header .shortcut-area {
   line-height: 1;
   word-wrap: break-word;
 }
+/* "Create Blog & "Create Post" shortcuts */
+.create-icon {
+  z-index: 1;
+}
+.create-icon fieldset {
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  width: 100%;
+  border: 1px solid black;
+}
+.create-icon input {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+.create-icon button {
+  height: 100%;
+  position: absolute;
+  left: calc(100% + 0.2rem);
+  background: none;
+}
+.create-icon button:hover svg {
+  fill: var(--clr-primary);
+  stroke: white;
+  scale: 1.5;
+}
+.create-icon button svg {
+  height: 100%;
+}
+.create-icon button::after {
+  position: absolute;
+  content: "";
+  inset: -1rem -1rem -1rem 0;
+}
 #taskbar {
   position: fixed;
   right: 0;

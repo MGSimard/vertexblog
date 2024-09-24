@@ -2,15 +2,15 @@ import { getBlogs } from "@/server/actions";
 import { BlogsFileButton } from "@/components/BlogsFileButton";
 import { BlogsViewButton } from "@/components/BlogsViewButton";
 import { BlogsSortButton } from "@/components/BlogsSortButton";
-import { CreateBlogForm } from "@/components/CreateBlogForm";
 import { CurrentPath } from "@/components/CurrentPath";
 import { BlogList } from "@/components/BlogList";
+import { NewFileContextProvider } from "@/components/NewFileContextProvider";
 
 export default async function Page() {
   const blogList = await getBlogs();
 
   return (
-    <>
+    <NewFileContextProvider>
       <div className="window-options winbtns">
         <BlogsFileButton />
         <BlogsViewButton />
@@ -21,10 +21,9 @@ export default async function Page() {
         <span>Address</span>
         <CurrentPath />
       </div>
-      <CreateBlogForm />
       <div className="window-content inset">
         <BlogList blogList={blogList} />
       </div>
-    </>
+    </NewFileContextProvider>
   );
 }

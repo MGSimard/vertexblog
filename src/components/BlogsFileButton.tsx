@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useNewFile } from "./NewFileContextProvider";
 
 export function BlogsFileButton() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,8 +24,10 @@ export function BlogsFileButton() {
 }
 
 function BlogsFileMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<boolean>> }) {
+  const { setIsCreatingBlog } = useNewFile();
   const handleNewBlog = () => {
-    console.log("new blog clicked");
+    setIsCreatingBlog(true);
+    setMenuOpen(false);
   };
 
   const handleOffsideClick = (e: MouseEvent) => {
@@ -44,7 +47,7 @@ function BlogsFileMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<b
   return (
     <div id="blogs-file-menu" className="fe-menu outset" role="menu">
       <button type="button" onClick={handleNewBlog} role="menuitem">
-        TODO: New Folder
+        New Folder
       </button>
       <hr />
       <Link href="/" role="menuitem">
