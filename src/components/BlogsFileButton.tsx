@@ -47,7 +47,7 @@ function BlogsFileMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<b
   return (
     <div id="blogs-file-menu" className="fe-menu outset" role="menu">
       <button type="button" onClick={handleNewBlog} role="menuitem">
-        New Folder
+        New Blog
       </button>
       <hr />
       <Link href="/" role="menuitem">
