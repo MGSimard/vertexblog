@@ -47,7 +47,13 @@ function NotepadButtonMenu({
   const handleSaveFile = async () => {
     const { postId } = postInfo;
     const newText = textRef.current?.value;
-    const saveAttempt = await savePost(postId, newText);
+    const { success, message, errors } = await savePost(postId, newText);
+    if (success) {
+      alert("Post successfully saved.");
+    } else {
+      alert(message);
+    }
+    setMenuOpen(false);
   };
 
   const handleOffsideClick = (e: MouseEvent) => {
