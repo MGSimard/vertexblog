@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { CurrentPath } from "@/components/CurrentPath";
 import { getPosts } from "@/server/actions";
-import { CreatePostForm } from "@/components/CreatePostForm";
 import { PostList } from "@/components/PostList";
 import { PostsFileButton } from "@/components/PostsFileButton";
 import { PostsSortButton } from "@/components/PostsSortButton";
@@ -25,9 +24,8 @@ export default async function Page({ params }: { params: { blog: string } }) {
         <span>Address</span>
         <CurrentPath />
       </div>
-      <CreatePostForm currentBlog={currentBlog} />
       <div className="window-content inset">
-        <PostList postList={postList} />
+        <PostList postList={postList} currentBlog={currentBlog} />
       </div>
     </>
   );

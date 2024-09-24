@@ -35,6 +35,7 @@ export function CreateBlogForm() {
     document.addEventListener("mousedown", handleOffsideClick);
     return () => {
       document.removeEventListener("mousedown", handleOffsideClick);
+      setIsCreatingBlog(false);
     };
   }, []);
 

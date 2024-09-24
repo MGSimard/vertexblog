@@ -2,9 +2,10 @@
 import { useSort } from "@/components/SortContextProvider";
 import type { GetPostsResponseTypes } from "@/types/types";
 import { TextFile } from "@/components/TextFile";
+import { CreatePostForm } from "@/components/CreatePostForm";
 
 // REMOVE ANY
-export function PostList({ postList }: { postList: GetPostsResponseTypes }) {
+export function PostList({ postList, currentBlog }: { postList: GetPostsResponseTypes; currentBlog: string }) {
   const { success, data, message } = postList;
   const { postSortType } = useSort();
 
@@ -27,6 +28,7 @@ export function PostList({ postList }: { postList: GetPostsResponseTypes }) {
   return (
     <ul className="shortcut-area">
       {!success && message}
+      <CreatePostForm currentBlog={currentBlog} />
       {sortedPosts?.map((post) => (
         <li key={post.postId}>
           <TextFile postInfo={post} />

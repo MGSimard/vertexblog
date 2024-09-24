@@ -1,19 +1,62 @@
 "use client";
-import { useActionState } from "react";
+import { startTransition, useActionState, useEffect } from "react";
 import { createPost } from "@/server/actions";
+import { useNewFile } from "@/components/NewFileContextProvider";
+import { AddTxtIcon } from "@/components/icons";
 
 export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
+  const { isCreatingPost, setIsCreatingPost } = useNewFile();
   const [formState, formAction, pending] = useActionState(createPost, null);
 
-  return (
-    <form action={formAction}>
-      Test Post Creation:
-      <label htmlFor="postTitle">
-        Post Title
-        <input id="postTitle" name="postTitle" type="text" />
-      </label>
-      <input type="hidden" name="currentBlog" value={currentBlog} />
-      <button type="submit">Submit</button>
-    </form>
-  );
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    startTransition(() => formAction(formData));
+  };
+
+  const handleOffsideClick = (e: MouseEvent) => {
+    if (!document.getElementById("create-post-form")?.contains(e.target as Node)) {
+      setIsCreatingPost(false);
+    }
+  };
+
+  useEffect(() => {
+    if (formState) {
+      if (formState.success) {
+        setIsCreatingPost(false);
+        alert("Post successfully created.");
+      } else {
+        alert(formState.message);
+      }
+    }
+  }, [formState]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOffsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOffsideClick);
+      setIsCreatingPost(false);
+    };
+  }, []);
+
+  if (isCreatingPost) {
+    return (
+      <li id="create-post-form" className="create-icon">
+        <form onSubmit={handleSubmit} className="shortcut">
+          <label htmlFor="postTitle">
+            <img src="/assets/Notepad.svg" alt="Folder" />
+            <fieldset>
+              <input id="postTitle" name="postTitle" type="text" autoFocus spellCheck="false" />
+              <button type="submit">
+                <AddTxtIcon />
+              </button>
+            </fieldset>
+            <input type="hidden" name="currentBlog" value={currentBlog} />
+          </label>
+        </form>
+      </li>
+    );
+  }
+
+  return null;
 }

@@ -226,7 +226,7 @@ const CreateBlogSchema = z.object({
     .max(60, "Blog title cannot exceed 60 characters.")
     .regex(
       /^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/,
-      "Blog title can only contain alphanumerical characters and nonconsecutive spaces."
+      "Blog title can only contain alphanumerical characters, nonconsecutive spaces and general punctuation."
     ),
 });
 export async function createBlog(currentState: FormStatusTypes, formData: FormData) {

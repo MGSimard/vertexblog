@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useNewFile } from "@/components/NewFileContextProvider";
 
 export function PostsFileButton() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,8 +24,10 @@ export function PostsFileButton() {
 }
 
 function PostsFileMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<boolean>> }) {
+  const { setIsCreatingPost } = useNewFile();
   const handleNewPost = () => {
-    console.log("new post clicked");
+    setIsCreatingPost(true);
+    setMenuOpen(false);
   };
 
   const handleOffsideClick = (e: MouseEvent) => {
@@ -44,7 +47,7 @@ function PostsFileMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<b
   return (
     <div id="posts-file-menu" className="fe-menu outset" role="menu">
       <button type="button" onClick={handleNewPost} role="menuitem">
-        TODO: New Post
+        New Post
       </button>
       <hr />
       <Link href="/" role="menuitem">

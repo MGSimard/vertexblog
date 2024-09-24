@@ -161,10 +161,8 @@ header .shortcut-area {
   left: calc(100% + 0.2rem);
   background: none;
 }
-.create-icon button:hover svg {
-  fill: var(--clr-primary);
-  stroke: white;
-  scale: 1.5;
+.create-icon button:hover {
+  color: var(--clr-primary);
 }
 .create-icon button svg {
   height: 100%;
