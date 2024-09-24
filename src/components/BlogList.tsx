@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useSort } from "@/components/SortContextProvider";
 import type { GetBlogsResponseTypes } from "@/types/types";
-import { CreateBlogFormTwo } from "@/components/CreateBlogFormTwo";
+import { CreateBlogForm } from "@/components/CreateBlogForm";
 
 export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const { success, data, message } = blogList;
@@ -27,7 +27,7 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   return (
     <ul className="shortcut-area">
       {/* Temporary error message */}
-      <CreateBlogFormTwo />
+      <CreateBlogForm />
       {!success && message}
       {sortedBlogs?.map((blog) => (
         <li key={blog.blogId}>
