@@ -53,18 +53,17 @@
 - [ ] Keep track of state, if notepad file has been dirtied (modified) prompt a confirmation when they try to exit saying that the modifications haven't been saved yet. Onchange re-dirty the state, on save clean the state.
 - [ ] Make sure there isn't a nicer way to do post update queries while retaining diff error messages
 - [ ] Enable show password on creation and login (NIST)
-- [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Set up toast for warning, success and confirmation windows
-- [ ] Use toast for sign up/sign in/sign out errors
+- [ ] Use toast for pretty much everything
 - [ ] Look into date locale mismatching between server and user client
 - [ ] Fix click gap between icon and text
 - [ ]
 - [ ]
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
 - [ ] Ratelimit
+- [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Delete post/blog + server actions
 - [ ] Set up blog & post search filtering
-- [ ] Make some error catch route
 - [ ] Analytics (Posthog?)
 - [ ] Sentry mayhaps?
 - [ ] Make a cooler start menu style

@@ -226,11 +226,6 @@ const CreateBlogSchema = z.object({
     .max(40, "Blog title cannot exceed 40 characters.")
     .regex(/^[^\\/:*?"<>|]+$/, 'Blog title cannot contain any of the following characters: \\/:*?"<>|'),
 });
-// Punctuation is classified as the follow characters: -_,'.
-// Allow alphanumerical, spaces, apostrophes, hyphens, underscores, commas and periods.
-// Punctuation can only be preceeded by alphanumerical characters
-// Spaces can only be preceeded by alphanumerical characters and ',. unless the pattern is space hyphen space between two words
-// Whatever happens don't add these to the regex \/:*?"<>|
 export async function createBlog(currentState: FormStatusTypes, formData: FormData) {
   const { user } = await validateRequest();
   if (!user) {
