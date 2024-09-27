@@ -6,9 +6,8 @@ import { PostsFileButton } from "@/components/PostsFileButton";
 import { PostsSortButton } from "@/components/PostsSortButton";
 import { PostsViewButton } from "@/components/PostsViewButton";
 
-export default async function Page({ params }: { params: { blog: string } }) {
-  const awaitedParams = await params;
-  const currentBlog = decodeURIComponent(awaitedParams.blog);
+export default async function Page({ params }: { params: Promise<{ blog: string }> }) {
+  const currentBlog = decodeURIComponent((await params).blog);
   const postList = await getPosts(currentBlog);
 
   return (
