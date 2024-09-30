@@ -51,7 +51,6 @@
 - [x] Back button doesn't have the hover thing fix it clown
 - [x] Eliminate race conditions (spamming post submit creates multiple posts) - disable on pending, if user fucks with disabled... I mean enjoy the ratelimit and duplicate post titles - I do allow that. Dupe blog obv not an issue here since I do checks in backend.
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
-- [ ] Check if I can make cursor a grab cursor when dragging windows
 - [ ] Keep track of state, if notepad file has been dirtied (modified) prompt a confirmation when they try to exit saying that the modifications haven't been saved yet. Onchange re-dirty the state, on save clean the state.
 - [ ] Make sure there isn't a nicer way to do post update queries while retaining diff error messages
 - [ ] Enable show password on creation and login (NIST)
