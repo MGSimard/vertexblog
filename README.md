@@ -48,7 +48,7 @@
 - [x] Set up blog & post ordering
 - [x] Consolidate control buttons menu style stuff classes w/e with notepad too, also wrap notepad file btn in span and make that relative instead of entire bar
 - [x] Move blog and post creation into File button akin to how I have post saving set up
-- [ ] Back button doesn't have the hover thing fix it clown
+- [x] Back button doesn't have the hover thing fix it clown
 - [ ] Eliminate race conditions (spamming post submit creates multiple posts - useFormStatus?)
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
 - [ ] Check if I can make cursor a grab cursor when dragging windows

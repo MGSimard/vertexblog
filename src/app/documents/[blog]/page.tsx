@@ -13,7 +13,9 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
   return (
     <>
       <div className="window-options winbtns">
-        <Link href="/documents">&lt;=</Link>
+        <Link href="/documents" className="aasbtn">
+          &lt;=
+        </Link>
         <PostsFileButton />
         <PostsViewButton />
         <PostsSortButton />

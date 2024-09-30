@@ -346,7 +346,8 @@ header .shortcut-area {
   border-color: transparent;
   background: none;
 }
-.fe-btn-relative > button:hover {
+.fe-btn-relative > button:hover,
+.aasbtn:hover {
   border-top-color: var(--clr-ui-trim-light);
   border-right-color: var(--clr-ui-trim-dark);
   border-bottom-color: var(--clr-ui-trim-dark);
@@ -354,7 +355,7 @@ header .shortcut-area {
 }
 .fe-btn-relative > button:active,
 .fe-btn-relative > button.isActive,
-.fe-btn-relative > a:active {
+.aasbtn:hover:active {
   border-top-color: var(--clr-ui-trim-dark);
   border-right-color: var(--clr-ui-trim-light);
   border-bottom-color: var(--clr-ui-trim-light);
@@ -412,9 +413,6 @@ button.shortcut {
 .npbtns button.isActive {
   color: white;
   background: var(--clr-primary);
-}
-.fe-btn-relative {
-  position: relative;
 }
 .np-file-menu,
 .fe-menu {
