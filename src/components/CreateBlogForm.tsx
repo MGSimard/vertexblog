@@ -48,7 +48,7 @@ export function CreateBlogForm() {
             <img src="/assets/EmptyFolder.svg" alt="Folder" />
             <fieldset>
               <input id="blogTitle" name="blogTitle" type="text" autoFocus spellCheck="false" maxLength={40} required />
-              <button type="submit">
+              <button type="submit" disabled={pending} aria-disabled={pending}>
                 <AddFolderIcon />
               </button>
             </fieldset>

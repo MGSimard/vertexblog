@@ -48,7 +48,7 @@ export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
             <img src="/assets/Notepad.svg" alt="Folder" />
             <fieldset>
               <input id="postTitle" name="postTitle" type="text" autoFocus spellCheck="false" maxLength={60} required />
-              <button type="submit">
+              <button type="submit" disabled={pending} aria-disabled={pending}>
                 <AddTxtIcon />
               </button>
             </fieldset>

@@ -49,7 +49,7 @@
 - [x] Consolidate control buttons menu style stuff classes w/e with notepad too, also wrap notepad file btn in span and make that relative instead of entire bar
 - [x] Move blog and post creation into File button akin to how I have post saving set up
 - [x] Back button doesn't have the hover thing fix it clown
-- [ ] Eliminate race conditions (spamming post submit creates multiple posts - useFormStatus?)
+- [x] Eliminate race conditions (spamming post submit creates multiple posts) - disable on pending, if user fucks with disabled... I mean enjoy the ratelimit and duplicate post titles - I do allow that. Dupe blog obv not an issue here since I do checks in backend.
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
 - [ ] Check if I can make cursor a grab cursor when dragging windows
 - [ ] Keep track of state, if notepad file has been dirtied (modified) prompt a confirmation when they try to exit saying that the modifications haven't been saved yet. Onchange re-dirty the state, on save clean the state.
