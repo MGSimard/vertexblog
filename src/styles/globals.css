@@ -254,6 +254,25 @@ header .shortcut-area {
   color: white;
   background: var(--clr-primary);
 }
+.pswd-wrap {
+  position: relative;
+}
+.pswd-wrap button {
+  position: absolute;
+  inset: 0 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(1em + 0.5rem);
+  padding-right: 0.5rem;
+  background: none;
+}
+.pswd-wrap button svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 .current-time {
   display: flex;
   align-items: center;

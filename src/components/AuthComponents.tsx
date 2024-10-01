@@ -1,6 +1,7 @@
 "use client";
 import { signup, signin, signout } from "@/server/actions";
 import { useActionState, useState } from "react";
+import { EyeIcon, EyeSlashIcon } from "./icons";
 
 export function SignInOrUp() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -17,6 +18,7 @@ export function SignInOrUp() {
 
 export function SignUp() {
   const [formState, formAction, pending] = useActionState(signup, null);
+  const [pswdVisible, setPswdVisible] = useState(false);
 
   return (
     <form action={formAction} className="start-form">
@@ -27,29 +29,47 @@ export function SignUp() {
       </label>
       <label htmlFor="password1">
         Password
-        <input
-          type="password"
-          name="password"
-          id="password1"
-          pattern="^[^ ].+[^ ]$"
-          minLength={12}
-          maxLength={64}
-          required
-        />
+        <div className="pswd-wrap">
+          <input
+            type={pswdVisible ? "text" : "password"}
+            name="password"
+            id="password1"
+            pattern="^[^ ].+[^ ]$"
+            minLength={12}
+            maxLength={64}
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setPswdVisible(!pswdVisible)}
+            aria-controls="password1"
+            aria-expanded={pswdVisible}>
+            {pswdVisible ? <EyeSlashIcon /> : <EyeIcon />}
+          </button>
+        </div>
       </label>
       <label htmlFor="confirmPassword">
         Confirm Password
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          pattern="^[^ ].+[^ ]$"
-          minLength={12}
-          maxLength={64}
-          required
-        />
+        <div className="pswd-wrap">
+          <input
+            type={pswdVisible ? "text" : "password"}
+            name="confirmPassword"
+            id="confirmPassword"
+            pattern="^[^ ].+[^ ]$"
+            minLength={12}
+            maxLength={64}
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setPswdVisible(!pswdVisible)}
+            aria-controls="confirmPassword"
+            aria-expanded={pswdVisible}>
+            {pswdVisible ? <EyeSlashIcon /> : <EyeIcon />}
+          </button>
+        </div>
       </label>
-      <button type="submit" className="outset">
+      <button type="submit" className="outset" disabled={pending} aria-disabled={pending}>
         Sign Up
       </button>
       {/* TODO: Put all of these errors in a dismissable warning context window (toast) */}
@@ -67,6 +87,7 @@ export function SignUp() {
 
 export function SignIn() {
   const [formState, formAction, pending] = useActionState(signin, null);
+  const [pswdVisible, setPswdVisible] = useState(false);
 
   return (
     <form action={formAction} className="start-form">
@@ -77,19 +98,29 @@ export function SignIn() {
       </label>
       <label htmlFor="password2">
         Password
-        <input
-          type="password"
-          name="password"
-          id="password2"
-          pattern="^[^ ].+[^ ]$"
-          minLength={12}
-          maxLength={64}
-          required
-        />
+        <div className="pswd-wrap">
+          <input
+            type={pswdVisible ? "text" : "password"}
+            name="password"
+            id="password2"
+            pattern="^[^ ].+[^ ]$"
+            minLength={12}
+            maxLength={64}
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setPswdVisible(!pswdVisible)}
+            aria-controls="password2"
+            aria-expanded={pswdVisible}>
+            {pswdVisible ? <EyeSlashIcon /> : <EyeIcon />}
+          </button>
+        </div>
       </label>
-      <button type="submit" className="outset">
+      <button type="submit" className="outset" disabled={pending} aria-disabled={pending}>
         Sign In
       </button>
+      {/* TODO: Put all of these errors in a dismissable warning context window (toast) */}
       {formState?.success === false && formState.message}
     </form>
   );
