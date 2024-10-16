@@ -7,10 +7,14 @@ export function NotepadFileButton({
   postInfo,
   textRef,
   onClose,
+  isDirty,
+  setIsDirty,
 }: {
   postInfo: PostInfoTypes;
   textRef: React.RefObject<HTMLTextAreaElement>;
   onClose: () => void;
+  isDirty: boolean;
+  setIsDirty: Dispatch<SetStateAction<boolean>>;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -27,7 +31,14 @@ export function NotepadFileButton({
         File
       </button>
       {menuOpen && (
-        <NotepadButtonMenu postInfo={postInfo} textRef={textRef} onClose={onClose} setMenuOpen={setMenuOpen} />
+        <NotepadButtonMenu
+          postInfo={postInfo}
+          textRef={textRef}
+          onClose={onClose}
+          setMenuOpen={setMenuOpen}
+          isDirty={isDirty}
+          setIsDirty={setIsDirty}
+        />
       )}
     </span>
   );
@@ -38,11 +49,15 @@ function NotepadButtonMenu({
   textRef,
   onClose,
   setMenuOpen,
+  isDirty,
+  setIsDirty,
 }: {
   postInfo: PostInfoTypes;
   textRef: React.RefObject<HTMLTextAreaElement>;
   onClose: () => void;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
+  isDirty: boolean;
+  setIsDirty: Dispatch<SetStateAction<boolean>>;
 }) {
   const handleSaveFile = async () => {
     const { postId } = postInfo;
@@ -50,10 +65,21 @@ function NotepadButtonMenu({
     const { success, message, errors } = await savePost(postId, newText);
     if (success) {
       alert("Post successfully saved.");
+      setIsDirty(false);
     } else {
       alert(message);
     }
     setMenuOpen(false);
+    return success;
+  };
+
+  const handleExit = async () => {
+    // TODO: Toast/Portal instead of alert/confirm
+    if (isDirty && confirm("Do you want to save changes?")) {
+      const success = await handleSaveFile();
+      if (!success) return;
+    }
+    onClose();
   };
 
   const handleOffsideClick = (e: MouseEvent) => {
@@ -76,7 +102,7 @@ function NotepadButtonMenu({
         Save
       </button>
       <hr />
-      <button type="button" onClick={onClose} role="menuitem">
+      <button type="button" onClick={handleExit} role="menuitem">
         Exit
       </button>
     </div>
