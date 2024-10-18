@@ -5,14 +5,6 @@ import { Portal } from "@/components/Portal";
 import { CloseIcon } from "./icons";
 import { SavePostResponseTypes } from "@/types/types";
 
-// LET'S ACCEPT THE FOLLOWING STRUCTURE:
-/**
- * type: "Success/Error/Warning" (Controls icon),
- * title: "Dialog title",
- * message: "Dialog message",
- * buttons: [{label: "btn text", func: functionHere},{label: "btn text 2", func: function2Here}]
- */
-
 const typeEnums = ["Success", "Error", "Warning"] as const;
 type buttonFormat = { label: string; func: () => void | (() => Promise<SavePostResponseTypes>) };
 interface OptionsTypes {
@@ -44,7 +36,7 @@ export function DialogWindow({ type, title, message, buttons }: OptionsTypes) {
           </div>
           <div className="dialog-options">
             {buttons.map((btn) => (
-              <button type="button" onClick={btn.func}>
+              <button type="button" onClick={btn.func} key={btn.label}>
                 {btn.label}
               </button>
             ))}
