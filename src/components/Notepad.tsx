@@ -17,8 +17,6 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
     const newText = textRef.current?.value;
     const { success, message } = await savePost(postId, newText);
     if (success) {
-      // TODO: Remove, alert/popup not necessary. Already communicated by removing * from title and lack of error popup.
-      alert("Post successfully saved.");
       setIsDirty(false);
     } else {
       // TODO: DIALOG WINDOW (ERROR, MESSAGE);
