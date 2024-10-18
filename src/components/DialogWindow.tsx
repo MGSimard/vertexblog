@@ -26,7 +26,7 @@ export function DialogWindow({ type, title, message, buttons }: OptionsTypes) {
         <dialog className="dialog-window outset" open>
           <div className="dialog-header">
             <span>{title}</span>
-            <button type="button" onClick={() => setIsModalOpen(false)}>
+            <button type="button" onClick={() => setIsModalOpen(false)} aria-label="Close dialog window">
               <CloseIcon />
             </button>
           </div>

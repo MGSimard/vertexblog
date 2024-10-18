@@ -17,7 +17,7 @@ export default function FileExplorerLayout({ children }: { children: React.React
         </span>
         <div className="window-header-buttons">
           <MaximizeButton />
-          <Link href="/" className="link-as-button outset" aria-label="Close">
+          <Link href="/" className="link-as-button outset" aria-label="Close explorer window">
             <CloseIcon />
           </Link>
         </div>

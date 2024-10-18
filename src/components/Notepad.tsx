@@ -49,7 +49,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
           </span>
           <div className="window-header-buttons">
             <MaximizeButton />
-            <button type="button" className="outset" onClick={handleExit}>
+            <button type="button" className="outset" onClick={handleExit} aria-label="Close notepad window">
               <CloseIcon />
             </button>
           </div>
