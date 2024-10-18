@@ -22,7 +22,6 @@ export function DialogWindow({ type, title, message, buttons }: OptionsTypes) {
   return (
     <Portal>
       <div className="dialog-wrapper">
-        DIALOG WINDOW REMOVE AND USE OVER IN THE RIGHT AREAS ONCE DESIGN IS DONE
         <dialog className="dialog-window outset" open>
           <div className="dialog-header">
             <span>{title}</span>
