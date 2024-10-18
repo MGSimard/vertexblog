@@ -469,6 +469,80 @@ button.shortcut {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+/* CONTEXT WINDOW (Warnings, Confirmation, Success etc)*/
+.dialog-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+}
+.dialog-window {
+  position: relative;
+  max-width: 50rem;
+  width: 100%;
+  max-height: 100%;
+  min-height: 4.2rem;
+  background: var(--clr-ui-trim);
+  padding: var(--ui-padding) var(--ui-padding) 1rem var(--ui-padding);
+}
+.dialog-window button {
+  padding: 0 0.4rem;
+  border: 3px solid;
+  border-top-color: var(--clr-ui-trim-light);
+  border-right-color: var(--clr-ui-trim-dark);
+  border-bottom-color: var(--clr-ui-trim-dark);
+  border-left-color: var(--clr-ui-trim-light);
+  box-shadow: 1px 1px 1px var(--clr-drop-shadow);
+}
+.dialog-window button:active {
+  border-top-color: var(--clr-ui-trim-dark);
+  border-right-color: var(--clr-ui-trim-light);
+  border-bottom-color: var(--clr-ui-trim-light);
+  border-left-color: var(--clr-ui-trim-dark);
+  box-shadow: inset 1px 1px 1px black;
+}
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem;
+  color: white;
+  background: var(--clr-primary);
+}
+.dialog-header button {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.3rem;
+}
+.dialog-header button svg {
+  height: 100%;
+}
+.dialog-content {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+.dialog-content img {
+  flex-shrink: 0;
+  width: 5rem;
+  height: 5rem;
+  filter: drop-shadow(4px 4px rgba(0, 0, 0, 0.4));
+}
+.dialog-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+.dialog-options button {
+  min-width: 8rem;
+}
 
 /* HELPER CLASSES */
 .inset {

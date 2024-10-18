@@ -3,6 +3,7 @@ import { MaximizeButton } from "@/components/MaximizeButton";
 import { CloseIcon } from "@/components/icons";
 import { CurrentFolder } from "@/components/CurrentFolder";
 import { WindowFrame } from "@/components/WindowFrame";
+import { Modal } from "@/components/Modal";
 
 // THIS IS THE LAYOUT FOR RECURRING FILE EXPLORER WINDOW, WE RENDER THE CURRENT FOLDER WE'RE IN WITHIN THAT LAYOUT (WINDOW)
 

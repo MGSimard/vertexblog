@@ -59,6 +59,7 @@
 - [ ] Use toast for pretty much everything
 - [ ] Look into date locale mismatching between server and user client
 - [ ] Fix click gap between icon and text
+- [ ] Autoroute user to newly created blog
 - [ ]
 - [ ]
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
@@ -68,6 +69,6 @@
 - [ ] Set up blog & post search filtering
 - [ ] Analytics (Posthog?)
 - [ ] Sentry mayhaps?
-- [ ] Make a cooler start menu style
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
+- [ ] Some form of pagination for blogs and maybe posts, dragging performance sucks once there are a lot of files in the div
 - [ ] Metadata, especially important for blog links
