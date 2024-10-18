@@ -6,7 +6,6 @@ import { MaximizeButton } from "@/components/MaximizeButton";
 import { NotepadFileButton } from "@/components/NotepadFileButton";
 import { CloseIcon } from "@/components/icons";
 import { savePost } from "@/server/actions";
-import { DialogWindow } from "./DialogWindow";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
   const [isDirty, setIsDirty] = useState(false);
@@ -18,16 +17,18 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
     const newText = textRef.current?.value;
     const { success, message, errors } = await savePost(postId, newText);
     if (success) {
+      // TODO: Remove, alert/popup not necessary. Already communicated by removing * from title and lack of error popup.
       alert("Post successfully saved.");
       setIsDirty(false);
     } else {
+      // TODO: DIALOG WINDOW (ERROR, MESSAGE);
       alert(message);
     }
     return success;
   };
 
   const handleExit = async () => {
-    // TODO: Toast/Portal instead of alert/confirm
+    // TODO: REPLACE CONFIRM WITH A DIALOG WINDOW THAT REQUIRES CONFIRMATION (SAVE, DON'T SAVE, CANCEL, X CANCEL);
     if (isDirty && confirm("Do you want to save changes?")) {
       const success = await handleSaveFile();
       if (!success) return;
@@ -70,15 +71,6 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
           onChange={() => setIsDirty(true)}
         />
       </WindowFrame>
-      {/* <DialogWindow
-        title="Notepad"
-        dialogType="warning"
-        dialogOptions="save"
-        filePath="C:\Documents\BLOG\Post.txt"
-        execution={handleSaveFile}
-        onClose={onClose}
-      /> */}
-      {/* <DialogWindow title="Window Title" dialogType="error" dialogOptions="ok" /> */}
     </>
   );
 }

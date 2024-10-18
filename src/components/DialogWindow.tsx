@@ -4,27 +4,25 @@ import { useState } from "react";
 import { Portal } from "@/components/Portal";
 import { CloseIcon } from "./icons";
 
-const dialogTypeEnums = ["success", "error", "warning", "info"] as const;
-const dialogOptionsEnums = ["save", "ok"] as const;
-interface ContextWindowTypes {
+// TURNING THIS INTO A PROGRAMMATIC TOAST CALL.
+// LET'S ACCEPT THE FOLLOWING STRUCTURE:
+/**
+ * type: "Success/Error/Warning" (Controls icon),
+ * title: "Dialog title",
+ * message: "Dialog message",
+ * buttons: [{label: "btn text", func: functionHere},{label: "btn text 2", func: function2Here}]
+ */
+
+const typeEnums = ["Success", "Error", "Warning"] as const;
+type buttonFormat = { label: string; func: () => void };
+interface OptionsTypes {
+  type: (typeof typeEnums)[number];
   title: string;
-  dialogType: (typeof dialogTypeEnums)[number];
-  message?: string;
-  filePath?: string;
-  dialogOptions: (typeof dialogOptionsEnums)[number];
-  execution?: () => void;
-  onClose?: () => void;
+  message: string;
+  buttons: buttonFormat[];
 }
 
-export function DialogWindow({
-  title,
-  message,
-  dialogType,
-  dialogOptions,
-  filePath,
-  execution,
-  onClose,
-}: ContextWindowTypes) {
+export function DialogWindow({ type, title, message, buttons }: OptionsTypes) {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   if (!isModalOpen) return null;
@@ -41,61 +39,18 @@ export function DialogWindow({
             </button>
           </div>
           <div className="dialog-content">
-            <img src={`/assets/${dialogType}.svg`} alt={dialogType} />
+            <img src={`/assets/${type}.svg`} alt={type} />
             {message}
-            {filePath && <MessageSave filePath={filePath} />}
           </div>
           <div className="dialog-options">
-            {dialogOptions === "save" && execution && onClose && (
-              <OptionsSave saveFunc={execution} closeFile={onClose} closeDialog={() => setIsModalOpen(false)} />
-            )}
-            {dialogOptions === "ok" && <OptionsOk closeDialog={() => setIsModalOpen(false)} />}
+            {buttons.map((btn) => (
+              <button type="button" onClick={btn.func}>
+                {btn.label}
+              </button>
+            ))}
           </div>
         </dialog>
       </div>
     </Portal>
-  );
-}
-
-function MessageSave({ filePath }: { filePath: string }) {
-  return (
-    <p>
-      The text in {filePath} has changed.
-      <br />
-      <br />
-      Do you want to save the changes?
-    </p>
-  );
-}
-
-function OptionsSave({
-  saveFunc,
-  closeFile,
-  closeDialog,
-}: {
-  saveFunc: () => void;
-  closeFile: () => void;
-  closeDialog: () => void;
-}) {
-  return (
-    <>
-      <button type="button" onClick={saveFunc}>
-        Save
-      </button>
-      <button type="button" onClick={closeFile}>
-        Don't Save
-      </button>
-      <button type="button" onClick={closeDialog}>
-        Cancel
-      </button>
-    </>
-  );
-}
-
-function OptionsOk({ closeDialog }: { closeDialog: () => void }) {
-  return (
-    <button type="button" onClick={closeDialog}>
-      Ok
-    </button>
   );
 }
