@@ -7,7 +7,12 @@ import { blogs, posts, userTable } from "@/server/db/schema";
 import { z } from "zod";
 import { lucia, validateRequest } from "@/lib/auth";
 import { generateIdFromEntropySize } from "lucia";
-import type { FormStatusTypes, GetBlogsResponseTypes, GetPostsResponseTypes } from "@/types/types";
+import type {
+  FormStatusTypes,
+  GetBlogsResponseTypes,
+  GetPostsResponseTypes,
+  SavePostResponseTypes,
+} from "@/types/types";
 import { hash, verify } from "@node-rs/argon2";
 
 /* CREATE USER - SIGN UP ACTION */
@@ -327,7 +332,7 @@ const SavePostSchema = z.object({
   postId: z.number().int().positive().lte(2147483647),
   postContent: z.string().trim().max(40000, "Post content cannot exceed 40,000 characters."),
 });
-export async function savePost(inputId: number, inputText: string | undefined) {
+export async function savePost(inputId: number, inputText: string | undefined): Promise<SavePostResponseTypes> {
   if (inputText === undefined) {
     return { success: false, message: "INPUT ERROR: Input not recognized." };
   }
@@ -347,8 +352,7 @@ export async function savePost(inputId: number, inputText: string | undefined) {
   if (!validated.success) {
     return {
       success: false,
-      message: "VALIDATION ERROR: Invalid fields.",
-      errors: validated.error.issues.map((issue) => issue.message),
+      message: "VALIDATION ERROR: Invalid field.",
     };
   }
 
