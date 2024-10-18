@@ -26,3 +26,5 @@ export interface PostInfoTypes {
   updateDate: Date | null;
 }
 export type GetPostsResponseTypes = { success: boolean; data?: PostInfoTypes[]; message: string };
+
+export type SavePostResponseTypes = { success: boolean; message: string };

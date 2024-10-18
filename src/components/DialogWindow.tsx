@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Portal } from "@/components/Portal";
 import { CloseIcon } from "./icons";
+import { SavePostResponseTypes } from "@/types/types";
 
-// TURNING THIS INTO A PROGRAMMATIC TOAST CALL.
 // LET'S ACCEPT THE FOLLOWING STRUCTURE:
 /**
  * type: "Success/Error/Warning" (Controls icon),
@@ -14,7 +14,7 @@ import { CloseIcon } from "./icons";
  */
 
 const typeEnums = ["Success", "Error", "Warning"] as const;
-type buttonFormat = { label: string; func: () => void };
+type buttonFormat = { label: string; func: () => void | (() => Promise<SavePostResponseTypes>) };
 interface OptionsTypes {
   type: (typeof typeEnums)[number];
   title: string;
