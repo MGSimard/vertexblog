@@ -3,6 +3,7 @@ import { startTransition, useActionState, useEffect } from "react";
 import { createBlog } from "@/server/actions";
 import { useNewFile } from "./NewFileContextProvider";
 import { AddFolderIcon } from "@/components/icons";
+import { dialogManager } from "@/lib/DialogManager";
 
 export function CreateBlogForm() {
   const { isCreatingBlog, setIsCreatingBlog } = useNewFile();
@@ -24,10 +25,16 @@ export function CreateBlogForm() {
     if (formState) {
       if (formState.success) {
         setIsCreatingBlog(false);
+        // TODO: Remove alert after navigation is put in
         alert("Blog successfully created.");
+        // TODO: Navigate user to their newly created blog
       } else {
-        if (formState.errors) alert(formState.errors);
-        else alert(formState.message);
+        dialogManager.showDialog({
+          type: "Error",
+          title: "Blog Creation",
+          message: formState.errors ?? formState.message,
+          buttons: [{ label: "OK" }],
+        });
       }
     }
   }, [formState]);

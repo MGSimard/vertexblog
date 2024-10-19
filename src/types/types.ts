@@ -34,7 +34,7 @@ type buttonFormat = { label: string; func?: () => void | (() => Promise<SavePost
 export type DialogOptionsTypes = {
   type: (typeof typeEnums)[number];
   title: string;
-  message: string;
+  message: string | string[];
   buttons: buttonFormat[];
   closeDialog?: () => void;
 };

@@ -3,6 +3,7 @@ import { startTransition, useActionState, useEffect } from "react";
 import { createPost } from "@/server/actions";
 import { useNewFile } from "@/components/NewFileContextProvider";
 import { AddTxtIcon } from "@/components/icons";
+import { dialogManager } from "@/lib/DialogManager";
 
 export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
   const { isCreatingPost, setIsCreatingPost } = useNewFile();
@@ -24,10 +25,15 @@ export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
     if (formState) {
       if (formState.success) {
         setIsCreatingPost(false);
+        // TODO: Not sure what I want here in place of alert, windows doesn't open newly created files
         alert("Post successfully created.");
       } else {
-        if (formState.errors) alert(formState.errors);
-        else alert(formState.message);
+        dialogManager.showDialog({
+          type: "Error",
+          title: "Post Creation",
+          message: formState.errors ?? formState.message,
+          buttons: [{ label: "OK" }],
+        });
       }
     }
   }, [formState]);

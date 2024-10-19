@@ -57,6 +57,7 @@
 - [x] Enable show password on creation and login (NIST)
 - [x] Set up toast for warning, success and confirmation windows
 - [ ] Use toast for pretty much everything
+- [ ] Navigate user to their created blog if creation is successful
 - [ ] Look into date locale mismatching between server and user client
 - [ ] Fix click gap between icon and text
 - [ ] Autoroute user to newly created blog
