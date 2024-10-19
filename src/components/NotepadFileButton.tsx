@@ -2,6 +2,7 @@
 import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { savePost } from "@/server/actions";
 import { PostInfoTypes } from "@/types/types";
+import { dialogManager } from "@/lib/DialogManager";
 
 export function NotepadFileButton({
   postInfo,
@@ -62,24 +63,37 @@ function NotepadButtonMenu({
   const handleSaveFile = async () => {
     const { postId } = postInfo;
     const newText = textRef.current?.value;
-    const { success, message, errors } = await savePost(postId, newText);
+    const { success, message } = await savePost(postId, newText);
+    setMenuOpen(false);
     if (success) {
-      alert("Post successfully saved.");
       setIsDirty(false);
     } else {
-      alert(message);
+      dialogManager.showDialog({
+        type: "Error",
+        title: "Notepad",
+        message: message,
+        buttons: [{ label: "OK" }],
+      });
     }
-    setMenuOpen(false);
     return success;
   };
 
   const handleExit = async () => {
-    // TODO: Toast/Portal instead of alert/confirm
-    if (isDirty && confirm("Do you want to save changes?")) {
-      const success = await handleSaveFile();
-      if (!success) return;
+    // TODO: Correct path for warning message
+    if (isDirty) {
+      dialogManager.showDialog({
+        type: "Warning",
+        title: "Notepad",
+        message: "The text in the C:\\Documents\\BLOG\\POST.txt file has changed.",
+        buttons: [
+          { label: "Save", func: async () => await handleSaveFile() },
+          { label: "Don't Save", func: () => onClose() },
+          { label: "Cancel" },
+        ],
+      });
+    } else {
+      onClose();
     }
-    onClose();
   };
 
   const handleOffsideClick = (e: MouseEvent) => {

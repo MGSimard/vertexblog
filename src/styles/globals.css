@@ -477,6 +477,7 @@ button.shortcut {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
   background: rgba(0, 0, 0, 0.4);
   z-index: 10000;
   overflow: hidden;

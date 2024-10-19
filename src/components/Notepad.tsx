@@ -1,15 +1,18 @@
 "use client";
 import { useState, useRef } from "react";
-import { PostInfoTypes } from "@/types/types";
+import type { PostInfoTypes } from "@/types/types";
 import { WindowFrame } from "@/components/WindowFrame";
 import { MaximizeButton } from "@/components/MaximizeButton";
 import { NotepadFileButton } from "@/components/NotepadFileButton";
 import { CloseIcon } from "@/components/icons";
 import { savePost } from "@/server/actions";
+import { dialogManager } from "@/lib/DialogManager";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
   const [isDirty, setIsDirty] = useState(false);
   const textRef = useRef<HTMLTextAreaElement>(null);
+
+  // TODO: beforeunload (warn users if they try to leave notepad unsaved)
 
   // Trigger this on exit attempt when not saved
   const handleSaveFile = async () => {
@@ -19,19 +22,32 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
     if (success) {
       setIsDirty(false);
     } else {
-      // TODO: DIALOG WINDOW (ERROR, MESSAGE);
-      alert(message);
+      dialogManager.showDialog({
+        type: "Error",
+        title: "Notepad",
+        message: message,
+        buttons: [{ label: "OK" }],
+      });
     }
     return success;
   };
 
   const handleExit = async () => {
-    // TODO: REPLACE CONFIRM WITH A DIALOG WINDOW THAT REQUIRES CONFIRMATION (SAVE, DON'T SAVE, CANCEL, X CANCEL);
-    if (isDirty && confirm("Do you want to save changes?")) {
-      const success = await handleSaveFile();
-      if (!success) return;
+    // TODO: Correct path for warning message
+    if (isDirty) {
+      dialogManager.showDialog({
+        type: "Warning",
+        title: "Notepad",
+        message: "The text in the C:\\Documents\\BLOG\\POST.txt file has changed.",
+        buttons: [
+          { label: "Save", func: async () => await handleSaveFile() },
+          { label: "Don't Save", func: () => onClose() },
+          { label: "Cancel" },
+        ],
+      });
+    } else {
+      onClose();
     }
-    onClose();
   };
 
   return (

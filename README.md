@@ -55,7 +55,7 @@
 - [ ] Maybe support it on exit or page return attempt too??
 - [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
 - [x] Enable show password on creation and login (NIST)
-- [ ] Set up toast for warning, success and confirmation windows
+- [x] Set up toast for warning, success and confirmation windows
 - [ ] Use toast for pretty much everything
 - [ ] Look into date locale mismatching between server and user client
 - [ ] Fix click gap between icon and text

@@ -28,3 +28,13 @@ export interface PostInfoTypes {
 export type GetPostsResponseTypes = { success: boolean; data?: PostInfoTypes[]; message: string };
 
 export type SavePostResponseTypes = { success: boolean; message: string };
+
+const typeEnums = ["Success", "Error", "Warning"] as const;
+type buttonFormat = { label: string; func?: () => void | (() => Promise<SavePostResponseTypes>) };
+export type DialogOptionsTypes = {
+  type: (typeof typeEnums)[number];
+  title: string;
+  message: string;
+  buttons: buttonFormat[];
+  closeDialog?: () => void;
+};
