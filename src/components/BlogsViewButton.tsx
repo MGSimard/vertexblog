@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useIconView } from "./IconViewProvider";
 
 export function BlogsViewButton() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,8 +23,11 @@ export function BlogsViewButton() {
 }
 
 function BlogsViewMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<boolean>> }) {
+  const { iconView, setIconView } = useIconView();
+
   const handleView = (arg: string) => {
-    console.log(arg);
+    setIconView(arg);
+    setMenuOpen(false);
   };
 
   const handleOffsideClick = (e: MouseEvent) => {
@@ -42,18 +46,28 @@ function BlogsViewMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<b
 
   return (
     <div id="blogs-view-menu" className="fe-menu outset" role="menu">
-      <button type="button" onClick={() => handleView("large")} role="menuitem">
-        {/* DEFAULT */}
-        TODO: Large Icons
+      <button
+        type="button"
+        onClick={() => handleView("large")}
+        role="menuitem"
+        className={iconView === "large" ? "applied" : ""}>
+        Large Icons
       </button>
-      <button type="button" onClick={() => handleView("small")} role="menuitem">
-        {/* MULTI COLUMN LIST */}
-        TODO: Small Icons
+      <button
+        type="button"
+        onClick={() => handleView("small")}
+        role="menuitem"
+        className={iconView === "small" ? "applied" : ""}>
+        Small Icons
       </button>
-      <button type="button" onClick={() => handleView("list")} role="menuitem">
-        {/* SINGLE COLUMN LIST */}
-        TODO: List
+      <button
+        type="button"
+        onClick={() => handleView("list")}
+        role="menuitem"
+        className={iconView === "list" ? "applied" : ""}>
+        List
       </button>
+      {/* TODO: DO I REALLY WANT A REFRESH BUTTON HERE? */}
       <button type="button" onClick={() => handleView("refresh")} role="menuitem">
         TODO: Refresh
       </button>

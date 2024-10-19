@@ -3,11 +3,13 @@ import { useSort } from "@/components/SortContextProvider";
 import type { GetPostsResponseTypes } from "@/types/types";
 import { TextFile } from "@/components/TextFile";
 import { CreatePostForm } from "@/components/CreatePostForm";
+import { useIconView } from "@/components/IconViewProvider";
 
 // REMOVE ANY
 export function PostList({ postList, currentBlog }: { postList: GetPostsResponseTypes; currentBlog: string }) {
   const { success, data, message } = postList;
   const { postSortType } = useSort();
+  const { iconView } = useIconView();
 
   const sortedPosts = data?.sort((a, b) => {
     switch (postSortType) {
@@ -26,7 +28,7 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
   });
 
   return (
-    <ul className="shortcut-area">
+    <ul className={`shortcut-area view-${iconView}`}>
       {!success && message}
       <CreatePostForm currentBlog={currentBlog} />
       {sortedPosts?.map((post) => (

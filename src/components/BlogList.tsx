@@ -3,10 +3,12 @@ import Link from "next/link";
 import { useSort } from "@/components/SortContextProvider";
 import type { GetBlogsResponseTypes } from "@/types/types";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
+import { useIconView } from "@/components/IconViewProvider";
 
 export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const { success, data, message } = blogList;
   const { blogSortType } = useSort();
+  const { iconView } = useIconView();
 
   const sortedBlogs = data?.sort((a, b) => {
     switch (blogSortType) {
@@ -25,7 +27,7 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   });
 
   return (
-    <ul className="shortcut-area">
+    <ul className={`shortcut-area view-${iconView}`}>
       {/* Temporary error message */}
       <CreateBlogForm />
       {!success && message}
