@@ -43,12 +43,15 @@ function BlogsViewMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<b
   return (
     <div id="blogs-view-menu" className="fe-menu outset" role="menu">
       <button type="button" onClick={() => handleView("large")} role="menuitem">
+        {/* DEFAULT */}
         TODO: Large Icons
       </button>
       <button type="button" onClick={() => handleView("small")} role="menuitem">
+        {/* MULTI COLUMN LIST */}
         TODO: Small Icons
       </button>
       <button type="button" onClick={() => handleView("list")} role="menuitem">
+        {/* SINGLE COLUMN LIST */}
         TODO: List
       </button>
       <button type="button" onClick={() => handleView("refresh")} role="menuitem">

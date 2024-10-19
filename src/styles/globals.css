@@ -412,6 +412,63 @@ header .shortcut-area {
   display: flex;
   flex-direction: row;
 }
+/* LARGE ICONS VIEW IS DEFAULT */
+/* SMALL ICONS VIEW */
+.window .view-small {
+  gap: 1rem;
+}
+.window .view-small .shortcut {
+  display: flex;
+  gap: 0.5rem;
+}
+.window .view-small li {
+  width: 20rem;
+  height: auto;
+}
+.window .view-small a {
+  display: block;
+  width: 100%;
+}
+.window .view-small .shortcut img {
+  height: 1em;
+  padding: 0;
+  filter: drop-shadow(2px 2px black);
+}
+.window .view-small span {
+  all: unset;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* LIST ICONS VIEW */
+.window .view-list {
+  gap: 1rem;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.window .view-list .shortcut {
+  display: flex;
+  gap: 0.5rem;
+}
+.window .view-list li {
+  width: auto;
+  height: auto;
+}
+.window .view-list li a {
+  width: 100%;
+}
+.window .view-list .shortcut img {
+  height: 1em;
+  padding: 0;
+  filter: drop-shadow(2px 2px black);
+}
+.window .view-list span {
+  all: unset;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/**/
 button.shortcut {
   background: none;
 }
@@ -563,7 +620,6 @@ button.shortcut {
   border-left-color: var(--clr-ui-trim-light);
   box-shadow: 1px 1px 1px var(--clr-drop-shadow);
 }
-
 .notfound {
   position: fixed;
   top: 50%;
