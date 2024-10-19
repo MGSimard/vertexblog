@@ -1,7 +1,7 @@
 "use client";
 import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { savePost } from "@/server/actions";
-import { PostInfoTypes } from "@/types/types";
+import type { PostInfoTypes } from "@/types/types";
 import { dialogManager } from "@/lib/DialogManager";
 
 export function NotepadFileButton({

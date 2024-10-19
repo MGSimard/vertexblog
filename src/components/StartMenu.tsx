@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { UserTypes } from "@/types/types";
+import type { UserTypes } from "@/types/types";
 import { SignInOrUp, SignOut } from "./AuthComponents";
 import { useEffect, Dispatch, SetStateAction } from "react";
 

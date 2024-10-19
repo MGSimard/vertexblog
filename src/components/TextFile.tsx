@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { PostInfoTypes } from "@/types/types";
+import type { PostInfoTypes } from "@/types/types";
 import { Modal } from "@/components/Modal";
 import { Notepad } from "./Notepad";
 
