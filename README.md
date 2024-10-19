@@ -56,7 +56,7 @@
 - [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
 - [x] Enable show password on creation and login (NIST)
 - [x] Set up toast for warning, success and confirmation windows
-- [ ] Use toast for pretty much everything
+- [x] Use toast for pretty much everything
 - [ ] Navigate user to their created blog if creation is successful
 - [ ] Look into date locale mismatching between server and user client
 - [ ] Fix click gap between icon and text
@@ -67,6 +67,7 @@
 - [ ] Ratelimit
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Delete post/blog + server actions
+- [ ] Make sure deletion also uses dialog prompts/confirm/error
 - [ ] Set up blog & post search filtering
 - [ ] Analytics (Posthog?)
 - [ ] Sentry mayhaps?
