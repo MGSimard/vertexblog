@@ -4,8 +4,10 @@ import { createBlog } from "@/server/actions";
 import { useNewFile } from "./NewFileContextProvider";
 import { AddFolderIcon } from "@/components/icons";
 import { dialogManager } from "@/lib/DialogManager";
+import { useRouter } from "next/navigation";
 
 export function CreateBlogForm() {
+  const router = useRouter();
   const { isCreatingBlog, setIsCreatingBlog } = useNewFile();
   const [formState, formAction, pending] = useActionState(createBlog, null);
 
@@ -25,9 +27,9 @@ export function CreateBlogForm() {
     if (formState) {
       if (formState.success) {
         setIsCreatingBlog(false);
-        // TODO: Remove alert after navigation is put in
-        alert("Blog successfully created.");
-        // TODO: Navigate user to their newly created blog
+        if (formState.url) {
+          router.push(`/documents/${encodeURIComponent(formState.url)}`);
+        }
       } else {
         dialogManager.showDialog({
           type: "Error",

@@ -60,7 +60,7 @@
 - [ ] Use the isDirty prompting thing if user tries to navigate away from page
 - [ ] Look into date locale mismatching between server and user client
 - [x] Fix click gap between icon and text
-- [ ] Autoroute user to newly created blog
+- [x] Autoroute user to newly created blog
 - [ ]
 - [ ]
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site

@@ -270,7 +270,7 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
   revalidatePath(`/documents`);
-  return { success: true, message: "SUCCESS: Blog created." };
+  return { success: true, message: "SUCCESS: Blog created.", url: blogTitle };
 }
 
 /* CREATE BLOG POST */

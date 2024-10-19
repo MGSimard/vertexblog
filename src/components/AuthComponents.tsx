@@ -72,7 +72,6 @@ export function SignUp() {
       <button type="submit" className="outset" disabled={pending} aria-disabled={pending}>
         Sign Up
       </button>
-      {/* TODO: Put all of these errors in a dismissable warning context window (toast) */}
       {formState?.success === false && formState.message}
       {formState?.errors && (
         <ul>
