@@ -57,6 +57,7 @@
 - [x] Fix click gap between icon and text
 - [x] Autoroute user to newly created blog
 - [x] Icon view style functionality/context (Setting carries over in all folders)
+- [ ] Put in the actual filepath in the save warning dialog
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
 - [ ] Use the isDirty prompting thing if user tries to navigate away from page
 - [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
