@@ -40,7 +40,15 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
         title: "Notepad",
         message: "The text in the C:\\Documents\\BLOG\\POST.txt file has changed.",
         buttons: [
-          { label: "Save", func: async () => await handleSaveFile() },
+          {
+            label: "Save",
+            func: async () => {
+              const success = await handleSaveFile();
+              if (success) {
+                onClose();
+              }
+            },
+          },
           { label: "Don't Save", func: () => onClose() },
           { label: "Cancel" },
         ],
