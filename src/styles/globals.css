@@ -122,11 +122,12 @@ header .shortcut-area {
 }
 .shortcut span {
   position: absolute;
-  top: calc(100% + 1rem);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   display: -webkit-box;
   width: 100%;
+  padding-top: 1rem;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;

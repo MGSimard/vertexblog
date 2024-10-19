@@ -59,7 +59,7 @@
 - [x] Use toast for pretty much everything
 - [ ] Use the isDirty prompting thing if user tries to navigate away from page
 - [ ] Look into date locale mismatching between server and user client
-- [ ] Fix click gap between icon and text
+- [x] Fix click gap between icon and text
 - [ ] Autoroute user to newly created blog
 - [ ]
 - [ ]
