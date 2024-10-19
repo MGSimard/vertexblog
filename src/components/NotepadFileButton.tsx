@@ -67,7 +67,6 @@ function NotepadButtonMenu({
     setMenuOpen(false);
     if (success) {
       setIsDirty(false);
-      onClose();
     } else {
       dialogManager.showDialog({
         type: "Error",
