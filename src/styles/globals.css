@@ -115,7 +115,7 @@ header .shortcut-area {
 }
 .shortcut img,
 .window-header-left img {
-  filter: drop-shadow(2px 2px 1px black);
+  filter: drop-shadow(2px 2px black);
 }
 .shortcut img {
   padding: 0 1rem;
