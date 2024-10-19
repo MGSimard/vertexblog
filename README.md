@@ -53,11 +53,11 @@
 - [x] Keep track of state, if notepad file has been dirtied (modified) prompt a confirmation when they try to exit saying that the modifications haven't been saved yet. Onchange re-dirty the state, on save clean the state.
 - [x] Enable show password on creation and login (NIST)
 - [x] Set up toast for warning, success and confirmation windows
-- [x] Use toast for pretty much everything
 - [x] Fix click gap between icon and text
 - [x] Autoroute user to newly created blog
 - [x] Icon view style functionality/context (Setting carries over in all folders)
-- [ ] Put in the actual filepath in the save warning dialog
+- [x] Put in the actual filepath in the save warning dialog
+- [ ] Use dialog for failure to load blogs or posts
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
 - [ ] Use the isDirty prompting thing if user tries to navigate away from page
 - [ ] Look into duplicated re-renders on save, exit, onchange etc notepad

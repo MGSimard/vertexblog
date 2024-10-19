@@ -3,6 +3,7 @@ import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { savePost } from "@/server/actions";
 import type { PostInfoTypes } from "@/types/types";
 import { dialogManager } from "@/lib/DialogManager";
+import { usePathname } from "next/navigation";
 
 export function NotepadFileButton({
   postInfo,
@@ -60,6 +61,8 @@ function NotepadButtonMenu({
   isDirty: boolean;
   setIsDirty: Dispatch<SetStateAction<boolean>>;
 }) {
+  const pathName = usePathname();
+
   const handleSaveFile = async () => {
     const { postId } = postInfo;
     const newText = textRef.current?.value;
@@ -84,7 +87,9 @@ function NotepadButtonMenu({
       dialogManager.showDialog({
         type: "Warning",
         title: "Notepad",
-        message: "The text in the C:\\Documents\\BLOG\\POST.txt file has changed.",
+        message: `The text in the C:\\Documents\\${pathName.split("/").pop()}\\${
+          postInfo.postTitle
+        }.txt file has changed.`,
         buttons: [
           {
             label: "Save",

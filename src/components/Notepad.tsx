@@ -7,10 +7,13 @@ import { NotepadFileButton } from "@/components/NotepadFileButton";
 import { CloseIcon } from "@/components/icons";
 import { savePost } from "@/server/actions";
 import { dialogManager } from "@/lib/DialogManager";
+import { usePathname } from "next/navigation";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
   const [isDirty, setIsDirty] = useState(false);
   const textRef = useRef<HTMLTextAreaElement>(null);
+
+  const pathName = usePathname();
 
   // TODO: beforeunload (warn users if they try to leave notepad unsaved)
 
@@ -38,7 +41,9 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
       dialogManager.showDialog({
         type: "Warning",
         title: "Notepad",
-        message: "The text in the C:\\Documents\\BLOG\\POST.txt file has changed.",
+        message: `The text in the C:\\Documents\\${pathName.split("/").pop()}\\${
+          postInfo.postTitle
+        }.txt file has changed.`,
         buttons: [
           {
             label: "Save",
