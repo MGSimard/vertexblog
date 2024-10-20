@@ -57,6 +57,8 @@
 - [x] Autoroute user to newly created blog
 - [x] Icon view style functionality/context (Setting carries over in all folders)
 - [x] Put in the actual filepath in the save warning dialog
+- [ ] ATTEMPT TO ROLL MY OWN RATELIMIT FROM SCRATCH, GOT ROUGH IDEA OF HOW IT CAN WORK
+- [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Use dialog for failure to load blogs or posts
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
 - [ ] Use the isDirty prompting thing if user tries to navigate away from page
@@ -64,8 +66,7 @@
 - [ ] Look into date locale mismatching between server and user client
 - [ ]
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
-- [ ] Ratelimit
-- [ ] HEAVY IP-based ratelimit on incorrect password attempts
+
 - [ ] Delete post/blog + server actions
 - [ ] Make sure deletion also uses dialog prompts/confirm/error
 - [ ] Set up blog & post search filtering
