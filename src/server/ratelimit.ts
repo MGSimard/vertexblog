@@ -3,6 +3,7 @@ import { db } from "@/server/db";
 import { eq, and } from "drizzle-orm";
 import { ratelimits } from "@/server/db/schema";
 import { ratelimitEnums } from "@/lib/enums";
+import type { RatelimitReturnTypes } from "@/types/types";
 
 const rateConfig = {
   auth: { actions: 5, windowMs: 60000 },
@@ -10,7 +11,10 @@ const rateConfig = {
   fetch: { actions: 20, windowMs: 30000 },
 };
 
-export async function ratelimit(userId: string, limitType: (typeof ratelimitEnums)[number]): Promise<boolean> {
+export async function ratelimit(
+  userId: string,
+  limitType: (typeof ratelimitEnums)[number]
+): Promise<RatelimitReturnTypes> {
   const config = rateConfig[limitType];
 
   if (!config) throw new Error("Invalid ratelimit type argument.");
@@ -26,37 +30,39 @@ export async function ratelimit(userId: string, limitType: (typeof ratelimitEnum
         .from(ratelimits)
         .where(and(eq(ratelimits.userId, userId), eq(ratelimits.limitType, limitType)));
 
-      // If doesn't exist, create record then return false (as not ratelimited).
+      // If row (user + limit type) not exist, create it, return success.
       if (!entryExists) {
         await tx.insert(ratelimits).values({ userId, limitType, actions: 1, expiration: newExpiration });
-        return false;
+        return { success: true, message: `Ratelimit row created (${userId}, ${limitType}).` };
       }
 
       if (entryExists.expiration > currTime) {
         if (entryExists.actions < config.actions) {
-          // If within time window (unexpired) and have actions remaining, increment actions + return not ratelimited.
+          // If time unexpired & available actions, increment actions, return success.
           await tx
             .update(ratelimits)
             .set({ actions: entryExists.actions + 1 })
             .where(and(eq(ratelimits.userId, userId), eq(ratelimits.limitType, limitType)));
-          return false;
+          return { success: true, message: `Ratelimit passed (${userId}, ${limitType}).` };
         } else {
-          // Else if we've reached actions limit in time window, return ratelimited (true).
-          return true;
+          // Else if reached actions limit, throw error.
+          throw new Error(`Ratelimited (${userId}, ${limitType}).`);
         }
       } else {
-        // If we are in a new timeWindow, reset user actions back to 1 and set a create new expiration.
+        // If expired, reset action count to 1, update new expiration, return success.
         await tx
           .update(ratelimits)
           .set({ actions: 1, expiration: newExpiration })
           .where(and(eq(ratelimits.userId, userId), eq(ratelimits.limitType, limitType)));
-        return false;
+        return { success: true, message: `Expired, new expiration time updated (${userId}, ${limitType}).` };
       }
     });
-    console.log("RESULT:", result);
     return result;
   } catch (err: unknown) {
-    console.log("ERROR:", err);
-    return true;
+    // For caught errors, return failure + error message.
+    return {
+      success: false,
+      message: err instanceof Error ? err.message : `UNKNOWN RATELIMIT ERROR (${userId}, ${limitType}).`,
+    };
   }
 }

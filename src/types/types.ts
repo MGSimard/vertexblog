@@ -38,3 +38,8 @@ export type DialogOptionsTypes = {
   buttons: buttonFormat[];
   closeDialog?: () => void;
 };
+
+export interface RatelimitReturnTypes {
+  success: boolean;
+  message: string;
+}
