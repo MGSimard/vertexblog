@@ -77,3 +77,13 @@ export const posts = createTable(
     postTitleIdx: index("post_title_idx").on(table.title),
   })
 );
+
+export const ratelimits = createTable("ratelimits", {
+  userId: varchar("user_id", { length: 20 })
+    .primaryKey()
+    .references(() => userTable.id),
+  actions: integer("actions").default(1).notNull(),
+  expiration: timestamp("expiration")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+});
