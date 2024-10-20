@@ -1,5 +1,17 @@
 import { sql } from "drizzle-orm";
-import { index, pgTableCreator, serial, timestamp, varchar, integer, boolean, uniqueIndex } from "drizzle-orm/pg-core";
+import {
+  index,
+  pgTableCreator,
+  serial,
+  timestamp,
+  varchar,
+  integer,
+  boolean,
+  uniqueIndex,
+  pgEnum,
+  check,
+} from "drizzle-orm/pg-core";
+import { ratelimitEnums } from "@/lib/enums";
 
 export const createTable = pgTableCreator((name) => `vertexblog_${name}`);
 
@@ -78,12 +90,21 @@ export const posts = createTable(
   })
 );
 
-export const ratelimits = createTable("ratelimits", {
-  userId: varchar("user_id", { length: 20 })
-    .primaryKey()
-    .references(() => userTable.id),
-  actions: integer("actions").default(1).notNull(),
-  expiration: timestamp("expiration")
-    .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
-});
+export const ratelimitTypeEnum = pgEnum("type", ratelimitEnums);
+export const ratelimits = createTable(
+  "ratelimits",
+  {
+    id: serial("id").primaryKey(),
+    userId: varchar("user_id", { length: 20 }).references(() => userTable.id),
+    limitType: ratelimitTypeEnum("limit_type").notNull(),
+    actions: integer("actions").default(1).notNull(),
+    expiration: timestamp("expiration")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+  },
+  (table) => ({
+    /* Index & Unique (User + Limit Type) combo */
+    userLimitTypeUniqueIdx: uniqueIndex("user_limit_type_uniqueIdx").on(table.userId, table.limitType),
+    checkConstraint: check("actions_check", sql`${table.actions} > 0`),
+  })
+);
