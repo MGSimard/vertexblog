@@ -59,8 +59,6 @@
 - [x] Put in the actual filepath in the save warning dialog
 - [ ] ATTEMPT TO ROLL MY OWN RATELIMIT FROM SCRATCH, GOT ROUGH IDEA OF HOW IT CAN WORK
 - [ ] Consider separate ratelimiting for action types (Signup/Signin, Data fetching, Data mutation (Blog/Post))
-- [ ] If we do that, maybe separate tables for each type - second arg for type to ratelimit function that controls which ratelimit table we execute against, which according to the arg also has their own actions amount + expiration time
-- [ ] Or, maybe I can add a type column and then unique idx by userId + type? That way can have one row for each ratelimit type per user?
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Use dialog for failure to load blogs or posts
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
