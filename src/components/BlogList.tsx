@@ -10,6 +10,9 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const { blogSortType } = useSort();
   const { iconView } = useIconView();
 
+  // TODO: Filter blogs, either server-side with search params or client-side filtering here
+  // Do sortedblogs below after
+
   const sortedBlogs = data?.sort((a, b) => {
     switch (blogSortType) {
       case "name":
