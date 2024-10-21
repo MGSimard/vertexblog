@@ -15,7 +15,6 @@ import type {
 } from "@/types/types";
 import { hash, verify } from "@node-rs/argon2";
 import { ratelimit } from "@/server/ratelimit";
-import { getUserIdentifier } from "@/lib/getUserIdentifier";
 
 /* CREATE USER - SIGN UP ACTION */
 const CreateUserSchema = z
@@ -46,12 +45,6 @@ const CreateUserSchema = z
   );
 export async function signup(currentState: FormStatusTypes, formData: FormData): Promise<FormStatusTypes> {
   // TODO: ADD RATELIMIT
-
-  const { success: rlOK, message: rlMessage } = await ratelimit(await getUserIdentifier(), "auth");
-
-  if (!rlOK) {
-    return { success: false, message: "RATELIMIT ERROR: Too many actions." };
-  }
 
   const validated = CreateUserSchema.safeParse({
     username: formData.get("username"),
@@ -182,7 +175,8 @@ export async function signout() {
 
 /* GET BLOGS */
 export async function getBlogs(): Promise<GetBlogsResponseTypes> {
-  // TODO Consider light ratelimit?
+  // TODO IP/UserID ratelimit
+
   try {
     const blogList = await db
       .select({
@@ -203,9 +197,8 @@ export async function getBlogs(): Promise<GetBlogsResponseTypes> {
 
 /* GET POSTS */
 export async function getPosts(currentBlog: string): Promise<GetPostsResponseTypes> {
-  // TODO Consider light ratelimit?
+  // TODO IP/UserID ratelimit
   try {
-    // GET BLOG
     const [blogInfo] = await db.select({ blogId: blogs.id }).from(blogs).where(eq(blogs.title, currentBlog));
 
     if (!blogInfo) throw new Error(`DATABASE ERROR: Blog not found. (${currentBlog})`);
@@ -244,8 +237,10 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
 
-  // TODO: ADD RATELIMIT
-  // if ratelimited return { success: false, message: "RATELIMIT ERROR: Too many actions." }
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", user.id);
+  if (!rlOK) {
+    return { success: false, message: rlMessage };
+  }
 
   const validated = CreateBlogSchema.safeParse({
     blogTitle: formData.get("blogTitle"),
@@ -296,8 +291,10 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
 
-  // TODO: ADD RATELIMIT
-  // if ratelimited return { success: false, message: "RATELIMIT ERROR: Too many actions." }
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", user.id);
+  if (!rlOK) {
+    return { success: false, message: rlMessage };
+  }
 
   const validated = CreatePostSchema.safeParse({
     postTitle: formData.get("postTitle"),
@@ -349,8 +346,10 @@ export async function savePost(inputId: number, inputText: string | undefined): 
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
 
-  // TODO: ADD RATELIMIT
-  // if ratelimited return { success: false, message: "RATELIMIT ERROR: Too many actions." }
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", user.id);
+  if (!rlOK) {
+    return { success: false, message: rlMessage };
+  }
 
   const validated = SavePostSchema.safeParse({
     postId: inputId,
@@ -408,7 +407,6 @@ export async function getCurrentUserBlog(): Promise<string | null> {
     if (!blog) return null;
 
     return blog.blogTitle;
-    // return { success: true, data: blog, message: "SUCCESS: Blog indexed." };
   } catch (err) {
     return null;
   }

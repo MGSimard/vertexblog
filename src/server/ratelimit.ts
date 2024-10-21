@@ -12,12 +12,12 @@ const rateConfig = {
 };
 
 export async function ratelimit(
-  user: string,
-  limitType: (typeof ratelimitEnums)[number]
+  limitType: (typeof ratelimitEnums)[number],
+  userId: string
 ): Promise<RatelimitReturnTypes> {
   const config = rateConfig[limitType];
 
-  if (!config) throw new Error("Invalid ratelimit type argument.");
+  if (!config) throw new Error("ERROR: Invalid ratelimit type argument.");
 
   const currTime = new Date();
   const newExpiration = new Date(currTime.getTime() + config.windowMs);
@@ -28,12 +28,12 @@ export async function ratelimit(
       const [entryExists] = await tx
         .select()
         .from(ratelimits)
-        .where(and(eq(ratelimits.user, user), eq(ratelimits.limitType, limitType)));
+        .where(and(eq(ratelimits.userId, userId), eq(ratelimits.limitType, limitType)));
 
       // If row (user + limit type) not exist, create it, return success.
       if (!entryExists) {
-        await tx.insert(ratelimits).values({ user, limitType, actions: 1, expiration: newExpiration });
-        return { success: true, message: `Ratelimit row created (${user}, ${limitType}).` };
+        await tx.insert(ratelimits).values({ userId, limitType, actions: 1, expiration: newExpiration });
+        return { success: true, message: `Ratelimit row created.` };
       }
 
       if (entryExists.expiration > currTime) {
@@ -42,19 +42,19 @@ export async function ratelimit(
           await tx
             .update(ratelimits)
             .set({ actions: entryExists.actions + 1 })
-            .where(and(eq(ratelimits.user, user), eq(ratelimits.limitType, limitType)));
-          return { success: true, message: `Ratelimit passed (${user}, ${limitType}).` };
+            .where(and(eq(ratelimits.userId, userId), eq(ratelimits.limitType, limitType)));
+          return { success: true, message: `SUCCESS: Ratelimit passed.` };
         } else {
           // Else if reached actions limit, throw error.
-          throw new Error(`Ratelimited (${user}, ${limitType}).`);
+          throw new Error(`ERROR: Ratelimited.`);
         }
       } else {
         // If expired, reset action count to 1, update new expiration, return success.
         await tx
           .update(ratelimits)
           .set({ actions: 1, expiration: newExpiration })
-          .where(and(eq(ratelimits.user, user), eq(ratelimits.limitType, limitType)));
-        return { success: true, message: `Expired, new expiration time updated (${user}, ${limitType}).` };
+          .where(and(eq(ratelimits.userId, userId), eq(ratelimits.limitType, limitType)));
+        return { success: true, message: `Expired, new expiration time updated.` };
       }
     });
     return result;
@@ -62,7 +62,7 @@ export async function ratelimit(
     // For caught errors, return failure + error message.
     return {
       success: false,
-      message: err instanceof Error ? err.message : `UNKNOWN RATELIMIT ERROR (${user}, ${limitType}).`,
+      message: err instanceof Error ? err.message : `UNKNOWN RATELIMIT ERROR.`,
     };
   }
 }
