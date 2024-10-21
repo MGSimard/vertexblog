@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 
+// TODO: Check if you have to validate IP addresses apparently you can spoof headers
 export async function getUserIdentifier(userId?: string) {
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
