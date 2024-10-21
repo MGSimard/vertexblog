@@ -191,7 +191,7 @@ export async function getBlogs(): Promise<GetBlogsResponseTypes> {
       .where(isNull(blogs.deletedAt));
     return { success: true, data: blogList, message: "SUCCESS: Blog list indexed." };
   } catch (err) {
-    return { success: false, message: "DATABASE ERROR: Failed retrieving blogs." };
+    return { success: false, message: `DATABASE ERROR: Failed retrieving blogs. (${err})` };
   }
 }
 
@@ -407,7 +407,7 @@ export async function getCurrentUserBlog(): Promise<string | null> {
     if (!blog) return null;
 
     return blog.blogTitle;
-  } catch (err) {
+  } catch {
     return null;
   }
 }
