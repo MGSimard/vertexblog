@@ -10,13 +10,12 @@ const config = {
     appIsrStatus: false,
   },
   serverExternalPackages: ["@node-rs/argon2"],
-  // TODO: REMOVE BOTH TS AND ESLINT IGNOREDURINGBUILDS AFTER NEXT 15 IS STABLE WITH ESLINT 9
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // typescript: {
+  //   ignoreBuildErrors: true,
+  // },
+  // eslint: {
+  //   ignoreDuringBuilds: true,
+  // },
 };
 
 export default config;
