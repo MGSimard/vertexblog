@@ -2,7 +2,7 @@
 import Link from "next/link";
 import type { UserTypes } from "@/types/types";
 import { SignInOrUp, SignOut } from "./AuthComponents";
-import { useEffect, Dispatch, SetStateAction } from "react";
+import { useEffect, type Dispatch, type SetStateAction } from "react";
 
 export function StartMenu({
   user,

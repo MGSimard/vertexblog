@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState, useContext, Dispatch, SetStateAction } from "react";
+import { createContext, useState, useContext, type Dispatch, type SetStateAction } from "react";
 
 interface IconViewTypes {
   iconView: string;

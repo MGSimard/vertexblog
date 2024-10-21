@@ -1,5 +1,5 @@
 "use client";
-import { useState, Dispatch, SetStateAction, useEffect } from "react";
+import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 import { savePost } from "@/server/actions";
 import type { PostInfoTypes } from "@/types/types";
 import { dialogManager } from "@/lib/DialogManager";

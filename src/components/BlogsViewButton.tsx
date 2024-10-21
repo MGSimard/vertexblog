@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 import { useIconView } from "./IconViewProvider";
 
 export function BlogsViewButton() {
