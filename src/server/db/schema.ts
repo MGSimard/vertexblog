@@ -95,9 +95,7 @@ export const ratelimits = createTable(
   "ratelimits",
   {
     id: serial("id").primaryKey(),
-    userId: varchar("user_id", { length: 20 })
-      .references(() => userTable.id)
-      .notNull(),
+    user: varchar("user").notNull(),
     limitType: ratelimitTypeEnum("limit_type").notNull(),
     actions: integer("actions").default(1).notNull(),
     expiration: timestamp("expiration")
@@ -106,7 +104,7 @@ export const ratelimits = createTable(
   },
   (table) => ({
     /* Index & Unique (User + Limit Type) combo */
-    userLimitTypeUniqueIdx: uniqueIndex("user_limit_type_uniqueIdx").on(table.userId, table.limitType),
+    userLimitTypeUniqueIdx: uniqueIndex("user_limit_type_uniqueIdx").on(table.user, table.limitType),
     checkConstraint: check("actions_check", sql`${table.actions} > 0`),
   })
 );
