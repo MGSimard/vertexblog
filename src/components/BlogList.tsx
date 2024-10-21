@@ -26,6 +26,15 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     }
   });
 
+  /** TODO:
+   * - Get total amount of items (length)
+   * - Get shortcut-area div width dynamically
+   * - According to item size, and gap, against div width, calculate intended shortcut-area height were the items rendered
+   * - Set min-height of shortcut-area to that height, this simulates accurate scrollbar at all times despite items not rendered
+   * - Lazyload items
+   * - This fixes load performance, especially file explorer dragging, once we get past a few hundred files rendered
+   */
+
   return (
     <ul className={`shortcut-area view-${iconView}`}>
       {/* Temporary error message */}
