@@ -6,9 +6,9 @@ import { ratelimitEnums } from "@/lib/enums";
 import type { RatelimitReturnTypes } from "@/types/types";
 
 const rateConfig = {
-  auth: { actions: 5, windowMs: 60000 },
-  mutation: { actions: 10, windowMs: 60000 },
-  fetch: { actions: 20, windowMs: 30000 },
+  auth: { actions: 3, windowMs: 60000 },
+  mutation: { actions: 5, windowMs: 60000 },
+  fetch: { actions: 15, windowMs: 30000 },
 };
 
 export async function ratelimit(
