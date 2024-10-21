@@ -56,6 +56,7 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
           </Link>
         </li>
       ))}
+      <li>Render 5k empties for perf test</li>
       {[...Array(5000)].map((empty) => (
         <li></li>
       ))}
