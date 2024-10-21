@@ -38,6 +38,11 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
    * - This fixes load performance, especially file explorer dragging, once we get past a few hundred files rendered
    */
 
+  // Also considered rendering empty divs that still take up space to avoid this (and only render svg + text lazily)
+  // Which works fine and has perfect performance up to about ~15,000 rendered blog/post shortcuts
+  // Which, considering the use case of this 4fun project would be perfectly suitable
+  // But I still want to do it better, AKA be able to render a near infinite amount of things and still have flawless performance
+
   return (
     <ul className={`shortcut-area view-${iconView}`}>
       {/* Temporary error message */}
@@ -50,6 +55,9 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
             <span>{blog.blogTitle}</span>
           </Link>
         </li>
+      ))}
+      {[...Array(5000)].map((empty) => (
+        <li></li>
       ))}
     </ul>
   );
