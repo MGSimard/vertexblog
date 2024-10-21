@@ -2,7 +2,7 @@
 import { db } from "@/server/db";
 import { eq, and } from "drizzle-orm";
 import { ratelimits } from "@/server/db/schema";
-import { ratelimitEnums } from "@/lib/enums";
+import type { ratelimitEnums } from "@/lib/enums";
 import type { RatelimitReturnTypes } from "@/types/types";
 
 const rateConfig = {
