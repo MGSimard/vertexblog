@@ -20,6 +20,10 @@ export default async function Page() {
         <span>Address</span>
         <CurrentPath />
       </div>
+      <div>
+        <span>Search</span>
+        <input type="search" placeholder="Placeholder filter field..." />
+      </div>
       <div className="window-content inset">
         <BlogList blogList={blogList} />
       </div>
