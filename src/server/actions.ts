@@ -1,5 +1,5 @@
 "use server";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { eq, sql, and, isNull } from "drizzle-orm";
 import { db } from "@/server/db";
@@ -15,6 +15,7 @@ import type {
 } from "@/types/types";
 import { hash, verify } from "@node-rs/argon2";
 import { ratelimit } from "@/server/ratelimit";
+import { getUserIdentifier } from "@/lib/getUserIdentifier";
 
 /* CREATE USER - SIGN UP ACTION */
 const CreateUserSchema = z
@@ -45,21 +46,8 @@ const CreateUserSchema = z
   );
 export async function signup(currentState: FormStatusTypes, formData: FormData): Promise<FormStatusTypes> {
   // TODO: ADD RATELIMIT
-  const forwardedFor = (await headers()).get("x-forwarded-for");
-  const realIP = (await headers()).get("x-real-ip");
 
-  const getUserIdentifier = () => {
-    // if (userId) return userId;
-    if (forwardedFor) {
-      return forwardedFor.split(",")[0]!.trim();
-    } else if (realIP) {
-      return realIP.trim();
-    } else {
-      return "0.0.0.0";
-    }
-  };
-
-  const { success: rlOK, message: rlMessage } = await ratelimit(getUserIdentifier(), "auth");
+  const { success: rlOK, message: rlMessage } = await ratelimit(await getUserIdentifier(), "auth");
 
   if (!rlOK) {
     return { success: false, message: "RATELIMIT ERROR: Too many actions." };
