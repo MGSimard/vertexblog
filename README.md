@@ -59,6 +59,7 @@
 - [x] Put in the actual filepath in the save warning dialog
 - [ ] ATTEMPT TO ROLL MY OWN RATELIMIT FROM SCRATCH, GOT ROUGH IDEA OF HOW IT CAN WORK
 - [ ] Consider separate ratelimiting for action types (Signup/Signin, Data fetching, Data mutation (Blog/Post))
+- [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks
 - [ ] HEAVY IP-based ratelimit on incorrect password attempts
 - [ ] Use dialog for failure to load blogs or posts
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
