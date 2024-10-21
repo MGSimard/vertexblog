@@ -3,9 +3,6 @@ import Link from "next/link";
 import { Taskbar } from "@/components/Taskbar";
 import { Handjet } from "next/font/google";
 import "@/styles/globals.css";
-import { ZIndexContextProvider } from "@/components/ZIndexContextProvider";
-import { SortContextProvider } from "@/components/SortContextProvider";
-import { NewFileContextProvider } from "@/components/NewFileContextProvider";
 import { Providers } from "@/components/Providers";
 
 const handjet = Handjet({ subsets: ["latin"] });

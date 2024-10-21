@@ -190,8 +190,11 @@ export async function getBlogs(): Promise<GetBlogsResponseTypes> {
       .from(blogs)
       .where(isNull(blogs.deletedAt));
     return { success: true, data: blogList, message: "SUCCESS: Blog list indexed." };
-  } catch (err) {
-    return { success: false, message: `DATABASE ERROR: Failed retrieving blogs. (${err})` };
+  } catch (err: unknown) {
+    return {
+      success: false,
+      message: `DATABASE ERROR: Failed retrieving blogs. (${err instanceof Error ? err.message : "UNKNOWN ERROR."})`,
+    };
   }
 }
 
