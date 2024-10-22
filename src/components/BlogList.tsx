@@ -33,10 +33,14 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     }
   });
 
+  const itemCount = 3000;
   const itemWidth = 80;
   const itemHeight = 80;
   const gap = 30;
   const bufferSize = 3;
+
+  const columns = Math.floor((containerWidth + gap) / (itemWidth + gap));
+  const rows = Math.ceil(itemCount / columns);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -54,10 +58,6 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
 
   useEffect(() => {
     if (sortedBlogs && containerWidth && containerRef.current) {
-      const itemCount = 3000;
-      const columns = Math.floor((containerWidth + gap) / (itemWidth + gap));
-      const rows = Math.ceil(itemCount / columns);
-
       const virtualHeight = rows * (itemHeight + gap) - gap;
       containerRef.current.style.height = `${virtualHeight / 10}rem`;
     }
