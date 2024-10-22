@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
-import { useNewFile } from "./NewFileContextProvider";
+import { useNewFile } from "@/components/NewFileContextProvider";
 
 export function BlogsFileButton() {
   const [menuOpen, setMenuOpen] = useState(false);

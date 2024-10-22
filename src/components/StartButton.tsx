@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
+import { StartMenu } from "@/components/StartMenu";
 import type { UserTypes } from "@/types/types";
-import { StartMenu } from "./StartMenu";
 
 export function StartButton({ user, blogTitle }: { user: UserTypes; blogTitle: string | null }) {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { useZIndex } from "./ZIndexContextProvider";
+import { useZIndex } from "@/components/ZIndexContextProvider";
 
 interface PropTypes {
   children: React.ReactNode;

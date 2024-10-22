@@ -1,7 +1,7 @@
 "use client";
-import { signup, signin, signout } from "@/server/actions";
 import { useActionState, useState } from "react";
-import { EyeIcon, EyeSlashIcon } from "./icons";
+import { signup, signin, signout } from "@/server/actions";
+import { EyeIcon, EyeSlashIcon } from "@/components/icons";
 
 export function SignInOrUp() {
   const [isSignUp, setIsSignUp] = useState(false);

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { DemaximizeIcon, MaximizeIcon } from "./icons";
+import { DemaximizeIcon, MaximizeIcon } from "@/components/icons";
 
 export function MaximizeButton() {
   const [maximized, setMaximized] = useState(false);

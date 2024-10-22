@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
-import { useIconView } from "./IconViewProvider";
+import { useIconView } from "@/components/IconViewProvider";
 
 export function BlogsViewButton() {
   const [menuOpen, setMenuOpen] = useState(false);

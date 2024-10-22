@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import type { PostInfoTypes } from "@/types/types";
 import { Modal } from "@/components/Modal";
-import { Notepad } from "./Notepad";
+import { Notepad } from "@/components/Notepad";
+import type { PostInfoTypes } from "@/types/types";
 
 export function TextFile({ postInfo }: { postInfo: PostInfoTypes }) {
   const [isModalOpen, setIsModalOpen] = useState(false);

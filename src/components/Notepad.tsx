@@ -1,13 +1,13 @@
 "use client";
+import { usePathname } from "next/navigation";
 import { useState, useRef } from "react";
-import type { PostInfoTypes } from "@/types/types";
+import { savePost } from "@/server/actions";
+import { dialogManager } from "@/lib/DialogManager";
 import { WindowFrame } from "@/components/WindowFrame";
 import { MaximizeButton } from "@/components/MaximizeButton";
 import { NotepadFileButton } from "@/components/NotepadFileButton";
 import { CloseIcon } from "@/components/icons";
-import { savePost } from "@/server/actions";
-import { dialogManager } from "@/lib/DialogManager";
-import { usePathname } from "next/navigation";
+import type { PostInfoTypes } from "@/types/types";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
   const [isDirty, setIsDirty] = useState(false);

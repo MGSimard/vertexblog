@@ -1,9 +1,9 @@
 "use client";
+import { usePathname } from "next/navigation";
 import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 import { savePost } from "@/server/actions";
-import type { PostInfoTypes } from "@/types/types";
 import { dialogManager } from "@/lib/DialogManager";
-import { usePathname } from "next/navigation";
+import type { PostInfoTypes } from "@/types/types";
 
 export function NotepadFileButton({
   postInfo,

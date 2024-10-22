@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
-import type { UserTypes } from "@/types/types";
-import { SignInOrUp, SignOut } from "./AuthComponents";
 import { useEffect, type Dispatch, type SetStateAction } from "react";
+import { SignInOrUp, SignOut } from "@/components/AuthComponents";
+import type { UserTypes } from "@/types/types";
 
 export function StartMenu({
   user,

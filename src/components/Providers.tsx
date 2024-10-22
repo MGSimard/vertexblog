@@ -1,7 +1,7 @@
 import { ZIndexContextProvider } from "@/components/ZIndexContextProvider";
-import { SortContextProvider } from "@/components/SortContextProvider";
 import { NewFileContextProvider } from "@/components/NewFileContextProvider";
 import { IconViewContextProvider } from "@/components/IconViewProvider";
+import { SortContextProvider } from "@/components/SortContextProvider";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (

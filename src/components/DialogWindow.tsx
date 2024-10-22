@@ -1,6 +1,5 @@
 "use client";
-
-import { CloseIcon } from "./icons";
+import { CloseIcon } from "@/components/icons";
 import type { DialogOptionsTypes } from "@/types/types";
 
 export function DialogWindow({ type, title, message, buttons, closeDialog }: DialogOptionsTypes) {

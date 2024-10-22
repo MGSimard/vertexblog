@@ -1,9 +1,9 @@
 "use client";
+import { useIconView } from "@/components/IconViewProvider";
 import { useSort } from "@/components/SortContextProvider";
-import type { GetPostsResponseTypes } from "@/types/types";
 import { TextFile } from "@/components/TextFile";
 import { CreatePostForm } from "@/components/CreatePostForm";
-import { useIconView } from "@/components/IconViewProvider";
+import type { GetPostsResponseTypes } from "@/types/types";
 
 // REMOVE ANY
 export function PostList({ postList, currentBlog }: { postList: GetPostsResponseTypes; currentBlog: string }) {
