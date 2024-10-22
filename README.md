@@ -60,7 +60,7 @@
 - [x] ATTEMPT TO ROLL MY OWN RATELIMIT FROM SCRATCH, GOT ROUGH IDEA OF HOW IT CAN WORK
 - [x] Consider separate ratelimiting for action types (Signup/Signin, Data fetching, Data mutation (Blog/Post))
 - [x] Upgrade to new stable Next 15, migrate .eslintrc.cjs to flat config eslint.config.mjs etc etc.
-- [ ] Reduce filesize of "/favicons/android-chrome-512x512.png"
+- [x] Reduce filesize of "/favicons/android-chrome-512x512.png"
 - [ ] Established that filecount being rendered, and not container height, can affect file explorer window dragging performance at scale.
 - [ ] Therefore, try to implement some form of virtual scrolling - I do not want pagination, "load more", or "infinite scrolling" effects that renders things on action. I WANT the scrollbar to remain the same size and position at all times, as if it were aware of the total space taken by all the files, despite them not being rendered outside view. This becomes complicated once you consider the fact that intended height isn't static, since width can be resized and icons flow down.
 - [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks (Introduce IP)
