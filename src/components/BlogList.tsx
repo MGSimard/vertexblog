@@ -65,7 +65,7 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
 
   useEffect(() => {
     if (sortedBlogs && containerWidth && iconContainerRef.current) {
-      const itemCount = 1200000;
+      const itemCount = sortedBlogs.length;
       const itemWidth = 80;
       const itemHeight = 80;
       const gap = 30;
@@ -73,21 +73,14 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
       const rows = Math.ceil(itemCount / columns);
 
       const virtualHeight = rows * (itemHeight + gap) - gap;
-      console.log("CONTAINER WIDTH:", containerWidth);
-      console.log("COLUMNS:", columns);
-      console.log("ROWS:", rows);
-      console.log("VIRTUAL HEIGHT:", virtualHeight.toString());
-
       iconContainerRef.current.style.minHeight = `${virtualHeight / 10}rem`;
     }
-
-    // When containerwidth changes, adjust min-height of container.
   }, [containerWidth]);
 
   return (
     <ul ref={iconContainerRef} className={`shortcut-area view-${iconView}`}>
-      {/* Temporary error message */}
       <CreateBlogForm />
+      {/* Temporary error message */}
       {!success && message}
       {sortedBlogs?.map((blog) => (
         <li key={blog.blogId}>
