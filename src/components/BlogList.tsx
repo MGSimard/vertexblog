@@ -54,7 +54,7 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
    * - Item Gap
    *
    * Total Columns: (CWidth + Igap) / (IWidth + IGap) = Columns (Round down)
-   * Total Rows: ICount / Columns = Rows
+   * Total Rows: ICount / Columns = Rows (Round Up)
    *
    * Container Height: ((IHeight + Gap) * Rows) - Gap = Container Height
    * Set as min-height just to be sure
@@ -66,10 +66,11 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
       const itemWidth = 80;
       const itemHeight = 80;
       const gap = 30;
-
       const columns = Math.floor((containerWidth + gap) / (itemWidth + gap));
-      console.log("WIDTH:", containerWidth);
+      const rows = itemCount / columns;
+      console.log("CONTAINER WIDTH:", containerWidth);
       console.log("COLUMNS:", columns);
+      console.log("ROWS:", rows);
     }
 
     // When containerwidth changes, adjust min-height of container.
