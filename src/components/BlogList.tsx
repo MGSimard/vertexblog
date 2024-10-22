@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
 import { useIconView } from "@/components/IconViewProvider";
 import { useSort } from "@/components/SortContextProvider";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
@@ -9,10 +10,12 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const { success, data, message } = blogList;
   const { blogSortType } = useSort();
   const { iconView } = useIconView();
+  const iconContainerRef = useRef<HTMLUListElement>(null);
+
+  const [containerWidth, setContainerWidth] = useState(0);
 
   // TODO: Filter blogs, either server-side with search params or client-side filtering here
   // Do sortedblogs below after
-
   const sortedBlogs = data?.sort((a, b) => {
     switch (blogSortType) {
       case "name":
@@ -29,14 +32,19 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     }
   });
 
-  /** TODO:
-   * - Get total amount of items (length)
-   * - Get shortcut-area div width dynamically
-   * - According to item size, and gap, against div width, calculate intended shortcut-area height were the items rendered
-   * - Set min-height of shortcut-area to that height, this simulates accurate scrollbar at all times despite items not rendered
-   * - Lazyload items
-   * - This fixes load performance, especially file explorer dragging, once we get past a few hundred files rendered
-   */
+  useEffect(() => {
+    if (!iconContainerRef.current) return;
+
+    const observer = new ResizeObserver(([ele]) => {
+      if (ele?.target instanceof HTMLElement) {
+        setContainerWidth(ele.target.clientWidth);
+      }
+    });
+    observer.observe(iconContainerRef.current);
+    setContainerWidth(iconContainerRef.current.clientWidth);
+
+    return () => observer.disconnect();
+  }, []);
 
   /** PROPOSED FORMULA:
    * Variables:
@@ -45,15 +53,30 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
    * - Item Width & Height
    * - Item Gap
    *
-   * Total Columns: CWidth / (IWidth + IGap) = Columns (Round down)
+   * Total Columns: (CWidth + Igap) / (IWidth + IGap) = Columns (Round down)
    * Total Rows: ICount / Columns = Rows
    *
    * Container Height: ((IHeight + Gap) * Rows) - Gap = Container Height
    * Set as min-height just to be sure
    */
 
+  useEffect(() => {
+    if (sortedBlogs) {
+      const itemCount = sortedBlogs.length;
+      const itemWidth = 80;
+      const itemHeight = 80;
+      const gap = 30;
+
+      const columns = Math.floor((containerWidth + gap) / (itemWidth + gap));
+      console.log("WIDTH:", containerWidth);
+      console.log("COLUMNS:", columns);
+    }
+
+    // When containerwidth changes, adjust min-height of container.
+  }, [containerWidth]);
+
   return (
-    <ul className={`shortcut-area view-${iconView}`}>
+    <ul ref={iconContainerRef} className={`shortcut-area view-${iconView}`}>
       {/* Temporary error message */}
       <CreateBlogForm />
       {!success && message}
