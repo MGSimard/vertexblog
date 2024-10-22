@@ -49,20 +49,6 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     return () => observer.disconnect();
   }, []);
 
-  /** PROPOSED FORMULA:
-   * Variables:
-   * - Container Width
-   * - Item Count
-   * - Item Width & Height
-   * - Item Gap
-   *
-   * Total Columns: (CWidth + Igap) / (IWidth + IGap) = Columns (Round down)
-   * Total Rows: ICount / Columns = Rows (Round Up)
-   *
-   * Container Height: ((IHeight + Gap) * Rows) - Gap = Container Height
-   * Set as min-height just to be sure
-   */
-
   useEffect(() => {
     if (sortedBlogs && containerWidth && iconContainerRef.current) {
       const itemCount = sortedBlogs.length;
@@ -76,6 +62,16 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
       iconContainerRef.current.style.minHeight = `${virtualHeight / 10}rem`;
     }
   }, [containerWidth]);
+
+  /** VIRTUALIZATION PLAN:
+   * - Scroll container: Position relative
+   * - Group items (flex subcontainer, width 100%)
+   * - Make group absolute position 0,0, then translate Y using first item's intended position using its index
+   * - First item should always be the matching item on the leftmost of the row, last item rightmost of last row
+   * - Could decide a flat amount of items to render, could also calc how many should be rendered according to
+   * container visible height and pad the top and bottom for some level of preloading like in old tilebased RPGs
+   * - Get relevant index of first object to render according to current scroll position (dunno how yet)
+   */
 
   return (
     <ul ref={iconContainerRef} className={`shortcut-area view-${iconView}`}>
