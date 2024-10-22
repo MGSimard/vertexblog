@@ -408,9 +408,16 @@ header .shortcut-area {
   background: white;
   overflow: auto;
 }
+.window .scroll-container {
+  position: relative;
+}
 .window .shortcut-area {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
+  width: 100%;
   height: auto;
 }
 /* LARGE ICONS VIEW IS DEFAULT */

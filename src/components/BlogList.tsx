@@ -10,12 +10,13 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const { success, data, message } = blogList;
   const { blogSortType } = useSort();
   const { iconView } = useIconView();
-  const iconContainerRef = useRef<HTMLUListElement>(null);
 
+  // TODO: Clean this shit up once you have a functioning feature
+
+  const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [scrollPos, setScrollPos] = useState(0);
 
-  // TODO: Filter blogs, either server-side with search params or client-side filtering here
-  // Do sortedblogs below after
   const sortedBlogs = data?.sort((a, b) => {
     switch (blogSortType) {
       case "name":
@@ -32,34 +33,33 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     }
   });
 
-  useEffect(() => {
-    if (!iconContainerRef.current) return;
+  const itemWidth = 80;
+  const itemHeight = 80;
+  const gap = 30;
+  const bufferSize = 3;
 
+  useEffect(() => {
+    if (!containerRef.current) return;
     const observer = new ResizeObserver(([ele]) => {
       if (ele?.target instanceof HTMLElement) {
         setContainerWidth(ele.target.clientWidth);
       }
     });
-    observer.observe(iconContainerRef.current);
-    setContainerWidth(iconContainerRef.current.clientWidth);
-
-    // remove
-    iconContainerRef.current.style.background = "red";
-
+    observer.observe(containerRef.current);
+    setContainerWidth(containerRef.current.clientWidth);
+    // remove bg later
+    containerRef.current.style.background = "red";
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    if (sortedBlogs && containerWidth && iconContainerRef.current) {
-      const itemCount = sortedBlogs.length;
-      const itemWidth = 80;
-      const itemHeight = 80;
-      const gap = 30;
+    if (sortedBlogs && containerWidth && containerRef.current) {
+      const itemCount = 3000;
       const columns = Math.floor((containerWidth + gap) / (itemWidth + gap));
       const rows = Math.ceil(itemCount / columns);
 
       const virtualHeight = rows * (itemHeight + gap) - gap;
-      iconContainerRef.current.style.minHeight = `${virtualHeight / 10}rem`;
+      containerRef.current.style.height = `${virtualHeight / 10}rem`;
     }
   }, [containerWidth]);
 
@@ -67,25 +67,41 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
    * - Scroll container: Position relative
    * - Group items (flex subcontainer, width 100%)
    * - Make group absolute position 0,0, then translate Y using first item's intended position using its index
+   * (Basically just offset Y by amount of previous rows (row height + gap))
    * - First item should always be the matching item on the leftmost of the row, last item rightmost of last row
    * - Could decide a flat amount of items to render, could also calc how many should be rendered according to
    * container visible height and pad the top and bottom for some level of preloading like in old tilebased RPGs
    * - Get relevant index of first object to render according to current scroll position (dunno how yet)
    */
 
+  useEffect(() => {
+    const scrollEle = containerRef.current?.parentElement;
+    if (scrollEle) {
+      scrollEle.addEventListener("scroll", () => console.log("SCROLL POS:", scrollEle.scrollTop));
+
+      return () => {
+        scrollEle.removeEventListener("scroll", () => console.log("SCROLL POS:", scrollEle.scrollTop));
+      };
+    }
+  }, [containerRef]);
+
   return (
-    <ul ref={iconContainerRef} className={`shortcut-area view-${iconView}`}>
+    <div ref={containerRef} className="scroll-container">
       <CreateBlogForm />
       {/* Temporary error message */}
       {!success && message}
-      {sortedBlogs?.map((blog) => (
-        <li key={blog.blogId}>
-          <Link href={`/documents/${encodeURIComponent(blog.blogTitle)}`} className="shortcut">
-            <img src={`/assets/${blog.active ? "FilledFolder" : "EmptyFolder"}.svg`} alt="Folder" />
-            <span>{blog.blogTitle}</span>
-          </Link>
-        </li>
-      ))}
-    </ul>
+      <ul className={`shortcut-area view-${iconView}`}>
+        {Array.from({ length: 1000 }).map((_, index) =>
+          sortedBlogs?.map((blog) => (
+            <li key={`${blog.blogId}-${index}`}>
+              <Link href={`/documents/${encodeURIComponent(blog.blogTitle)}`} className="shortcut">
+                <img src={`/assets/${blog.active ? "FilledFolder" : "EmptyFolder"}.svg`} alt="Folder" />
+                <span>{blog.blogTitle}</span>
+              </Link>
+            </li>
+          ))
+        )}
+      </ul>
+    </div>
   );
 }
