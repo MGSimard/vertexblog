@@ -67,7 +67,7 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
       const itemHeight = 80;
       const gap = 30;
       const columns = Math.floor((containerWidth + gap) / (itemWidth + gap));
-      const rows = itemCount / columns;
+      const rows = Math.ceil(itemCount / columns);
       console.log("CONTAINER WIDTH:", containerWidth);
       console.log("COLUMNS:", columns);
       console.log("ROWS:", rows);
