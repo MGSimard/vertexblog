@@ -43,6 +43,9 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     observer.observe(iconContainerRef.current);
     setContainerWidth(iconContainerRef.current.clientWidth);
 
+    // remove
+    iconContainerRef.current.style.background = "red";
+
     return () => observer.disconnect();
   }, []);
 
@@ -61,8 +64,8 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
    */
 
   useEffect(() => {
-    if (sortedBlogs) {
-      const itemCount = sortedBlogs.length;
+    if (sortedBlogs && containerWidth && iconContainerRef.current) {
+      const itemCount = 1200000;
       const itemWidth = 80;
       const itemHeight = 80;
       const gap = 30;
@@ -73,7 +76,9 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
       console.log("CONTAINER WIDTH:", containerWidth);
       console.log("COLUMNS:", columns);
       console.log("ROWS:", rows);
-      console.log("VIRTUAL HEIGHT:", virtualHeight);
+      console.log("VIRTUAL HEIGHT:", virtualHeight.toString());
+
+      iconContainerRef.current.style.minHeight = `${virtualHeight / 10}rem`;
     }
 
     // When containerwidth changes, adjust min-height of container.

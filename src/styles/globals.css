@@ -411,6 +411,7 @@ header .shortcut-area {
 .window .shortcut-area {
   display: flex;
   flex-direction: row;
+  height: auto;
 }
 /* LARGE ICONS VIEW IS DEFAULT */
 /* SMALL ICONS VIEW */
