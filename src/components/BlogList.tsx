@@ -68,9 +68,12 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
       const gap = 30;
       const columns = Math.floor((containerWidth + gap) / (itemWidth + gap));
       const rows = Math.ceil(itemCount / columns);
+
+      const virtualHeight = rows * (itemHeight + gap) - gap;
       console.log("CONTAINER WIDTH:", containerWidth);
       console.log("COLUMNS:", columns);
       console.log("ROWS:", rows);
+      console.log("VIRTUAL HEIGHT:", virtualHeight);
     }
 
     // When containerwidth changes, adjust min-height of container.
