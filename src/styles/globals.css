@@ -412,9 +412,9 @@ header .shortcut-area {
   position: relative;
 }
 .window .shortcut-area {
-  position: absolute;
+  /* position: absolute;
   top: 0;
-  left: 0;
+  left: 0; */
   display: flex;
   flex-direction: row;
   width: 100%;
