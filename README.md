@@ -77,5 +77,5 @@
 - [ ] Analytics (Posthog?)
 - [ ] Sentry mayhaps?
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
-- [ ] Some form of pagination for blogs and maybe posts, dragging performance sucks once there are a lot of files in the div
+- [x] Some form of pagination for blogs and maybe posts, dragging performance sucks once there are a lot of files in the div - (Settled on virtualization from scratch)
 - [ ] Metadata, especially important for blog links
