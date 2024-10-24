@@ -59,6 +59,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   </Link>
                 </li>
                 <li>This app is in active development.</li>
+                <li>
+                  <a href="https://github.com/MGSimard/vertexblog" target="_blank">
+                    <img src="#" alt="Github Logo" />
+                    <span>Github</span>
+                  </a>
+                </li>
               </ul>
               <Taskbar />
             </nav>
