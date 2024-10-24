@@ -7,7 +7,7 @@ export type FormStatusTypes = FormResponseTypes | null;
 
 export type UserTypes = { username: string; id: string } | null;
 
-interface BlogInfoTypes {
+export interface BlogInfoTypes {
   blogId: number;
   blogAuthor: string;
   blogTitle: string;

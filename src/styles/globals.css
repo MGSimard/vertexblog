@@ -140,14 +140,15 @@ header .shortcut-area {
 .create-icon {
   z-index: 1;
 }
-.create-icon fieldset {
+.create-icon div {
   position: absolute;
   top: calc(100% + 1rem);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  align-items: center;
   width: 100%;
-  border: 1px solid black;
+  border: none;
 }
 .create-icon input {
   width: 100%;
@@ -155,10 +156,11 @@ header .shortcut-area {
   padding: 0;
   border: none;
   box-shadow: none;
+  border: 1px solid black;
 }
 .create-icon button {
-  height: 100%;
   position: absolute;
+  height: 100%;
   left: calc(100% + 0.2rem);
   background: none;
 }
@@ -412,69 +414,71 @@ header .shortcut-area {
   position: relative;
 }
 .window .shortcut-area {
-  /* position: absolute;
+  position: absolute;
   top: 0;
-  left: 0; */
+  left: 0;
   display: flex;
   flex-direction: row;
   width: 100%;
   height: auto;
 }
 /* LARGE ICONS VIEW IS DEFAULT */
-/* SMALL ICONS VIEW */
-.window .view-small {
+/* SMAll/LIST ICONS VIEW */
+.view-small {
   gap: 1rem;
 }
-.window .view-small .shortcut {
-  display: flex;
-  gap: 0.5rem;
-}
-.window .view-small li {
-  width: 20rem;
-  height: auto;
-}
-.window .view-small a {
-  display: block;
-  width: 100%;
-}
-.window .view-small .shortcut img {
-  height: 1em;
-  padding: 0;
-  filter: drop-shadow(2px 2px black);
-}
-.window .view-small span {
-  all: unset;
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-/* LIST ICONS VIEW */
-.window .view-list {
+.shortcut-area.view-list {
   gap: 1rem;
   flex-direction: column;
   flex-wrap: nowrap;
 }
-.window .view-list .shortcut {
-  display: flex;
-  gap: 0.5rem;
+.view-small li {
+  width: 20rem;
+  height: auto;
 }
-.window .view-list li {
+.view-list li {
   width: auto;
   height: auto;
 }
-.window .view-list li a {
+.view-small a,
+.view-list a {
+  display: block;
   width: 100%;
 }
-.window .view-list .shortcut img {
+.view-small .shortcut,
+.view-list .shortcut {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.view-small .shortcut img,
+.view-list .shortcut img {
   height: 1em;
   padding: 0;
-  filter: drop-shadow(2px 2px black);
 }
-.window .view-list span {
+.view-small span,
+.view-list span {
   all: unset;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+/* Create file styles in small/list view modes */
+.view-list .create-icon div,
+.view-small .create-icon div {
+  position: static;
+  transform: unset;
+}
+.view-list .create-icon input {
+  max-width: 20rem;
+}
+.view-list .create-icon button,
+.view-small .create-icon button {
+  position: relative;
+  left: unset;
+  height: 2.2rem;
+  flex-shrink: 0;
 }
 /**/
 button.shortcut {

@@ -50,16 +50,14 @@ export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
     return (
       <li id="create-post-form" className="create-icon">
         <form onSubmit={handleSubmit} className="shortcut">
-          <label htmlFor="postTitle">
-            <img src="/assets/Notepad.svg" alt="Folder" />
-            <fieldset>
-              <input id="postTitle" name="postTitle" type="text" autoFocus spellCheck="false" maxLength={60} required />
-              <button type="submit" disabled={pending} aria-disabled={pending}>
-                <AddTxtIcon />
-              </button>
-            </fieldset>
-            <input type="hidden" name="currentBlog" value={currentBlog} />
-          </label>
+          <img src="/assets/Notepad.svg" alt="Folder" />
+          <div>
+            <input name="postTitle" type="text" autoFocus spellCheck="false" maxLength={60} required />
+            <button type="submit" disabled={pending} aria-disabled={pending}>
+              <AddTxtIcon />
+            </button>
+          </div>
+          <input type="hidden" name="currentBlog" value={currentBlog} />
         </form>
       </li>
     );

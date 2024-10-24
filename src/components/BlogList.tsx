@@ -1,98 +1,104 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useIconView } from "@/components/IconViewProvider";
 import { useSort } from "@/components/SortContextProvider";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
-import type { GetBlogsResponseTypes } from "@/types/types";
+import type { GetBlogsResponseTypes, BlogInfoTypes } from "@/types/types";
 
 export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const { success, data, message } = blogList;
   const { blogSortType } = useSort();
   const { iconView } = useIconView();
 
-  // TODO: Clean this shit up once you have a functioning feature
-
   const containerRef = useRef<HTMLDivElement>(null);
-  // const [containerWidth, setContainerWidth] = useState(0);
-  // const [scrollPos, setScrollPos] = useState(0);
+  const iconGroupRef = useRef<HTMLUListElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [containerHeight, setContainerHeight] = useState(0);
+  const [scrollPos, setScrollPos] = useState(0);
+  const [renderedItems, setRenderedItems] = useState<BlogInfoTypes[]>([]);
 
-  const sortedBlogs = data?.sort((a, b) => {
-    switch (blogSortType) {
-      case "name":
-        return a.blogTitle.localeCompare(b.blogTitle);
-      case "created":
-        return a.creationDate.getTime() - b.creationDate.getTime();
-      case "updated":
-        return (
-          (b.updateDate ? b.updateDate.getTime() : b.creationDate.getTime()) -
-          (a.updateDate ? a.updateDate.getTime() : b.creationDate.getTime())
-        );
-      default:
-        return a.blogTitle.localeCompare(b.blogTitle);
+  const sortedBlogs = useMemo(() => {
+    return data?.sort((a, b) => {
+      switch (blogSortType) {
+        case "name":
+          return a.blogTitle.localeCompare(b.blogTitle);
+        case "created":
+          return a.creationDate.getTime() - b.creationDate.getTime();
+        case "updated":
+          return (
+            (b.updateDate ? b.updateDate.getTime() : b.creationDate.getTime()) -
+            (a.updateDate ? a.updateDate.getTime() : b.creationDate.getTime())
+          );
+        default:
+          return a.blogTitle.localeCompare(b.blogTitle);
+      }
+    });
+  }, [data, blogSortType]);
+
+  const itemCount = sortedBlogs?.length ?? 0;
+  const itemWidth = iconView === "small" ? 200 : 80;
+  const itemHeight = iconView === "large" ? 80 : 18;
+  const gap = iconView === "large" ? 30 : 10;
+  const columns = iconView === "list" ? 1 : Math.max(1, Math.floor((containerWidth + gap) / (itemWidth + gap)));
+  const rows = Math.ceil(itemCount / columns);
+  const bufferRows = iconView === "large" ? 2 : 8;
+
+  useEffect(() => {
+    const scrollEle = containerRef.current?.parentElement;
+    if (!scrollEle) return;
+    setContainerWidth(scrollEle.clientWidth);
+    setContainerHeight(scrollEle.clientHeight);
+    const observer = new ResizeObserver((entries) => {
+      if (entries[0]) {
+        const width = entries[0].contentRect.width;
+        const height = entries[0].contentRect.height;
+        setContainerWidth(width);
+        setContainerHeight(height);
+      }
+    });
+    observer.observe(scrollEle);
+    scrollEle.addEventListener("scroll", () => setScrollPos(scrollEle.scrollTop));
+    return () => {
+      observer.disconnect();
+      scrollEle.removeEventListener("scroll", () => setScrollPos(scrollEle.scrollTop));
+    };
+  }, []);
+
+  useEffect(() => {
+    if (sortedBlogs && containerWidth && containerRef.current) {
+      const virtualHeight = rows * (itemHeight + gap) - gap;
+      containerRef.current.style.height = `${virtualHeight / 10}rem`;
     }
-  });
+  }, [containerWidth, iconView]);
 
-  // const itemCount = 3000;
-  // const itemWidth = 80;
-  // const itemHeight = 80;
-  // const gap = 30;
-  // const bufferSize = 3;
+  useEffect(() => {
+    if (!sortedBlogs) return;
+    const rowsBeforeTop = Math.floor(scrollPos / (itemHeight + gap));
+    const itemsBeforeTop = rowsBeforeTop * columns;
+    const rowsVisible = Math.ceil(containerHeight / (itemHeight + gap)) + 1;
+    const itemsVisible = rowsVisible * columns;
+    const startIndex = itemsBeforeTop - bufferRows * columns < 0 ? 0 : itemsBeforeTop - bufferRows * columns;
+    const endIndex =
+      itemsBeforeTop + itemsVisible + bufferRows * columns > sortedBlogs.length
+        ? sortedBlogs.length - 1
+        : itemsBeforeTop + itemsVisible + bufferRows * columns;
 
-  // const columns = Math.floor((containerWidth + gap) / (itemWidth + gap));
-  // const rows = Math.ceil(itemCount / columns);
-
-  // useEffect(() => {
-  //   if (!containerRef.current) return;
-  //   const observer = new ResizeObserver(([ele]) => {
-  //     if (ele?.target instanceof HTMLElement) {
-  //       setContainerWidth(ele.target.clientWidth);
-  //     }
-  //   });
-  //   observer.observe(containerRef.current);
-  //   setContainerWidth(containerRef.current.clientWidth);
-  //   // remove bg later
-  //   containerRef.current.style.background = "red";
-  //   return () => observer.disconnect();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (sortedBlogs && containerWidth && containerRef.current) {
-  //     const virtualHeight = rows * (itemHeight + gap) - gap;
-  //     containerRef.current.style.height = `${virtualHeight / 10}rem`;
-  //   }
-  // }, [containerWidth]);
-
-  // /** VIRTUALIZATION PLAN:
-  //  * - Scroll container: Position relative
-  //  * - Group items (flex subcontainer, width 100%)
-  //  * - Make group absolute position 0,0, then translate Y using first item's intended position using its index
-  //  * (Basically just offset Y by amount of previous rows (row height + gap))
-  //  * - First item should always be the matching item on the leftmost of the row, last item rightmost of last row
-  //  * - Could decide a flat amount of items to render, could also calc how many should be rendered according to
-  //  * container visible height and pad the top and bottom for some level of preloading like in old tilebased RPGs
-  //  * - Get relevant index of first object to render according to current scroll position (dunno how yet)
-  //  */
-
-  // useEffect(() => {
-  //   const scrollEle = containerRef.current?.parentElement;
-  //   if (scrollEle) {
-  //     scrollEle.addEventListener("scroll", () => console.log("SCROLL POS:", scrollEle.scrollTop));
-
-  //     return () => {
-  //       scrollEle.removeEventListener("scroll", () => console.log("SCROLL POS:", scrollEle.scrollTop));
-  //     };
-  //   }
-  // }, [containerRef]);
+    const itemsToRender = sortedBlogs.slice(startIndex, endIndex + 1);
+    setRenderedItems(itemsToRender);
+    if (iconGroupRef.current) {
+      iconGroupRef.current.style.top = `${(startIndex / columns) * (itemHeight + gap)}px`;
+    }
+  }, [scrollPos, columns, containerHeight, iconView, blogSortType]);
 
   return (
     <div ref={containerRef} className="scroll-container">
-      <CreateBlogForm />
-      {/* Temporary error message */}
       {!success && message}
-      <ul className={`shortcut-area view-${iconView}`}>
-        {sortedBlogs?.map((blog) => (
-          <li key={blog.blogId}>
+      <ul ref={iconGroupRef} className={`shortcut-area view-${iconView}`}>
+        <CreateBlogForm />
+        {/* TODO: Remove index thing once done simulating duplicated blogs for count perf test */}
+        {renderedItems?.map((blog, index) => (
+          <li key={`${blog.blogId}-${index}`}>
             <Link href={`/documents/${encodeURIComponent(blog.blogTitle)}`} className="shortcut">
               <img src={`/assets/${blog.active ? "FilledFolder" : "EmptyFolder"}.svg`} alt="Folder" />
               <span>{blog.blogTitle}</span>
