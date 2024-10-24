@@ -61,8 +61,9 @@
 - [x] Consider separate ratelimiting for action types (Signup/Signin, Data fetching, Data mutation (Blog/Post))
 - [x] Upgrade to new stable Next 15, migrate .eslintrc.cjs to flat config eslint.config.mjs etc etc.
 - [x] Reduce filesize of "/favicons/android-chrome-512x512.png"
-- [ ] Established that filecount being rendered, and not container height, can affect file explorer window dragging performance at scale.
-- [ ] Therefore, try to implement some form of virtual scrolling - I do not want pagination, "load more", or "infinite scrolling" effects that renders things on action. I WANT the scrollbar to remain the same size and position at all times, as if it were aware of the total space taken by all the files, despite them not being rendered outside view. This becomes complicated once you consider the fact that intended height isn't static, since width can be resized and icons flow down.
+- [x] Implement virtualized list scrolling from scratch
+- [ ] Optimize its performance
+- [ ] Suspense the page loads, allow shortcut render popin
 - [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks (Introduce IP)
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
 - [ ] Use the isDirty prompting thing if user tries to navigate away from page
