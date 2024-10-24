@@ -36,19 +36,17 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     });
   }, [data, blogSortType]);
 
-  const itemCount = sortedBlogs?.length ?? 0;
-  const itemWidth = iconView === "small" ? 200 : 80;
-  const itemHeight = iconView === "large" ? 80 : 18;
-  const gap = iconView === "large" ? 30 : 10;
-  const columns = iconView === "list" ? 1 : Math.max(1, Math.floor((containerWidth + gap) / (itemWidth + gap)));
-  const rows = Math.ceil(itemCount / columns);
-  const bufferRows = iconView === "large" ? 2 : 8;
-
   useEffect(() => {
     const scrollEle = containerRef.current?.parentElement;
     if (!scrollEle) return;
+
     setContainerWidth(scrollEle.clientWidth);
     setContainerHeight(scrollEle.clientHeight);
+
+    const handleScroll = () => {
+      setScrollPos(scrollEle.scrollTop);
+    };
+
     const observer = new ResizeObserver((entries) => {
       if (entries[0]) {
         const width = entries[0].contentRect.width;
@@ -57,23 +55,32 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
         setContainerHeight(height);
       }
     });
+
     observer.observe(scrollEle);
-    scrollEle.addEventListener("scroll", () => setScrollPos(scrollEle.scrollTop));
+    scrollEle.addEventListener("scroll", handleScroll);
+
     return () => {
       observer.disconnect();
-      scrollEle.removeEventListener("scroll", () => setScrollPos(scrollEle.scrollTop));
+      scrollEle.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   useEffect(() => {
-    if (sortedBlogs && containerWidth && containerRef.current) {
+    if (!sortedBlogs || !containerWidth) return;
+
+    const itemCount = sortedBlogs.length ?? 0;
+    const itemWidth = iconView === "small" ? 200 : 80;
+    const itemHeight = iconView === "large" ? 80 : 18;
+    const gap = iconView === "large" ? 30 : 10;
+    const columns = iconView === "list" ? 1 : Math.max(1, Math.floor((containerWidth + gap) / (itemWidth + gap)));
+    const rows = Math.ceil(itemCount / columns);
+    const bufferRows = iconView === "large" ? 2 : 8;
+
+    if (containerRef.current) {
       const virtualHeight = rows * (itemHeight + gap) - gap;
       containerRef.current.style.height = `${virtualHeight / 10}rem`;
     }
-  }, [containerWidth, iconView]);
 
-  useEffect(() => {
-    if (!sortedBlogs) return;
     const rowsBeforeTop = Math.floor(scrollPos / (itemHeight + gap));
     const itemsBeforeTop = rowsBeforeTop * columns;
     const rowsVisible = Math.ceil(containerHeight / (itemHeight + gap)) + 1;
@@ -86,10 +93,11 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
 
     const itemsToRender = sortedBlogs.slice(startIndex, endIndex + 1);
     setRenderedItems(itemsToRender);
+
     if (iconGroupRef.current) {
       iconGroupRef.current.style.top = `${(startIndex / columns) * (itemHeight + gap)}px`;
     }
-  }, [scrollPos, columns, containerHeight, iconView, blogSortType]);
+  }, [sortedBlogs, containerWidth, containerHeight, scrollPos, iconView]);
 
   return (
     <div ref={containerRef} className="scroll-container">
@@ -97,8 +105,8 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
       <ul ref={iconGroupRef} className={`shortcut-area view-${iconView}`}>
         <CreateBlogForm />
         {/* TODO: Remove index thing once done simulating duplicated blogs for count perf test */}
-        {renderedItems?.map((blog, index) => (
-          <li key={`${blog.blogId}-${index}`}>
+        {renderedItems?.map((blog) => (
+          <li key={blog.blogId}>
             <Link href={`/documents/${encodeURIComponent(blog.blogTitle)}`} className="shortcut">
               <img src={`/assets/${blog.active ? "FilledFolder" : "EmptyFolder"}.svg`} alt="Folder" />
               <span>{blog.blogTitle}</span>
