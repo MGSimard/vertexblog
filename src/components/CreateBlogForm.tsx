@@ -6,7 +6,7 @@ import { createBlog } from "@/server/actions";
 import { dialogManager } from "@/lib/DialogManager";
 import { AddFolderIcon } from "@/components/icons";
 
-export const CreateBlogForm = function CreateBlogForm() {
+export const CreateBlogForm = memo(function CreateBlogForm() {
   const router = useRouter();
   const { isCreatingBlog, setIsCreatingBlog } = useNewFile();
   const [formState, formAction, pending] = useActionState(createBlog, null);
@@ -63,4 +63,4 @@ export const CreateBlogForm = function CreateBlogForm() {
       </form>
     </li>
   );
-};
+});
