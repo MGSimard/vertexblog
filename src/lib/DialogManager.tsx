@@ -16,7 +16,7 @@ class DialogManager {
   }
 
   showDialog(options: DialogOptionsTypes) {
-    const dialogId = `dialog-${Date.now()}`; // Create a unique ID for each dialog
+    const dialogId = `dialog-${Date.now()}`;
     const dialogElement = document.createElement("div");
     dialogElement.id = dialogId;
     this.dialogContainer?.appendChild(dialogElement);
@@ -36,13 +36,13 @@ class DialogManager {
           ...btn,
           func: () => {
             btn.func?.();
-            closeDialog(); // Close after button action
+            closeDialog();
           },
         }))}
       />
     );
 
-    return closeDialog; // Return a method to close the dialog programmatically
+    return closeDialog;
   }
 }
 
