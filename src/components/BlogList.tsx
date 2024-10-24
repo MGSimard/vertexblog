@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useIconView } from "@/components/IconViewProvider";
 import { useSort } from "@/components/SortContextProvider";
+import { useNewFile } from "@/components/NewFileContextProvider";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
 import type { GetBlogsResponseTypes, BlogInfoTypes } from "@/types/types";
 
@@ -10,6 +11,7 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const { success, data, message } = blogList;
   const { blogSortType } = useSort();
   const { iconView } = useIconView();
+  const { isCreatingBlog } = useNewFile();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const iconGroupRef = useRef<HTMLUListElement>(null);
@@ -90,13 +92,8 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     const itemsBeforeTop = rowsBeforeTop * columns;
     const rowsVisible = Math.ceil(containerHeight / (itemHeight + gap)) + 1;
     const itemsVisible = rowsVisible * columns;
-    // Adjust the calculation for start and end indexes
     const startIndex = Math.max(0, itemsBeforeTop - bufferRows * columns);
-
-    // Adjust endIndex to ensure we capture the last item but avoid rendering extra items on a new row
     const endIndex = Math.min(sortedBlogs.length - 1, itemsBeforeTop + itemsVisible + bufferRows * columns - 1);
-
-    // Slice the array from startIndex to endIndex (inclusive)
     const itemsToRender = sortedBlogs.slice(startIndex, endIndex + 1);
     setRenderedItems(itemsToRender);
 
@@ -105,14 +102,20 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     }
   }, [sortedBlogs, containerWidth, containerHeight, scrollPos, iconView]);
 
+  useEffect(() => {
+    if (isCreatingBlog && containerRef.current?.parentElement) {
+      containerRef.current.parentElement.scrollTo({ top: 0 });
+    }
+  }, [isCreatingBlog]);
+
   return (
-    <div ref={containerRef} className="scroll-container">
+    <div ref={containerRef} className="spacetaker2000">
       {!success && message}
       <ul ref={iconGroupRef} className={`shortcut-area view-${iconView}`}>
         <CreateBlogForm />
         {/* TODO: Remove index thing once done simulating duplicated blogs for count perf test */}
-        {renderedItems?.map((blog, index) => (
-          <li key={`${blog.blogId}-${index}`}>
+        {renderedItems?.map((blog) => (
+          <li key={blog.blogId}>
             <Link href={`/documents/${encodeURIComponent(blog.blogTitle)}`} className="shortcut">
               <img src={`/assets/${blog.active ? "FilledFolder" : "EmptyFolder"}.svg`} alt="Folder" />
               <span>{blog.blogTitle}</span>

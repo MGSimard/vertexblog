@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useIconView } from "@/components/IconViewProvider";
 import { useSort } from "@/components/SortContextProvider";
+import { useNewFile } from "@/components/NewFileContextProvider";
 import { TextFile } from "@/components/TextFile";
 import { CreatePostForm } from "@/components/CreatePostForm";
 import type { GetPostsResponseTypes, PostInfoTypes } from "@/types/types";
@@ -10,6 +11,7 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
   const { success, data, message } = postList;
   const { postSortType } = useSort();
   const { iconView } = useIconView();
+  const { isCreatingPost } = useNewFile();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const iconGroupRef = useRef<HTMLUListElement>(null);
@@ -90,13 +92,8 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
     const itemsBeforeTop = rowsBeforeTop * columns;
     const rowsVisible = Math.ceil(containerHeight / (itemHeight + gap)) + 1;
     const itemsVisible = rowsVisible * columns;
-    // Adjust the calculation for start and end indexes
     const startIndex = Math.max(0, itemsBeforeTop - bufferRows * columns);
-
-    // Adjust endIndex to ensure we capture the last item but avoid rendering extra items on a new row
     const endIndex = Math.min(sortedPosts.length - 1, itemsBeforeTop + itemsVisible + bufferRows * columns - 1);
-
-    // Slice the array from startIndex to endIndex (inclusive)
     const itemsToRender = sortedPosts.slice(startIndex, endIndex + 1);
     setRenderedItems(itemsToRender);
 
@@ -105,13 +102,19 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
     }
   }, [sortedPosts, containerWidth, containerHeight, scrollPos, iconView]);
 
+  useEffect(() => {
+    if (isCreatingPost && containerRef.current?.parentElement) {
+      containerRef.current.parentElement.scrollTo({ top: 0 });
+    }
+  }, [isCreatingPost]);
+
   return (
-    <div ref={containerRef} className="scroll-container">
+    <div ref={containerRef} className="spacetaker2000">
       {!success && message}
       <ul ref={iconGroupRef} className={`shortcut-area view-${iconView}`}>
         <CreatePostForm currentBlog={currentBlog} />
         {renderedItems?.map((post, index) => (
-          <li key={`${post.postId}-${index}`}>
+          <li key={post.postId}>
             <TextFile postInfo={post} />
           </li>
         ))}
