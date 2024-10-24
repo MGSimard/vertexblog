@@ -18,6 +18,8 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
   const [scrollPos, setScrollPos] = useState(0);
   const [renderedItems, setRenderedItems] = useState<PostInfoTypes[]>([]);
 
+  // const tester = Array.from({ length: 1000 }, () => [...data]).flat();
+
   const sortedPosts = useMemo(() => {
     if (!data) return [];
     return [...data].sort((a, b) => {
@@ -40,10 +42,16 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
   useEffect(() => {
     const scrollEle = containerRef.current?.parentElement;
     if (!scrollEle) return;
+
     setContainerWidth(scrollEle.clientWidth);
     setContainerHeight(scrollEle.clientHeight);
+
+    let scrollTimeout: number;
     const handleScroll = () => {
-      setScrollPos(scrollEle.scrollTop);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(() => {
+        setScrollPos(scrollEle.scrollTop);
+      }, 100);
     };
     const observer = new ResizeObserver((entries) => {
       if (entries[0]) {
@@ -55,6 +63,7 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
     });
     observer.observe(scrollEle);
     scrollEle.addEventListener("scroll", handleScroll);
+
     return () => {
       observer.disconnect();
       scrollEle.removeEventListener("scroll", handleScroll);
@@ -81,12 +90,13 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
     const itemsBeforeTop = rowsBeforeTop * columns;
     const rowsVisible = Math.ceil(containerHeight / (itemHeight + gap)) + 1;
     const itemsVisible = rowsVisible * columns;
-    const startIndex = itemsBeforeTop - bufferRows * columns < 0 ? 0 : itemsBeforeTop - bufferRows * columns;
-    const endIndex =
-      itemsBeforeTop + itemsVisible + bufferRows * columns > sortedPosts.length
-        ? sortedPosts.length - 1
-        : itemsBeforeTop + itemsVisible + bufferRows * columns;
+    // Adjust the calculation for start and end indexes
+    const startIndex = Math.max(0, itemsBeforeTop - bufferRows * columns);
 
+    // Adjust endIndex to ensure we capture the last item but avoid rendering extra items on a new row
+    const endIndex = Math.min(sortedPosts.length - 1, itemsBeforeTop + itemsVisible + bufferRows * columns - 1);
+
+    // Slice the array from startIndex to endIndex (inclusive)
     const itemsToRender = sortedPosts.slice(startIndex, endIndex + 1);
     setRenderedItems(itemsToRender);
 

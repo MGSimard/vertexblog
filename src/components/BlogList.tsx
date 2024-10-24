@@ -18,6 +18,8 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const [scrollPos, setScrollPos] = useState(0);
   const [renderedItems, setRenderedItems] = useState<BlogInfoTypes[]>([]);
 
+  // const tester = Array.from({ length: 1000 }, () => [...data]).flat();
+
   const sortedBlogs = useMemo(() => {
     if (!data) return [];
     return [...data].sort((a, b) => {
@@ -44,10 +46,13 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     setContainerWidth(scrollEle.clientWidth);
     setContainerHeight(scrollEle.clientHeight);
 
+    let scrollTimeout: number;
     const handleScroll = () => {
-      setScrollPos(scrollEle.scrollTop);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(() => {
+        setScrollPos(scrollEle.scrollTop);
+      }, 100);
     };
-
     const observer = new ResizeObserver((entries) => {
       if (entries[0]) {
         const width = entries[0].contentRect.width;
@@ -56,7 +61,6 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
         setContainerHeight(height);
       }
     });
-
     observer.observe(scrollEle);
     scrollEle.addEventListener("scroll", handleScroll);
 
@@ -86,12 +90,13 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
     const itemsBeforeTop = rowsBeforeTop * columns;
     const rowsVisible = Math.ceil(containerHeight / (itemHeight + gap)) + 1;
     const itemsVisible = rowsVisible * columns;
-    const startIndex = itemsBeforeTop - bufferRows * columns < 0 ? 0 : itemsBeforeTop - bufferRows * columns;
-    const endIndex =
-      itemsBeforeTop + itemsVisible + bufferRows * columns > sortedBlogs.length
-        ? sortedBlogs.length - 1
-        : itemsBeforeTop + itemsVisible + bufferRows * columns;
+    // Adjust the calculation for start and end indexes
+    const startIndex = Math.max(0, itemsBeforeTop - bufferRows * columns);
 
+    // Adjust endIndex to ensure we capture the last item but avoid rendering extra items on a new row
+    const endIndex = Math.min(sortedBlogs.length - 1, itemsBeforeTop + itemsVisible + bufferRows * columns - 1);
+
+    // Slice the array from startIndex to endIndex (inclusive)
     const itemsToRender = sortedBlogs.slice(startIndex, endIndex + 1);
     setRenderedItems(itemsToRender);
 
@@ -106,8 +111,8 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
       <ul ref={iconGroupRef} className={`shortcut-area view-${iconView}`}>
         <CreateBlogForm />
         {/* TODO: Remove index thing once done simulating duplicated blogs for count perf test */}
-        {renderedItems?.map((blog) => (
-          <li key={blog.blogId}>
+        {renderedItems?.map((blog, index) => (
+          <li key={`${blog.blogId}-${index}`}>
             <Link href={`/documents/${encodeURIComponent(blog.blogTitle)}`} className="shortcut">
               <img src={`/assets/${blog.active ? "FilledFolder" : "EmptyFolder"}.svg`} alt="Folder" />
               <span>{blog.blogTitle}</span>
