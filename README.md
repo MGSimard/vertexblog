@@ -62,7 +62,7 @@
 - [x] Upgrade to new stable Next 15, migrate .eslintrc.cjs to flat config eslint.config.mjs etc etc.
 - [x] Reduce filesize of "/favicons/android-chrome-512x512.png"
 - [x] Implement virtualized list scrolling from scratch
-- [ ] Now that we have virtualization, need to fix file creation if scroll isn't at the top already
+- [x] Now that we have virtualization, need to fix file creation if scroll isn't at the top already
 - [ ] Optimize its performance
 - [ ] Suspense the page loads, allow shortcut render popin
 - [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks (Introduce IP)
