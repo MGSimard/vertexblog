@@ -24,6 +24,14 @@ export const CreateBlogForm = memo(function CreateBlogForm() {
   };
 
   useEffect(() => {
+    document.addEventListener("mousedown", handleOffsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOffsideClick);
+      setIsCreatingBlog(false);
+    };
+  }, []);
+
+  useEffect(() => {
     if (formState) {
       if (formState.success) {
         setIsCreatingBlog(false);
@@ -40,14 +48,6 @@ export const CreateBlogForm = memo(function CreateBlogForm() {
       }
     }
   }, [formState]);
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleOffsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOffsideClick);
-      setIsCreatingBlog(false);
-    };
-  }, []);
 
   if (!isCreatingBlog) return null;
   return (
