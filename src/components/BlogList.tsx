@@ -19,7 +19,8 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const [renderedItems, setRenderedItems] = useState<BlogInfoTypes[]>([]);
 
   const sortedBlogs = useMemo(() => {
-    return data?.sort((a, b) => {
+    if (!data) return [];
+    return [...data].sort((a, b) => {
       switch (blogSortType) {
         case "name":
           return a.blogTitle.localeCompare(b.blogTitle);
@@ -68,7 +69,7 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   useEffect(() => {
     if (!sortedBlogs || !containerWidth) return;
 
-    const itemCount = sortedBlogs.length ?? 0;
+    const itemCount = sortedBlogs.length;
     const itemWidth = iconView === "small" ? 200 : 80;
     const itemHeight = iconView === "large" ? 80 : 18;
     const gap = iconView === "large" ? 30 : 10;

@@ -19,7 +19,8 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
   const [renderedItems, setRenderedItems] = useState<PostInfoTypes[]>([]);
 
   const sortedPosts = useMemo(() => {
-    return data?.sort((a, b) => {
+    if (!data) return [];
+    return [...data].sort((a, b) => {
       switch (postSortType) {
         case "name":
           return a.postTitle.localeCompare(b.postTitle);
@@ -63,7 +64,7 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
   useEffect(() => {
     if (!sortedPosts || !containerWidth) return;
 
-    const itemCount = sortedPosts.length ?? 0;
+    const itemCount = sortedPosts.length;
     const itemWidth = iconView === "small" ? 200 : 80;
     const itemHeight = iconView === "large" ? 80 : 18;
     const gap = iconView === "large" ? 30 : 10;
