@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
-import { savePost } from "@/server/actions";
+import { savePost, deletePost } from "@/server/actions";
 import { dialogManager } from "@/lib/DialogManager";
 import type { PostInfoTypes } from "@/types/types";
 
@@ -123,10 +123,19 @@ function NotepadButtonMenu({
     return () => document.removeEventListener("mousedown", handleOffsideClick);
   }, []);
 
+  const handleDeleteFile = async () => {
+    const test = await deletePost(postInfo.postId);
+    console.log(test);
+  };
+
   return (
     <div id="np-file-menu" className="np-file-menu outset" role="menu">
       <button type="submit" onClick={handleSaveFile} role="menuitem">
         Save
+      </button>
+      <hr />
+      <button type="button" onClick={handleDeleteFile} role="menuitem">
+        Delete
       </button>
       <hr />
       <button type="button" onClick={handleExit} role="menuitem">

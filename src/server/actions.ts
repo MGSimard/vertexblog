@@ -414,3 +414,73 @@ export async function getCurrentUserBlog(): Promise<string | null> {
     return null;
   }
 }
+
+const DeletePostSchema = z.object({
+  postId: z.number().int().positive().lte(2147483647),
+});
+export async function deletePost(inputId: number) {
+  const { user } = await validateRequest();
+
+  if (!user) {
+    return { success: false, message: "AUTH ERROR: Unauthorized." };
+  }
+
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", user.id);
+  if (!rlOK) {
+    return { success: false, message: rlMessage };
+  }
+
+  const validated = DeletePostSchema.safeParse({
+    postId: inputId,
+  });
+  if (!validated.success) {
+    return {
+      success: false,
+      message: "VALIDATION ERROR: Invalid post ID input.",
+    };
+  }
+
+  const { postId } = validated.data;
+  const author = user.username;
+
+  try {
+    // Look for matching "live" post, retrieve its parentBlog id
+    const [postInfo] = await db
+      .select({ parentBlog: posts.parentBlog })
+      .from(posts)
+      .where(and(eq(posts.id, postId), isNull(posts.deletedAt)));
+    if (!postInfo) {
+      throw new Error("DATABASE ERROR: This post no longer exists.");
+    }
+
+    // Verify ownership of the blog before deleting post
+    const [matchedBlog] = await db
+      .select({ title: blogs.title })
+      .from(blogs)
+      .where(and(eq(blogs.id, postInfo.parentBlog), eq(blogs.author, author), isNull(blogs.deletedAt)));
+
+    if (!matchedBlog) {
+      throw new Error("AUTH ERROR: Unauthorized.");
+    }
+
+    await db.delete(posts).where(eq(posts.id, postId));
+
+    const [checkForPosts] = await db
+      .select({ foundId: posts.id })
+      .from(posts)
+      .where(and(eq(posts.parentBlog, postInfo.parentBlog), isNull(posts.deletedAt)));
+
+    console.log("HAS MORE POSTS THAT ARE NOT DELETED?", checkForPosts);
+
+    if (!checkForPosts) {
+      await db
+        .update(blogs)
+        .set({ active: false })
+        .where(and(eq(blogs.id, postInfo.parentBlog), isNull(blogs.deletedAt)));
+    }
+    revalidatePath(`/documents/${encodeURIComponent(matchedBlog.title)}`);
+  } catch (err: unknown) {
+    return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
+  }
+  return { success: true, message: "SUCCESS: Post deleted." };
+}
