@@ -14,6 +14,7 @@ import type {
   GetBlogsResponseTypes,
   GetPostsResponseTypes,
   SavePostResponseTypes,
+  DeletePostResponseTypes,
 } from "@/types/types";
 
 /* CREATE USER - SIGN UP ACTION */
@@ -418,7 +419,7 @@ export async function getCurrentUserBlog(): Promise<string | null> {
 const DeletePostSchema = z.object({
   postId: z.number().int().positive().lte(2147483647),
 });
-export async function deletePost(inputId: number) {
+export async function deletePost(inputId: number): Promise<DeletePostResponseTypes> {
   const { user } = await validateRequest();
 
   if (!user) {
@@ -444,41 +445,45 @@ export async function deletePost(inputId: number) {
   const author = user.username;
 
   try {
-    // Look for matching "live" post, retrieve its parentBlog id
-    const [postInfo] = await db
-      .select({ parentBlog: posts.parentBlog })
-      .from(posts)
-      .where(and(eq(posts.id, postId), isNull(posts.deletedAt)));
-    if (!postInfo) {
-      throw new Error("DATABASE ERROR: This post no longer exists.");
-    }
+    await db.transaction(async (tx) => {
+      // Fetch post info and verify blog ownership
+      const [postInfo] = await tx
+        .select({
+          parentBlog: posts.parentBlog,
+          blogTitle: blogs.title,
+        })
+        .from(posts)
+        .innerJoin(blogs, eq(posts.parentBlog, blogs.id))
+        .where(
+          and(
+            eq(posts.id, postId),
+            eq(blogs.author, author),
+            isNull(posts.deletedAt) // Not doing isNull(blogs.deletedAt)
+            // Post deletion should still be allowed even if main blog is deletedAt
+            // (edge case of manual admin blog softdeletion which doesn't cascade to posts while user attempts post softdelete)
+          )
+        );
 
-    // Verify ownership of the blog before deleting post
-    const [matchedBlog] = await db
-      .select({ title: blogs.title })
-      .from(blogs)
-      .where(and(eq(blogs.id, postInfo.parentBlog), eq(blogs.author, author), isNull(blogs.deletedAt)));
+      if (!postInfo) {
+        throw new Error("DATABASE ERROR or AUTH ERROR: Post no longer exists or unauthorized.");
+      }
 
-    if (!matchedBlog) {
-      throw new Error("AUTH ERROR: Unauthorized.");
-    }
+      await tx.delete(posts).where(eq(posts.id, postId));
 
-    await db.delete(posts).where(eq(posts.id, postId));
+      // Check if there are any remaining posts in the blog
+      const [checkForPosts] = await tx
+        .select({ foundId: posts.id })
+        .from(posts)
+        .where(and(eq(posts.parentBlog, postInfo.parentBlog), isNull(posts.deletedAt)))
+        .limit(1);
 
-    const [checkForPosts] = await db
-      .select({ foundId: posts.id })
-      .from(posts)
-      .where(and(eq(posts.parentBlog, postInfo.parentBlog), isNull(posts.deletedAt)));
+      // If no more posts, mark the blog as inactive
+      if (!checkForPosts) {
+        await tx.update(blogs).set({ active: false }).where(eq(blogs.id, postInfo.parentBlog));
+      }
 
-    console.log("HAS MORE POSTS THAT ARE NOT DELETED?", checkForPosts);
-
-    if (!checkForPosts) {
-      await db
-        .update(blogs)
-        .set({ active: false })
-        .where(and(eq(blogs.id, postInfo.parentBlog), isNull(blogs.deletedAt)));
-    }
-    revalidatePath(`/documents/${encodeURIComponent(matchedBlog.title)}`);
+      revalidatePath(`/documents/${encodeURIComponent(postInfo.blogTitle)}`);
+    });
   } catch (err: unknown) {
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
