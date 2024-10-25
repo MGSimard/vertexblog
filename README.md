@@ -71,8 +71,10 @@
 - [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
 - [ ] Look into date locale mismatching between server and user client
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
-- [ ] Delete post/blog + server actions
-- [ ] Make sure deletion also uses dialog prompts/confirm/error
+- [x] Post deletion
+- [ ] Works, now make action tighter and use transactions
+- [ ] Blog deletion
+- [x] Make sure deletion also uses dialog prompts/confirm/error
 - [ ] Set up blog & post search filtering
 - [ ] Analytics (Posthog?)
 - [ ] Sentry mayhaps?
