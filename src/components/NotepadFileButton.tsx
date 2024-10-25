@@ -125,7 +125,15 @@ function NotepadButtonMenu({
 
   const handleDeleteFile = async () => {
     const test = await deletePost(postInfo.postId);
-    console.log(test);
+
+    if (!test.success) {
+      dialogManager.showDialog({
+        type: "Error",
+        title: "Post deletion",
+        message: test.message,
+        buttons: [{ label: "OK" }],
+      });
+    }
   };
 
   return (
