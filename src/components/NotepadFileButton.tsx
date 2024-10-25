@@ -124,13 +124,13 @@ function NotepadButtonMenu({
   }, []);
 
   const handleDeleteFile = async () => {
-    const test = await deletePost(postInfo.postId);
+    const deletion = await deletePost(postInfo.postId);
 
-    if (!test.success) {
+    if (!deletion.success) {
       dialogManager.showDialog({
         type: "Error",
         title: "Post deletion",
-        message: test.message,
+        message: deletion.message,
         buttons: [{ label: "OK" }],
       });
     }
