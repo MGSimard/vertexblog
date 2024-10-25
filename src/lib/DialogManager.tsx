@@ -35,8 +35,12 @@ class DialogManager {
         buttons={options.buttons.map((btn) => ({
           ...btn,
           func: () => {
-            btn.func?.();
-            closeDialog();
+            const result = btn.func?.();
+            if (result instanceof Promise) {
+              void result.then(() => closeDialog());
+            } else {
+              closeDialog();
+            }
           },
         }))}
       />

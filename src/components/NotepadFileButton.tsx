@@ -123,7 +123,7 @@ function NotepadButtonMenu({
     return () => document.removeEventListener("mousedown", handleOffsideClick);
   }, []);
 
-  const handleDeleteFile = async () => {
+  const handleDeleteFile = () => {
     dialogManager.showDialog({
       type: "Warning",
       title: "Confirm Post Deletion",
