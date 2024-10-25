@@ -2,7 +2,7 @@
 import { CloseIcon } from "@/components/icons";
 import type { DialogOptionsTypes } from "@/types/types";
 
-export function DialogWindow({ type, title, message, buttons, closeDialog }: DialogOptionsTypes) {
+export function DialogWindow({ type, title, message, buttons, closeDialog, doSave }: DialogOptionsTypes) {
   return (
     <div className="dialog-wrapper">
       <dialog className="dialog-window outset" open>
@@ -17,7 +17,7 @@ export function DialogWindow({ type, title, message, buttons, closeDialog }: Dia
           <div>
             <p>
               {message}
-              {type === "Warning" && (
+              {doSave && (
                 <>
                   <br />
                   <br />

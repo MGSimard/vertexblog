@@ -36,7 +36,6 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   };
 
   const handleExit = async () => {
-    // TODO: Correct path for warning message
     if (isDirty) {
       dialogManager.showDialog({
         type: "Warning",
@@ -44,6 +43,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
         message: `The text in the C:\\Documents\\${pathName.split("/").pop()}\\${
           postInfo.postTitle
         }.txt file has changed.`,
+        doSave: true,
         buttons: [
           {
             label: "Save",

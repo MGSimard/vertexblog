@@ -31,13 +31,17 @@ export type SavePostResponseTypes = { success: boolean; message: string };
 export type DeletePostResponseTypes = { success: boolean; message: string };
 
 const typeEnums = ["Success", "Error", "Warning"] as const;
-type buttonFormat = { label: string; func?: () => void | (() => Promise<SavePostResponseTypes>) };
+type buttonFormat = {
+  label: string;
+  func?: () => void | Promise<SavePostResponseTypes> | Promise<DeletePostResponseTypes> | Promise<void>;
+};
 export type DialogOptionsTypes = {
   type: (typeof typeEnums)[number];
   title: string;
   message: string | string[];
   buttons: buttonFormat[];
   closeDialog?: () => void;
+  doSave?: boolean;
 };
 
 export interface RatelimitReturnTypes {

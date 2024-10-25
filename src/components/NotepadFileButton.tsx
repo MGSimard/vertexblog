@@ -82,7 +82,6 @@ function NotepadButtonMenu({
   };
 
   const handleExit = async () => {
-    // TODO: Correct path for warning message
     if (isDirty) {
       dialogManager.showDialog({
         type: "Warning",
@@ -90,6 +89,7 @@ function NotepadButtonMenu({
         message: `The text in the C:\\Documents\\${pathName.split("/").pop()}\\${
           postInfo.postTitle
         }.txt file has changed.`,
+        doSave: true,
         buttons: [
           {
             label: "Save",
@@ -124,16 +124,28 @@ function NotepadButtonMenu({
   }, []);
 
   const handleDeleteFile = async () => {
-    const deletion = await deletePost(postInfo.postId);
-
-    if (!deletion.success) {
-      dialogManager.showDialog({
-        type: "Error",
-        title: "Post deletion",
-        message: deletion.message,
-        buttons: [{ label: "OK" }],
-      });
-    }
+    dialogManager.showDialog({
+      type: "Warning",
+      title: "Confirm Post Deletion",
+      message: `Are you sure you want to delete '${postInfo.postTitle}'.txt?`,
+      buttons: [
+        {
+          label: "Delete",
+          func: async () => {
+            const deletion = await deletePost(postInfo.postId);
+            if (!deletion.success) {
+              dialogManager.showDialog({
+                type: "Error",
+                title: "Post Deletion",
+                message: deletion.message,
+                buttons: [{ label: "OK" }],
+              });
+            }
+          },
+        },
+        { label: "Cancel" },
+      ],
+    });
   };
 
   return (
