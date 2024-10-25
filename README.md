@@ -73,7 +73,8 @@
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
 - [x] Post deletion
 - [x] Works, now make action tighter and use transactions
-- [ ] Now run the delete button onto a confirmation lol
+- [x] Now run the delete button onto a confirmation lol
+- [ ] DISABLE ALL EVENTS OUTSIDE OF CONFIRMATION & ERROR POPUPS. CURRENTLY YOU CAN SPAM ENTER TO MAKE NEW POPUPS (no effect, would just be cleaner to prevent it)
 - [ ] Blog deletion
 - [x] Make sure deletion also uses dialog prompts/confirm/error
 - [ ] Set up blog & post search filtering
