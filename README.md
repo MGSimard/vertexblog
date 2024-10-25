@@ -72,7 +72,7 @@
 - [ ] Look into date locale mismatching between server and user client
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
 - [x] Post deletion
-- [ ] Works, now make action tighter and use transactions
+- [x] Works, now make action tighter and use transactions
 - [ ] Blog deletion
 - [x] Make sure deletion also uses dialog prompts/confirm/error
 - [ ] Set up blog & post search filtering
