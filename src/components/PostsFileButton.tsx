@@ -2,8 +2,9 @@
 import Link from "next/link";
 import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 import { useNewFile } from "@/components/NewFileContextProvider";
+import { deleteBlog } from "@/server/actions";
 
-export function PostsFileButton() {
+export function PostsFileButton({ blog }: { blog: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -18,12 +19,12 @@ export function PostsFileButton() {
         onClick={() => setMenuOpen(!menuOpen)}>
         File
       </button>
-      {menuOpen && <PostsFileMenu setMenuOpen={setMenuOpen} />}
+      {menuOpen && <PostsFileMenu setMenuOpen={setMenuOpen} blog={blog} />}
     </span>
   );
 }
 
-function PostsFileMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<boolean>> }) {
+function PostsFileMenu({ setMenuOpen, blog }: { setMenuOpen: Dispatch<SetStateAction<boolean>>; blog: string }) {
   const { setIsCreatingPost } = useNewFile();
   const handleNewPost = () => {
     setIsCreatingPost(true);
@@ -44,10 +45,19 @@ function PostsFileMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<b
     return () => document.removeEventListener("mousedown", handleOffsideClick);
   }, []);
 
+  const handleDeleteBlog = async () => {
+    const test = await deleteBlog(blog);
+    console.log(test);
+  };
+
   return (
     <div id="posts-file-menu" className="fe-menu outset" role="menu">
       <button type="button" onClick={handleNewPost} role="menuitem">
         New Post
+      </button>
+      <hr />
+      <button type="button" onClick={handleDeleteBlog} role="menuitem">
+        Delete Blog
       </button>
       <hr />
       <Link href="/" role="menuitem">

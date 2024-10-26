@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
         <Link href="/documents" className="aasbtn">
           &lt;=
         </Link>
-        <PostsFileButton />
+        <PostsFileButton blog={currentBlog} />
         <PostsViewButton />
         <PostsSortButton />
         <button type="button">Favorites</button>

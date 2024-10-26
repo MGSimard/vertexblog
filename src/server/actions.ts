@@ -15,9 +15,9 @@ import type {
   GetPostsResponseTypes,
   SavePostResponseTypes,
   DeletePostResponseTypes,
+  DeleteBlogResponseTypes,
 } from "@/types/types";
 
-/* CREATE USER - SIGN UP ACTION */
 const CreateUserSchema = z
   .object({
     username: z
@@ -91,7 +91,6 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
   return { success: true, message: "SUCCESS: User created." };
 }
 
-/* SIGN IN ACTION */
 const SignInSchema = z.object({
   username: z
     .string()
@@ -174,7 +173,6 @@ export async function signout() {
   return { success: true, message: "SUCCESS: User Signed Out." };
 }
 
-/* GET BLOGS */
 export async function getBlogs(): Promise<GetBlogsResponseTypes> {
   // TODO IP/UserID ratelimit
 
@@ -199,7 +197,6 @@ export async function getBlogs(): Promise<GetBlogsResponseTypes> {
   }
 }
 
-/* GET POSTS */
 export async function getPosts(currentBlog: string): Promise<GetPostsResponseTypes> {
   // TODO IP/UserID ratelimit
   try {
@@ -225,7 +222,6 @@ export async function getPosts(currentBlog: string): Promise<GetPostsResponseTyp
   }
 }
 
-/* CREATE BLOG ACTION */
 const CreateBlogSchema = z.object({
   blogTitle: z
     .string()
@@ -279,9 +275,8 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
   return { success: true, message: "SUCCESS: Blog created.", url: blogTitle };
 }
 
-/* CREATE BLOG POST */
 const CreatePostSchema = z.object({
-  targetBlog: z.string().trim().max(60),
+  targetBlog: z.string().trim().max(40),
   postTitle: z
     .string()
     .trim()
@@ -478,4 +473,53 @@ export async function deletePost(inputId: number): Promise<DeletePostResponseTyp
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
   return { success: true, message: "SUCCESS: Post deleted." };
+}
+
+const DeleteBlogSchema = z.object({
+  targetBlog: z.string().trim().max(40),
+});
+export async function deleteBlog(blog: string): Promise<DeleteBlogResponseTypes> {
+  const { user } = await validateRequest();
+  if (!user) {
+    return { success: false, message: "AUTH ERROR: Unauthorized." };
+  }
+
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", user.id);
+  if (!rlOK) {
+    return { success: false, message: rlMessage };
+  }
+
+  const validated = DeleteBlogSchema.safeParse({
+    targetBlog: blog,
+  });
+  if (!validated.success) {
+    return {
+      success: false,
+      message: "VALIDATION ERROR: Invalid blog ID input.",
+    };
+  }
+
+  const { targetBlog } = validated.data;
+  const author = user.username;
+
+  try {
+    // DELETE BLOGS + POSTS - no TX, don't want a post delete fail to rollback blog delete.
+    // Users being able to kill blog no matter what is most important.
+    // Can handle stale posts from potential errors with a cron job if anything (all posts belong to deletedAt blog)
+
+    const [blogInfo] = await db.select({ blogId: blogs.id }).from(blogs).where(eq(blogs.title, targetBlog));
+    if (!blogInfo) throw new Error(`DATABASE ERROR: Blog not found. (${targetBlog})`);
+
+    await db
+      .update(blogs)
+      .set({ deletedAt: sql`now()` })
+      .where(and(eq(blogs.id, blogInfo.blogId), eq(blogs.author, author), isNull(blogs.deletedAt)));
+
+    await db.delete(posts).where(eq(posts.parentBlog, blogInfo.blogId));
+
+    revalidatePath("/documents");
+  } catch (err: unknown) {
+    return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
+  }
+  return { success: true, message: "SUCCESS: Blog deleted." };
 }

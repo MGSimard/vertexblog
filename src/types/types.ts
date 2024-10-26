@@ -29,6 +29,7 @@ export type GetPostsResponseTypes = { success: boolean; data?: PostInfoTypes[]; 
 
 export type SavePostResponseTypes = { success: boolean; message: string };
 export type DeletePostResponseTypes = { success: boolean; message: string };
+export type DeleteBlogResponseTypes = { success: boolean; message: string };
 
 const typeEnums = ["Success", "Error", "Warning"] as const;
 type buttonFormat = {
