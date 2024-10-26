@@ -76,7 +76,7 @@
 - [x] Now run the delete button onto a confirmation lol
 - [x] DISABLE ALL EVENTS OUTSIDE OF CONFIRMATION & ERROR POPUPS. CURRENTLY YOU CAN SPAM ENTER TO MAKE NEW POPUPS (no effect, would just be cleaner to prevent it)
 - [ ] Consider focus trap in dialog (right now can exit it, then re-entering site focuses first dom node and can't re-enter dialog)
-- [ ] Blog deletion
+- [x] Blog deletion
 - [x] Make sure deletion also uses dialog prompts/confirm/error
 - [ ] Set up blog & post search filtering
 - [ ] Analytics (Posthog?)
