@@ -376,7 +376,6 @@ export async function savePost(inputId: number, inputText: string | undefined): 
       .select({ title: blogs.title })
       .from(blogs)
       .where(and(eq(blogs.id, postInfo.parentBlog), eq(blogs.author, author), isNull(blogs.deletedAt)));
-
     if (!matchedBlog) {
       throw new Error("AUTH ERROR: Unauthorized.");
     }
@@ -394,12 +393,12 @@ export async function getCurrentUserBlog(): Promise<string | null> {
   if (!user) {
     return null;
   }
+
   try {
     const [blog] = await db
       .select({ blogTitle: blogs.title })
       .from(blogs)
       .where(and(eq(blogs.author, user.username), isNull(blogs.deletedAt)));
-
     if (!blog) return null;
 
     return blog.blogTitle;
@@ -413,7 +412,6 @@ const DeletePostSchema = z.object({
 });
 export async function deletePost(inputId: number): Promise<DeletePostResponseTypes> {
   const { user } = await validateRequest();
-
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
@@ -447,7 +445,6 @@ export async function deletePost(inputId: number): Promise<DeletePostResponseTyp
         .from(posts)
         .innerJoin(blogs, eq(posts.parentBlog, blogs.id))
         .where(and(eq(posts.id, postId), eq(blogs.author, author)));
-
       if (!postInfo) {
         throw new Error("DATABASE ERROR or AUTH ERROR: Post no longer exists or unauthorized.");
       }
@@ -461,7 +458,6 @@ export async function deletePost(inputId: number): Promise<DeletePostResponseTyp
         .from(posts)
         .where(eq(posts.parentBlog, postInfo.parentBlog))
         .limit(1);
-
       // If no more posts, mark the blog as inactive
       if (!checkForPosts) {
         await tx.update(blogs).set({ active: false }).where(eq(blogs.id, postInfo.parentBlog));
@@ -506,7 +502,6 @@ export async function deleteBlog(blog: string): Promise<DeleteBlogResponseTypes>
     // DELETE BLOGS + POSTS - no TX, don't want a post delete fail to rollback blog delete.
     // Users being able to kill blog no matter what is most important.
     // Can handle stale posts from potential errors with a cron job if anything (all posts belong to deletedAt blog)
-
     const [blogInfo] = await db.select({ blogId: blogs.id }).from(blogs).where(eq(blogs.title, targetBlog));
     if (!blogInfo) throw new Error(`DATABASE ERROR: Blog not found. (${targetBlog})`);
 
@@ -514,9 +509,7 @@ export async function deleteBlog(blog: string): Promise<DeleteBlogResponseTypes>
       .update(blogs)
       .set({ deletedAt: sql`now()` })
       .where(and(eq(blogs.id, blogInfo.blogId), eq(blogs.author, author), isNull(blogs.deletedAt)));
-
     await db.delete(posts).where(eq(posts.parentBlog, blogInfo.blogId));
-
     revalidatePath("/documents");
   } catch (err: unknown) {
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
