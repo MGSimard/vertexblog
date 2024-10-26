@@ -535,7 +535,8 @@ button.shortcut {
   color: white;
   background: var(--clr-primary);
 }
-.np-file-menu hr {
+.np-file-menu hr,
+.fe-menu hr {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }

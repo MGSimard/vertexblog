@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 import { useNewFile } from "@/components/NewFileContextProvider";
 import { deleteBlog } from "@/server/actions";
+import { dialogManager } from "@/lib/DialogManager";
+import { useRouter } from "next/navigation";
 
 export function PostsFileButton({ blog }: { blog: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,6 +28,8 @@ export function PostsFileButton({ blog }: { blog: string }) {
 
 function PostsFileMenu({ setMenuOpen, blog }: { setMenuOpen: Dispatch<SetStateAction<boolean>>; blog: string }) {
   const { setIsCreatingPost } = useNewFile();
+  const router = useRouter();
+
   const handleNewPost = () => {
     setIsCreatingPost(true);
     setMenuOpen(false);
@@ -46,8 +50,30 @@ function PostsFileMenu({ setMenuOpen, blog }: { setMenuOpen: Dispatch<SetStateAc
   }, []);
 
   const handleDeleteBlog = async () => {
-    const test = await deleteBlog(blog);
-    console.log(test);
+    dialogManager.showDialog({
+      type: "Warning",
+      title: "Confirm Blog Deletion",
+      message: `Are you sure you want to delete blog '${blog}'?`,
+      buttons: [
+        {
+          label: "Delete",
+          func: async () => {
+            const deletion = await deleteBlog(blog);
+            if (!deletion.success) {
+              dialogManager.showDialog({
+                type: "Error",
+                title: "Blog Deletion",
+                message: deletion.message,
+                buttons: [{ label: "OK" }],
+              });
+            } else {
+              router.push("/documents");
+            }
+          },
+        },
+        { label: "Cancel" },
+      ],
+    });
   };
 
   return (

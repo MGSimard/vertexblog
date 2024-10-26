@@ -7,7 +7,7 @@ import type { ratelimitEnums } from "@/lib/enums";
 
 const rateConfig = {
   auth: { actions: 3, windowMs: 60000 },
-  mutation: { actions: 5, windowMs: 60000 },
+  mutation: { actions: 10, windowMs: 60000 },
   fetch: { actions: 15, windowMs: 30000 },
 };
 
