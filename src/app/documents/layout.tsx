@@ -3,7 +3,6 @@ import { MaximizeButton } from "@/components/MaximizeButton";
 import { CloseIcon } from "@/components/icons";
 import { CurrentFolder } from "@/components/CurrentFolder";
 import { WindowFrame } from "@/components/WindowFrame";
-import { Modal } from "@/components/Modal";
 
 // THIS IS THE LAYOUT FOR RECURRING FILE EXPLORER WINDOW, WE RENDER THE CURRENT FOLDER WE'RE IN WITHIN THAT LAYOUT (WINDOW)
 
@@ -24,7 +23,7 @@ export default function FileExplorerLayout({ children }: { children: React.React
       </div>
       {children}
       <div className="window-footer">
-        <span>Description of current action.</span>
+        <span></span>
       </div>
     </WindowFrame>
   );
