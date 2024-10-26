@@ -468,6 +468,10 @@ export async function deletePost(inputId: number): Promise<DeletePostResponseTyp
         throw new Error("DATABASE ERROR or AUTH ERROR: Post no longer exists or unauthorized.");
       }
 
+      // Do I want to delete actually?
+      // Or softdelete?
+      // Maybe due to 40,000 character limit for posts, I  would want to hard delete?
+      // TODO: Make up mind, if hard delete remove deletedAt for posts (keep for blogs though)
       await tx.delete(posts).where(eq(posts.id, postId));
 
       // Check if there are any remaining posts in the blog
