@@ -644,3 +644,8 @@ button.shortcut {
   background: orange;
   z-index: 999;
 }
+.np-file-menu button.scary:hover {
+  background: red;
+  color: black;
+  font-weight: 700;
+}
