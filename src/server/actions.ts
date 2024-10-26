@@ -217,7 +217,7 @@ export async function getPosts(currentBlog: string): Promise<GetPostsResponseTyp
         updateDate: posts.updatedAt,
       })
       .from(posts)
-      .where(and(eq(posts.parentBlog, blogInfo.blogId), isNull(posts.deletedAt)));
+      .where(eq(posts.parentBlog, blogInfo.blogId));
 
     return { success: true, data: postList, message: "SUCCESS: Blog list indexed." };
   } catch (err: unknown) {
@@ -371,10 +371,7 @@ export async function savePost(inputId: number, inputText: string | undefined): 
 
   try {
     // Look for matching "live" post, retrieve its parentBlog id
-    const [postInfo] = await db
-      .select({ parentBlog: posts.parentBlog })
-      .from(posts)
-      .where(and(eq(posts.id, postId), isNull(posts.deletedAt)));
+    const [postInfo] = await db.select({ parentBlog: posts.parentBlog }).from(posts).where(eq(posts.id, postId));
     if (!postInfo) {
       throw new Error("DATABASE ERROR: This post no longer exists.");
     }
@@ -454,31 +451,20 @@ export async function deletePost(inputId: number): Promise<DeletePostResponseTyp
         })
         .from(posts)
         .innerJoin(blogs, eq(posts.parentBlog, blogs.id))
-        .where(
-          and(
-            eq(posts.id, postId),
-            eq(blogs.author, author),
-            isNull(posts.deletedAt) // Not doing isNull(blogs.deletedAt)
-            // Post deletion should still be allowed even if main blog is deletedAt
-            // (edge case of manual admin blog softdeletion which doesn't cascade to posts while user attempts post softdelete)
-          )
-        );
+        .where(and(eq(posts.id, postId), eq(blogs.author, author)));
 
       if (!postInfo) {
         throw new Error("DATABASE ERROR or AUTH ERROR: Post no longer exists or unauthorized.");
       }
 
-      // Do I want to delete actually?
-      // Or softdelete?
-      // Maybe due to 40,000 character limit for posts, I  would want to hard delete?
-      // TODO: Make up mind, if hard delete remove deletedAt for posts (keep for blogs though)
+      // Hard delete, don't wanna softdelete 40k charlimit posts tbh
       await tx.delete(posts).where(eq(posts.id, postId));
 
       // Check if there are any remaining posts in the blog
       const [checkForPosts] = await tx
         .select({ foundId: posts.id })
         .from(posts)
-        .where(and(eq(posts.parentBlog, postInfo.parentBlog), isNull(posts.deletedAt)))
+        .where(eq(posts.parentBlog, postInfo.parentBlog))
         .limit(1);
 
       // If no more posts, mark the blog as inactive

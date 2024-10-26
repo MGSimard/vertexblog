@@ -83,7 +83,6 @@ export const posts = createTable(
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
-    deletedAt: timestamp("deleted_at"),
   },
   (table) => ({
     postTitleIdx: index("post_title_idx").on(table.title),
