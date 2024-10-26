@@ -153,6 +153,7 @@ function NotepadButtonMenu({
       <button type="submit" onClick={handleSaveFile} role="menuitem">
         Save
       </button>
+      <hr />
       <button type="button" onClick={handleDeleteFile} role="menuitem">
         Delete
       </button>
