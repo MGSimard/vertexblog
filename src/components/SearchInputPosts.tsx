@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, useEffect } from "react";
-import { useSearch } from "./SearchContextProvider";
+import { useSearch } from "@/components/SearchContextProvider";
 
 export function SearchInputPosts() {
   const { postSearch, setPostSearch } = useSearch();

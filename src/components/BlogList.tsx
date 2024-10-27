@@ -6,7 +6,7 @@ import { useSort } from "@/components/SortContextProvider";
 import { useNewFile } from "@/components/NewFileContextProvider";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
 import type { GetBlogsResponseTypes, BlogInfoTypes } from "@/types/types";
-import { useSearch } from "./SearchContextProvider";
+import { useSearch } from "@/components/SearchContextProvider";
 
 export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const { success, data, message } = blogList;

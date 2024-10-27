@@ -748,7 +748,30 @@ button.shortcut {
   padding-left: 0.5rem;
   vertical-align: top;
 }
-.bloatclasslol {
+.system-footer {
   display: flex;
   justify-content: flex-end;
+}
+.system-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.system-footer div {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+.system-footer a {
+  height: 1em;
+}
+.system-footer svg {
+  height: 100%;
+}
+.system-footer a:hover svg:not(.no),
+.system-footer a:focus-visible svg:not(.no) {
+  fill: var(--clr-primary);
+}
+.system-footer a:hover svg.no,
+.system-footer a:focus-visible svg.no {
+  stroke: var(--clr-primary);
 }

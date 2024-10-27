@@ -6,7 +6,7 @@ import { useNewFile } from "@/components/NewFileContextProvider";
 import { TextFile } from "@/components/TextFile";
 import { CreatePostForm } from "@/components/CreatePostForm";
 import type { GetPostsResponseTypes, PostInfoTypes } from "@/types/types";
-import { useSearch } from "./SearchContextProvider";
+import { useSearch } from "@/components/SearchContextProvider";
 
 export function PostList({ postList, currentBlog }: { postList: GetPostsResponseTypes; currentBlog: string }) {
   const { success, data, message } = postList;

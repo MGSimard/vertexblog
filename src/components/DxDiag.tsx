@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import { Modal } from "@/components/Modal";
-import { WindowFrame } from "./WindowFrame";
-import { MaximizeButton } from "./MaximizeButton";
-import { CloseIcon } from "./icons";
+import { WindowFrame } from "@/components/WindowFrame";
+import { MaximizeButton } from "@/components/MaximizeButton";
+import { CloseIcon, Github, Globe, LinkedIn } from "@/components/icons";
 
 export function DxDiag() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -112,6 +112,14 @@ export function DxDiag() {
                         </a>
                       </td>
                     </tr>
+                    <tr>
+                      <th>Basic Icons:</th>
+                      <td>
+                        <a href="https://heroicons.com/" target="_blank">
+                          heroicons
+                        </a>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -136,8 +144,19 @@ export function DxDiag() {
               </div>
             </div>
           </div>
-          <div className="window-footer bloatclasslol">
+          <div className="window-footer system-footer">
             <span>Copyright &#169; 2024 MGSimard. All rights reserved.</span>
+            <div>
+              <a href="https://mgsimard.github.io/" target="_blank">
+                <Globe />
+              </a>
+              <a href="https://github.com/MGSimard/" target="_blank">
+                <Github />
+              </a>
+              <a href="https://www.linkedin.com/in/mgsimard/" target="_blank">
+                <LinkedIn />
+              </a>
+            </div>
           </div>
         </WindowFrame>
       </Modal>

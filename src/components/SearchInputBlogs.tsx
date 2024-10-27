@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent } from "react";
-import { useSearch } from "./SearchContextProvider";
+import { useSearch } from "@/components/SearchContextProvider";
 
 export function SearchInputBlogs() {
   const { blogSearch, setBlogSearch } = useSearch();
