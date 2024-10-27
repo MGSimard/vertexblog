@@ -89,6 +89,14 @@ export function DxDiag() {
                       </td>
                     </tr>
                     <tr>
+                      <th>Hashing</th>
+                      <td>
+                        <a href="https://www.npmjs.com/package/@node-rs/argon2" target="_blank">
+                          Argon2
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
                       <th>ORM:</th>
                       <td>
                         <a href="https://orm.drizzle.team/" target="_blank">
@@ -101,14 +109,6 @@ export function DxDiag() {
                       <td>
                         <a href="https://zod.dev/" target="_blank">
                           Zod
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Hashing</th>
-                      <td>
-                        <a href="https://www.npmjs.com/package/@node-rs/argon2" target="_blank">
-                          Argon2
                         </a>
                       </td>
                     </tr>
