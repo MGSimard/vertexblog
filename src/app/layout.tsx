@@ -4,6 +4,7 @@ import { Taskbar } from "@/components/Taskbar";
 import { Handjet } from "next/font/google";
 import "@/styles/globals.css";
 import { Providers } from "@/components/Providers";
+import { DxDiag } from "@/components/DxDiag";
 
 const handjet = Handjet({ subsets: ["latin"] });
 
@@ -53,18 +54,21 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <nav>
               <ul className="shortcut-area">
                 <li>
+                  <DxDiag />
+                </li>
+                <li>
                   <Link href="/documents" className="shortcut">
                     <img src="/assets/EmptyFolder.svg" alt="Folder" />
                     <span>Documents</span>
                   </Link>
                 </li>
-                <li>This app is in active development.</li>
                 <li>
                   <a href="https://github.com/MGSimard/vertexblog" target="_blank">
-                    <img src="#" alt="Github Logo" />
+                    <img src="#" alt="Logo" />
                     <span>Github</span>
                   </a>
                 </li>
+                <li>This app is in active development.</li>
               </ul>
               <Taskbar />
             </nav>

@@ -687,3 +687,6 @@ button.shortcut {
   color: black;
   font-weight: 700;
 }
+.shortcut-area button {
+  color: inherit;
+}
