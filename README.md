@@ -69,7 +69,7 @@
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
 - [ ] Use the isDirty prompting thing if user tries to navigate away from page
 - [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
-- [ ] Look into date locale mismatching between server and user client
+- [x] Look into date locale mismatching between server and user client
 - [ ] Create a shortcut for a dxdiag type thing that lists info about the site
 - [x] Post deletion
 - [x] Works, now make action tighter and use transactions
