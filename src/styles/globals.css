@@ -409,7 +409,7 @@ header .shortcut-area {
   align-items: center;
   gap: 1rem;
   min-width: 0;
-  width: 20rem;
+  width: 25rem;
   flex-shrink: 0;
 }
 @container (max-width: 578px) {
