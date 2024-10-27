@@ -690,3 +690,42 @@ button.shortcut {
 .shortcut-area button {
   color: inherit;
 }
+/* SYSTEM WINDOW */
+.system-container ul {
+  list-style: disc;
+  list-style-position: inside;
+}
+.system-content a {
+  color: var(--clr-primary);
+}
+.system-content h1,
+.system-content h2 {
+  all: unset;
+}
+.system-container {
+  position: relative;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 2px solid var(--clr-ui-trim-dark);
+  box-shadow: inset 2px 2px var(--clr-ui-trim-light), 0 2px var(--clr-ui-trim-light);
+}
+.system-container h2 {
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  transform: translateY(-50%);
+  padding: 0 0.23rem;
+  background: var(--clr-ui-trim);
+}
+.system-table {
+  border-collapse: collapse;
+}
+.system-table th {
+  text-align: right;
+}
+.system-table td {
+  padding-left: 0.5rem;
+}
+
+/* border-top: 2px solid var(--clr-ui-trim-dark);
+border-bottom: 2px solid var(--clr-ui-trim-light); */
