@@ -72,11 +72,18 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
     }
   }, [dragging]);
 
+  const isSmallScreen = window.innerWidth <= 578;
+
   return (
     <div
       ref={windowRef}
       className="window outset"
-      style={{ left: isNotepad ? "21vw" : "20vw", width: "60vw", top: isNotepad ? "21vh" : "20vh", height: "60vh" }}>
+      style={{
+        left: isSmallScreen ? (isNotepad ? "11vw" : "10vw") : isNotepad ? "21vw" : "20vw",
+        width: isSmallScreen ? "80vw" : "60vw",
+        top: isSmallScreen ? (isNotepad ? "11vh" : "10vh") : isNotepad ? "21vh" : "20vh",
+        height: isSmallScreen ? "80vh" : "60vh",
+      }}>
       {children}
     </div>
   );
