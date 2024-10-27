@@ -80,7 +80,7 @@
 - [x] Make sure deletion also uses dialog prompts/confirm/error
 - [x] Set up blog & post search filtering
 - [x] Now make it look good and responsive
-- [ ] Analytics (Posthog?)
+- [x] Analytics (Posthog?) - No, Plausible. Not proxying either, if you block you block.
 - [ ] Sentry mayhaps?
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
 - [x] Some form of pagination for blogs and maybe posts, dragging performance sucks once there are a lot of files in the div - (Settled on virtualization from scratch)
