@@ -78,7 +78,8 @@
 - [ ] Consider focus trap in dialog (right now can exit it, then re-entering site focuses first dom node and can't re-enter dialog)
 - [x] Blog deletion
 - [x] Make sure deletion also uses dialog prompts/confirm/error
-- [ ] Set up blog & post search filtering
+- [x] Set up blog & post search filtering
+- [ ] Now make it look good and responsive
 - [ ] Analytics (Posthog?)
 - [ ] Sentry mayhaps?
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
