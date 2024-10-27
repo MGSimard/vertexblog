@@ -731,6 +731,7 @@ button.shortcut {
   transform: translateY(-50%);
   padding: 0 0.23rem;
   background: var(--clr-ui-trim);
+  line-height: 1em;
 }
 .system-table {
   border-collapse: collapse;
