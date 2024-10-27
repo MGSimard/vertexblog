@@ -79,7 +79,7 @@
 - [x] Blog deletion
 - [x] Make sure deletion also uses dialog prompts/confirm/error
 - [x] Set up blog & post search filtering
-- [ ] Now make it look good and responsive
+- [x] Now make it look good and responsive
 - [ ] Analytics (Posthog?)
 - [ ] Sentry mayhaps?
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
