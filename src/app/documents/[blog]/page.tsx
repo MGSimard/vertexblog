@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { CurrentPath } from "@/components/CurrentPath";
 import { getPosts } from "@/server/actions";
 import { PostList } from "@/components/PostList";
@@ -9,7 +10,7 @@ import { SearchInputPosts } from "@/components/SearchInputPosts";
 
 export default async function Page({ params }: { params: Promise<{ blog: string }> }) {
   const currentBlog = decodeURIComponent((await params).blog);
-  const postList = await getPosts(currentBlog);
+  const postList = getPosts(currentBlog);
 
   return (
     <>
@@ -23,7 +24,6 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
         <button type="button" disabled>
           Favorites
         </button>
-        {/* SHOW USER'S FAVORITE POSTS? */}
       </div>
       <div className="window-fields">
         <div className="window-address">
@@ -33,7 +33,9 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
         <SearchInputPosts />
       </div>
       <div className="window-content inset">
-        <PostList postList={postList} currentBlog={currentBlog} />
+        <Suspense>
+          <PostList postList={await postList} currentBlog={currentBlog} />
+        </Suspense>
       </div>
     </>
   );
