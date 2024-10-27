@@ -1,6 +1,6 @@
 "use client";
-import { usePathname } from "next/navigation";
-import { useState, useRef } from "react";
+import { usePathname } from "next/navigation"; // Removed useRouter since we don't use it
+import { useState, useRef, useEffect } from "react";
 import { savePost } from "@/server/actions";
 import { dialogManager } from "@/lib/DialogManager";
 import { WindowFrame } from "@/components/WindowFrame";
@@ -12,12 +12,8 @@ import type { PostInfoTypes } from "@/types/types";
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
   const [isDirty, setIsDirty] = useState(false);
   const textRef = useRef<HTMLTextAreaElement>(null);
-
   const pathName = usePathname();
 
-  // TODO: beforeunload (warn users if they try to leave notepad unsaved)
-
-  // Trigger this on exit attempt when not saved
   const handleSaveFile = async () => {
     const { postId } = postInfo;
     const newText = textRef.current?.value;
@@ -35,33 +31,63 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
     return success;
   };
 
-  const handleExit = async () => {
-    if (isDirty) {
-      dialogManager.showDialog({
-        type: "Warning",
-        title: "Notepad",
-        message: `The text in the C:\\Documents\\${pathName.split("/").pop()}\\${
-          postInfo.postTitle
-        }.txt file has changed.`,
-        doSave: true,
-        buttons: [
-          {
-            label: "Save",
-            func: async () => {
-              const success = await handleSaveFile();
-              if (success) {
-                onClose();
-              }
-            },
-          },
-          { label: "Don't Save", func: () => onClose() },
-          { label: "Cancel" },
-        ],
-      });
-    } else {
+  const handleExit = () => {
+    if (!isDirty) {
       onClose();
+      return;
     }
+
+    dialogManager.showDialog({
+      type: "Warning",
+      title: "Notepad",
+      message: `The text in the C:\\Documents\\${pathName.split("/").pop()}\\${
+        postInfo.postTitle
+      }.txt file has changed.`,
+      doSave: true,
+      buttons: [
+        {
+          label: "Save",
+          func: async () => {
+            const success = await handleSaveFile();
+            if (success) {
+              onClose();
+            }
+          },
+        },
+        { label: "Don't Save", func: () => onClose() },
+        { label: "Cancel" },
+      ],
+    });
   };
+
+  const handlePopState = (event: PopStateEvent) => {
+    if (!isDirty) return;
+
+    event.preventDefault();
+    handleExit();
+    window.history.pushState(null, "", window.location.href);
+  };
+
+  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+    if (!isDirty) return;
+
+    event.preventDefault();
+    event.returnValue = "";
+  };
+
+  useEffect(() => {
+    if (isDirty) {
+      window.history.pushState(null, "", window.location.href);
+    }
+
+    window.addEventListener("popstate", handlePopState);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [isDirty]); // Now we just need isDirty in the dependency array
 
   return (
     <>

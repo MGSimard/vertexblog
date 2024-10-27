@@ -68,7 +68,7 @@
 - [ ] Suspense the page loads, allow shortcut render popin
 - [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks (Introduce IP)
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
-- [ ] Use the isDirty prompting thing if user tries to navigate away from page
+- [x] Use the isDirty prompting thing if user tries to navigate away from page
 - [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
 - [x] Look into date locale mismatching between server and user client
 - [x] Create a shortcut for a dxdiag type thing that lists info about the site
