@@ -11,9 +11,9 @@ export function SearchInputBlogs() {
   };
 
   return (
-    <div>
+    <div className="window-search">
       <span>Search</span>
-      <input type="search" placeholder="Placeholder filter field..." value={blogSearch} onChange={handleSearch} />
+      <input type="search" placeholder="Search Blogs..." value={blogSearch} onChange={handleSearch} />
     </div>
   );
 }

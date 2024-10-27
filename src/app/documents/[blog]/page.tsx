@@ -23,11 +23,13 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
         <button type="button">Favorites</button>
         {/* SHOW USER'S FAVORITE POSTS? */}
       </div>
-      <div className="window-address">
-        <span>Address</span>
-        <CurrentPath />
+      <div className="window-fields">
+        <div className="window-address">
+          <span>Address</span>
+          <CurrentPath />
+        </div>
+        <SearchInputPosts />
       </div>
-      <SearchInputPosts />
       <div className="window-content inset">
         <PostList postList={postList} currentBlog={currentBlog} />
       </div>

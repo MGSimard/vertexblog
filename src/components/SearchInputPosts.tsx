@@ -15,9 +15,9 @@ export function SearchInputPosts() {
   }, []);
 
   return (
-    <div>
+    <div className="window-search">
       <span>Search</span>
-      <input type="search" placeholder="Placeholder filter field..." value={postSearch} onChange={handleSearch} />
+      <input type="search" placeholder="Search Posts..." value={postSearch} onChange={handleSearch} />
     </div>
   );
 }

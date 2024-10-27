@@ -17,11 +17,14 @@ export default async function Page() {
         <BlogsSortButton />
         {/* SHOW USER'S FAVORITE BLOGS? */}
       </div>
-      <div className="window-address">
-        <span>Address</span>
-        <CurrentPath />
+      <div className="window-fields">
+        <div className="window-address">
+          <span>Address</span>
+          <CurrentPath />
+        </div>
+        <SearchInputBlogs />
       </div>
-      <SearchInputBlogs />
+
       <div className="window-content inset">
         <BlogList blogList={blogList} />
       </div>

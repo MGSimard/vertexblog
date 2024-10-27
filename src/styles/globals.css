@@ -387,14 +387,28 @@ header .shortcut-area {
 .window-options a::first-letter {
   text-decoration: underline;
 }
+
 /**/
-.window-address {
+.window-fields {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -0.1rem -1rem; /* Trick for differing gaps horizontal & vertical */
+}
+.window-fields > * {
+  margin: 0.1rem 1rem;
+}
+.window-address,
+.window-search {
   display: flex;
   align-items: center;
   gap: 1rem;
+  min-width: 0;
+  flex-grow: 1;
 }
-.window-address span {
+.window-address span,
+.window-search span {
   flex-shrink: 0;
+  width: 5rem;
 }
 .window-address .address-path {
   flex-grow: 1;
@@ -404,6 +418,13 @@ header .shortcut-area {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.window-search input {
+  flex-grow: 1;
+  padding: 0.5rem 0.5rem;
+  background: white;
+  min-width: 0;
+}
+/**/
 .window-content {
   flex-grow: 1;
   padding: 1rem;
