@@ -12,6 +12,7 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const { incrementZIndex } = useZIndex();
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean | null>(null);
 
   const handleMouseDown = (e: MouseEvent | TouchEvent) => {
     const target = e instanceof MouseEvent ? (e.target as HTMLDivElement) : (e.touches[0]?.target as HTMLDivElement);
@@ -48,6 +49,7 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
   };
 
   useEffect(() => {
+    setIsSmallScreen(window.innerWidth <= 578);
     if (windowRef.current) {
       windowRef.current.style.zIndex = `${incrementZIndex()}`;
     }
@@ -76,7 +78,12 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
     <div
       ref={windowRef}
       className="window outset"
-      style={{ left: isNotepad ? "21vw" : "20vw", width: "60vw", top: isNotepad ? "21vh" : "20vh", height: "60vh" }}>
+      style={{
+        left: isSmallScreen ? (isNotepad ? "11vw" : "10vw") : isNotepad ? "21vw" : "20vw",
+        width: isSmallScreen ? "80vw" : "60vw",
+        top: isSmallScreen ? (isNotepad ? "11vh" : "10vh") : isNotepad ? "21vh" : "20vh",
+        height: isSmallScreen ? "80vh" : "60vh",
+      }}>
       {children}
     </div>
   );
