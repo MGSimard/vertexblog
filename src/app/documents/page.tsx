@@ -4,6 +4,7 @@ import { BlogsViewButton } from "@/components/BlogsViewButton";
 import { BlogsSortButton } from "@/components/BlogsSortButton";
 import { CurrentPath } from "@/components/CurrentPath";
 import { BlogList } from "@/components/BlogList";
+import { SearchInputBlogs } from "@/components/SearchInputBlogs";
 
 export default async function Page() {
   const blogList = await getBlogs();
@@ -20,10 +21,7 @@ export default async function Page() {
         <span>Address</span>
         <CurrentPath />
       </div>
-      {/* <div>
-        <span>Search</span>
-        <input type="search" placeholder="Placeholder filter field..." />
-      </div> */}
+      <SearchInputBlogs />
       <div className="window-content inset">
         <BlogList blogList={blogList} />
       </div>

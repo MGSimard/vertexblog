@@ -6,12 +6,14 @@ import { useSort } from "@/components/SortContextProvider";
 import { useNewFile } from "@/components/NewFileContextProvider";
 import { CreateBlogForm } from "@/components/CreateBlogForm";
 import type { GetBlogsResponseTypes, BlogInfoTypes } from "@/types/types";
+import { useSearch } from "./SearchContextProvider";
 
 export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const { success, data, message } = blogList;
   const { blogSortType } = useSort();
   const { iconView } = useIconView();
   const { isCreatingBlog } = useNewFile();
+  const { blogSearch } = useSearch();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const iconGroupRef = useRef<HTMLUListElement>(null);
@@ -20,11 +22,30 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
   const [scrollPos, setScrollPos] = useState(0);
   const [renderedItems, setRenderedItems] = useState<BlogInfoTypes[]>([]);
 
-  // const tester = Array.from({ length: 1000 }, () => [...data]).flat();
+  // const tester = Array.from({ length: 15000 }, () => [...data]).flat();
+
+  const filteredBlogs = useMemo(() => {
+    if (!data) return [];
+    if (!blogSearch?.trim()) return data;
+
+    const normalizedSearch = blogSearch
+      .trim()
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+    return data.filter((blog) => {
+      const normalizedTitle = blog.blogTitle
+        .toLowerCase()
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "");
+      return normalizedTitle.includes(normalizedSearch);
+    });
+  }, [data, blogSearch]);
 
   const sortedBlogs = useMemo(() => {
-    if (!data) return [];
-    return [...data].sort((a, b) => {
+    if (!filteredBlogs.length) return [];
+    return [...filteredBlogs].sort((a, b) => {
       switch (blogSortType) {
         case "name":
           return a.blogTitle.localeCompare(b.blogTitle);
@@ -39,7 +60,7 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
           return a.blogTitle.localeCompare(b.blogTitle);
       }
     });
-  }, [data, blogSortType]);
+  }, [filteredBlogs, blogSortType]);
 
   useEffect(() => {
     const scrollEle = containerRef.current?.parentElement;
@@ -113,7 +134,6 @@ export function BlogList({ blogList }: { blogList: GetBlogsResponseTypes }) {
       {!success && message}
       <ul ref={iconGroupRef} className={`shortcut-area view-${iconView}`}>
         <CreateBlogForm />
-        {/* TODO: Remove index thing once done simulating duplicated blogs for count perf test */}
         {renderedItems?.map((blog) => (
           <li key={blog.blogId}>
             <Link href={`/documents/${encodeURIComponent(blog.blogTitle)}`} className="shortcut">
