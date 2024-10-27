@@ -136,7 +136,7 @@ export function DxDiag() {
                       <td>Self (Database)</td>
                     </tr>
                     <tr>
-                      <th>Assets:</th>
+                      <th>Assets (SVGs):</th>
                       <td>Self (Inkscape)</td>
                     </tr>
                   </tbody>
