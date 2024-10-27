@@ -22,7 +22,7 @@ export function DxDiag() {
       </button>
       <Modal isOpen={isModalOpen}>
         <WindowFrame>
-          <div className="window-header " data-dragcontrol="true">
+          <div className="window-header" data-dragcontrol="true">
             <span className="window-header-left">
               <img src="/assets/System.svg" alt="" />
               <span>System</span>
@@ -135,6 +135,9 @@ export function DxDiag() {
                 </table>
               </div>
             </div>
+          </div>
+          <div className="window-footer bloatclasslol">
+            <span>Copyright &#169; 2024 MGSimard. All rights reserved.</span>
           </div>
         </WindowFrame>
       </Modal>

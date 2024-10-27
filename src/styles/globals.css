@@ -704,8 +704,15 @@ button.shortcut {
   list-style: disc;
   list-style-position: inside;
 }
+.system-content {
+  flex-grow: 1;
+}
 .system-content a {
   color: var(--clr-primary);
+}
+.system-container a:hover,
+.system-container a:focus-visible {
+  text-decoration: underline;
 }
 .system-content h1,
 .system-content h2 {
@@ -740,4 +747,8 @@ button.shortcut {
 .system-table td {
   padding-left: 0.5rem;
   vertical-align: top;
+}
+.bloatclasslol {
+  display: flex;
+  justify-content: flex-end;
 }
