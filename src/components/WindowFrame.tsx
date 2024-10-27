@@ -81,7 +81,7 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
       style={{
         left: isSmallScreen ? (isNotepad ? "11vw" : "10vw") : isNotepad ? "21vw" : "20vw",
         width: isSmallScreen ? "80vw" : "60vw",
-        top: isSmallScreen ? (isNotepad ? "8vh" : "6vh") : isNotepad ? "21vh" : "20vh",
+        top: isSmallScreen ? (isNotepad ? "6vh" : "5vh") : isNotepad ? "21vh" : "20vh",
         height: isSmallScreen ? "80vh" : "60vh",
       }}>
       {children}
