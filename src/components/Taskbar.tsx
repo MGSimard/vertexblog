@@ -10,7 +10,7 @@ export async function Taskbar() {
   return (
     <div id="taskbar">
       <StartButton user={user} blogTitle={blogTitle} />
-      {/* <CurrentTime /> */}
+      <CurrentTime />
     </div>
   );
 }
