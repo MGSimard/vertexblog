@@ -81,6 +81,14 @@ export function DxDiag() {
                 <table className="system-table">
                   <tbody>
                     <tr>
+                      <th>ORM:</th>
+                      <td>
+                        <a href="https://orm.drizzle.team/" target="_blank">
+                          Drizzle ORM
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
                       <th>Authentication:</th>
                       <td>
                         <a href="https://lucia-auth.com/" target="_blank">
@@ -93,14 +101,6 @@ export function DxDiag() {
                       <td>
                         <a href="https://www.npmjs.com/package/@node-rs/argon2" target="_blank">
                           Argon2
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>ORM:</th>
-                      <td>
-                        <a href="https://orm.drizzle.team/" target="_blank">
-                          Drizzle ORM
                         </a>
                       </td>
                     </tr>
