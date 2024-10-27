@@ -18,6 +18,9 @@ export default async function Page() {
         <BlogsViewButton />
         <BlogsSortButton />
         {/* SHOW USER'S FAVORITE BLOGS? */}
+        <button type="button" disabled>
+          Favorites
+        </button>
       </div>
       <div className="window-fields">
         <div className="window-address">
