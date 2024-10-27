@@ -303,6 +303,7 @@ header .shortcut-area {
   background: var(--clr-ui-trim);
   resize: both;
   overflow: hidden;
+  container-type: inline-size;
 }
 .window:has(.maximized) {
   top: 0 !important;
@@ -391,19 +392,34 @@ header .shortcut-area {
 /**/
 .window-fields {
   display: flex;
-  flex-wrap: wrap;
-  margin: -0.1rem -1rem; /* Trick for differing gaps horizontal & vertical */
+  margin: -0.1rem -1rem;
 }
 .window-fields > * {
   margin: 0.1rem 1rem;
 }
-.window-address,
+.window-address {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  flex-grow: 5;
+}
 .window-search {
   display: flex;
   align-items: center;
   gap: 1rem;
   min-width: 0;
-  flex-grow: 1;
+  width: 20rem;
+  flex-shrink: 0;
+}
+@container (max-width: 578px) {
+  .window-fields {
+    flex-wrap: wrap;
+  }
+  .window-search {
+    width: 100%;
+    flex-shrink: 1;
+  }
 }
 .window-address span,
 .window-search span {

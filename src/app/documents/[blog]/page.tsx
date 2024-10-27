@@ -20,7 +20,9 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
         <PostsFileButton blog={currentBlog} />
         <PostsViewButton />
         <PostsSortButton />
-        <button type="button">Favorites</button>
+        <button type="button" disabled>
+          Favorites
+        </button>
         {/* SHOW USER'S FAVORITE POSTS? */}
       </div>
       <div className="window-fields">
