@@ -303,6 +303,7 @@ header .shortcut-area {
   background: var(--clr-ui-trim);
   resize: both;
   overflow: hidden;
+  container-type: inline-size;
 }
 .window:has(.maximized) {
   top: 0 !important;
