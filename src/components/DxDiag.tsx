@@ -97,7 +97,7 @@ export function DxDiag() {
                       </td>
                     </tr>
                     <tr>
-                      <th>Hashing</th>
+                      <th>Hashing:</th>
                       <td>
                         <a href="https://www.npmjs.com/package/@node-rs/argon2" target="_blank">
                           Argon2
