@@ -113,12 +113,6 @@ export function DxDiag() {
                       </td>
                     </tr>
                     <tr>
-                      <th>Analytics:</th>
-                      <td>
-                        <a href="https://plausible.io/">Plausible</a>
-                      </td>
-                    </tr>
-                    <tr>
                       <th>Error Management:</th>
                       <td>
                         <a href="https://sentry.io/">Sentry</a>
@@ -132,12 +126,18 @@ export function DxDiag() {
                 <table className="system-table">
                   <tbody>
                     <tr>
-                      <th>User Interface:</th>
-                      <td>Self (Based on Microsoft Windows 95)</td>
+                      <th>Analytics:</th>
+                      <td>
+                        <a href="https://plausible.io/">Plausible</a>
+                      </td>
                     </tr>
                     <tr>
                       <th>Rate Limiting:</th>
                       <td>Self (Database)</td>
+                    </tr>
+                    <tr>
+                      <th>User Interface:</th>
+                      <td>Self (Based on Microsoft Windows 95)</td>
                     </tr>
                     <tr>
                       <th>Assets (SVGs):</th>
