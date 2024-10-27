@@ -6,12 +6,14 @@ import { useNewFile } from "@/components/NewFileContextProvider";
 import { TextFile } from "@/components/TextFile";
 import { CreatePostForm } from "@/components/CreatePostForm";
 import type { GetPostsResponseTypes, PostInfoTypes } from "@/types/types";
+import { useSearch } from "./SearchContextProvider";
 
 export function PostList({ postList, currentBlog }: { postList: GetPostsResponseTypes; currentBlog: string }) {
   const { success, data, message } = postList;
   const { postSortType } = useSort();
   const { iconView } = useIconView();
   const { isCreatingPost } = useNewFile();
+  const { postSearch } = useSearch();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const iconGroupRef = useRef<HTMLUListElement>(null);
@@ -22,9 +24,28 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
 
   // const tester = Array.from({ length: 1000 }, () => [...data]).flat();
 
-  const sortedPosts = useMemo(() => {
+  const filteredBlogs = useMemo(() => {
     if (!data) return [];
-    return [...data].sort((a, b) => {
+    if (!postSearch?.trim()) return data;
+
+    const normalizedSearch = postSearch
+      .trim()
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+    return data.filter((post) => {
+      const normalizedTitle = post.postTitle
+        .toLowerCase()
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "");
+      return normalizedTitle.includes(normalizedSearch);
+    });
+  }, [data, postSearch]);
+
+  const sortedPosts = useMemo(() => {
+    if (!filteredBlogs) return [];
+    return [...filteredBlogs].sort((a, b) => {
       switch (postSortType) {
         case "name":
           return a.postTitle.localeCompare(b.postTitle);
@@ -39,7 +60,7 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
           return a.postTitle.localeCompare(b.postTitle);
       }
     });
-  }, [data, postSortType]);
+  }, [filteredBlogs, postSortType]);
 
   useEffect(() => {
     const scrollEle = containerRef.current?.parentElement;

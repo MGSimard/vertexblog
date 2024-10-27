@@ -13,12 +13,7 @@ export function SearchInputBlogs() {
   return (
     <div>
       <span>Search</span>
-      <input
-        type="search"
-        placeholder="Placeholder filter field..."
-        defaultValue={blogSearch}
-        onChange={handleSearch}
-      />
+      <input type="search" placeholder="Placeholder filter field..." value={blogSearch} onChange={handleSearch} />
     </div>
   );
 }

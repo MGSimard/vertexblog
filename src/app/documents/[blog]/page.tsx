@@ -5,6 +5,7 @@ import { PostList } from "@/components/PostList";
 import { PostsFileButton } from "@/components/PostsFileButton";
 import { PostsSortButton } from "@/components/PostsSortButton";
 import { PostsViewButton } from "@/components/PostsViewButton";
+import { SearchInputPosts } from "@/components/SearchInputPosts";
 
 export default async function Page({ params }: { params: Promise<{ blog: string }> }) {
   const currentBlog = decodeURIComponent((await params).blog);
@@ -26,6 +27,7 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
         <span>Address</span>
         <CurrentPath />
       </div>
+      <SearchInputPosts />
       <div className="window-content inset">
         <PostList postList={postList} currentBlog={currentBlog} />
       </div>
