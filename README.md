@@ -70,7 +70,7 @@
 - [ ] Use the isDirty prompting thing if user tries to navigate away from page
 - [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
 - [x] Look into date locale mismatching between server and user client
-- [ ] Create a shortcut for a dxdiag type thing that lists info about the site
+- [x] Create a shortcut for a dxdiag type thing that lists info about the site
 - [x] Post deletion
 - [x] Works, now make action tighter and use transactions
 - [x] Now run the delete button onto a confirmation lol
