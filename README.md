@@ -61,6 +61,7 @@
 - [x] Consider separate ratelimiting for action types (Signup/Signin, Data fetching, Data mutation (Blog/Post))
 - [x] Upgrade to new stable Next 15, migrate .eslintrc.cjs to flat config eslint.config.mjs etc etc.
 - [x] Reduce filesize of "/favicons/android-chrome-512x512.png"
+- [x] Some form of pagination for blogs and maybe posts, dragging performance sucks once there are a lot of files in the div - (Settled on virtualization from scratch)
 - [x] Implement virtualized list scrolling from scratch
 - [x] Now that we have virtualization, need to fix file creation if scroll isn't at the top already
 - [ ] Optimize its performance
@@ -81,7 +82,8 @@
 - [x] Set up blog & post search filtering
 - [x] Now make it look good and responsive
 - [x] Analytics (Posthog?) - No, Plausible. Not proxying either, if you block you block.
-- [ ] Sentry mayhaps?
+- [ ] Honestly might go for Posthog, Plausible only has 30D free trial.
+- [x] Sentry mayhaps?
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
-- [x] Some form of pagination for blogs and maybe posts, dragging performance sucks once there are a lot of files in the div - (Settled on virtualization from scratch)
+- [ ] Make decent 404 page
 - [ ] Metadata, especially important for blog links

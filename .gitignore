@@ -46,3 +46,6 @@ yarn-error.log*
 .idea
 # Million Lint
 .million
+
+# Sentry Config File
+.env.sentry-build-plugin

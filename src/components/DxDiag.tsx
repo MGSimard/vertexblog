@@ -113,11 +113,15 @@ export function DxDiag() {
                       </td>
                     </tr>
                     <tr>
-                      <th>Basic Icons:</th>
+                      <th>Analytics:</th>
                       <td>
-                        <a href="https://heroicons.com/" target="_blank">
-                          heroicons
-                        </a>
+                        <a href="https://plausible.io/">Plausible</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Error Management:</th>
+                      <td>
+                        <a href="https://sentry.io/">Sentry</a>
                       </td>
                     </tr>
                   </tbody>
@@ -138,6 +142,14 @@ export function DxDiag() {
                     <tr>
                       <th>Assets (SVGs):</th>
                       <td>Self (Inkscape)</td>
+                    </tr>
+                    <tr>
+                      <th>Basic Icons:</th>
+                      <td>
+                        <a href="https://heroicons.com/" target="_blank">
+                          heroicons
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
