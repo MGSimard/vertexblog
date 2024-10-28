@@ -8,9 +8,14 @@ import { PostsSortButton } from "@/components/PostsSortButton";
 import { PostsViewButton } from "@/components/PostsViewButton";
 import { SearchInputPosts } from "@/components/SearchInputPosts";
 
+const PostListWrapper = async ({ currentBlog }: { currentBlog: string }) => {
+  const postList = await getPosts(currentBlog);
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+  return <PostList postList={postList} currentBlog={currentBlog} />;
+};
+
 export default async function Page({ params }: { params: Promise<{ blog: string }> }) {
   const currentBlog = decodeURIComponent((await params).blog);
-  const postList = await getPosts(currentBlog);
 
   return (
     <>
@@ -33,7 +38,9 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
         <SearchInputPosts />
       </div>
       <div className="window-content inset">
-        <PostList postList={postList} currentBlog={currentBlog} />
+        <Suspense>
+          <PostListWrapper currentBlog={currentBlog} />
+        </Suspense>
       </div>
     </>
   );

@@ -65,7 +65,7 @@
 - [x] Implement virtualized list scrolling from scratch
 - [x] Now that we have virtualization, need to fix file creation if scroll isn't at the top already
 - [ ] Optimize its performance
-- [ ] Suspense the page loads, allow shortcut render popin
+- [x] Suspense the page loads, allow shortcut render popin
 - [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks (Introduce IP)
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
 - [x] Use the isDirty prompting thing if user tries to navigate away from page
