@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+
 import { getBlogs } from "@/server/actions";
 import { BlogsFileButton } from "@/components/BlogsFileButton";
 import { BlogsViewButton } from "@/components/BlogsViewButton";
@@ -8,7 +9,7 @@ import { BlogList } from "@/components/BlogList";
 import { SearchInputBlogs } from "@/components/SearchInputBlogs";
 
 export default async function Page() {
-  const blogList = getBlogs();
+  const blogList = await getBlogs();
 
   return (
     <>
@@ -30,9 +31,7 @@ export default async function Page() {
       </div>
 
       <div className="window-content inset">
-        <Suspense>
-          <BlogList blogList={await blogList} />
-        </Suspense>
+        <BlogList blogList={blogList} />
       </div>
     </>
   );

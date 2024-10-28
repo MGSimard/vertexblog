@@ -10,7 +10,7 @@ import { SearchInputPosts } from "@/components/SearchInputPosts";
 
 export default async function Page({ params }: { params: Promise<{ blog: string }> }) {
   const currentBlog = decodeURIComponent((await params).blog);
-  const postList = getPosts(currentBlog);
+  const postList = await getPosts(currentBlog);
 
   return (
     <>
@@ -33,9 +33,7 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
         <SearchInputPosts />
       </div>
       <div className="window-content inset">
-        <Suspense>
-          <PostList postList={await postList} currentBlog={currentBlog} />
-        </Suspense>
+        <PostList postList={postList} currentBlog={currentBlog} />
       </div>
     </>
   );
