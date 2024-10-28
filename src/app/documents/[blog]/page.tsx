@@ -10,7 +10,6 @@ import { SearchInputPosts } from "@/components/SearchInputPosts";
 
 const PostListWrapper = async ({ currentBlog }: { currentBlog: string }) => {
   const postList = await getPosts(currentBlog);
-  await new Promise((resolve) => setTimeout(resolve, 5000));
   return <PostList postList={postList} currentBlog={currentBlog} />;
 };
 
