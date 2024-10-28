@@ -176,7 +176,7 @@ header .shortcut-area {
   inset: -1rem -1rem -1rem 0;
 }
 #taskbar {
-  position: absolute;
+  position: sticky;
   right: 0;
   bottom: 0;
   left: 0;
@@ -579,7 +579,7 @@ button.shortcut {
 }
 /* CONTEXT WINDOW (Warnings, Confirmation, Success etc)*/
 .dialog-wrapper {
-  position: absolute;
+  position: fixed;
   inset: 0;
   display: flex;
   flex-direction: column;
