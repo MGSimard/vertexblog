@@ -85,5 +85,5 @@
 - [ ] Honestly might go for Posthog, Plausible only has 30D free trial.
 - [x] Sentry mayhaps?
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
-- [ ] Make decent 404 page
+- [x] Make decent 404 page
 - [ ] Metadata, especially important for blog links

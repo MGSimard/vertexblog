@@ -1,3 +1,22 @@
+"use client";
+
+import { dialogManager } from "@/lib/DialogManager";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+
 export default function notFound() {
-  return <div className="notfound">ayo lil bro 404</div>;
+  const pathName = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    dialogManager.showDialog({
+      type: "Error",
+      title: "404",
+      message: `Not found. (${pathName})`,
+      buttons: [{ label: "OK", func: () => router.push("/") }],
+    });
+  }, []);
+
+  return null;
 }
