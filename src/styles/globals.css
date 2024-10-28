@@ -176,7 +176,7 @@ header .shortcut-area {
   inset: -1rem -1rem -1rem 0;
 }
 #taskbar {
-  position: fixed;
+  position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
@@ -579,7 +579,7 @@ button.shortcut {
 }
 /* CONTEXT WINDOW (Warnings, Confirmation, Success etc)*/
 .dialog-wrapper {
-  position: fixed;
+  position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
@@ -669,18 +669,6 @@ button.shortcut {
   border-bottom-color: var(--clr-ui-trim-dark);
   border-left-color: var(--clr-ui-trim-light);
   box-shadow: 1px 1px 1px var(--clr-drop-shadow);
-}
-.notfound {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 100%;
-  min-width: 20rem;
-  max-height: calc(100% - var(--taskbarHeight));
-  min-height: 4.2rem;
-  background: orange;
-  z-index: 999;
 }
 .np-file-menu button.scary:hover {
   background: red;
