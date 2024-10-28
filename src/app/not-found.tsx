@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function notFound() {
+export default function NotFound() {
   const pathName = usePathname();
   const router = useRouter();
 
