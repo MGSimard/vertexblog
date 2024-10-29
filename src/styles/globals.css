@@ -176,7 +176,7 @@ header .shortcut-area {
   inset: -1rem -1rem -1rem 0;
 }
 #taskbar {
-  position: sticky;
+  position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
