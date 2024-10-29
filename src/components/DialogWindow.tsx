@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { CloseIcon } from "@/components/icons";
 import type { DialogOptionsTypes } from "@/types/types";
 
-export function DialogWindow({ type, title, message, buttons, closeDialog, doSave }: DialogOptionsTypes) {
+export function DialogWindow({ type, title, message, buttons, closeDialog }: DialogOptionsTypes) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -40,18 +40,7 @@ export function DialogWindow({ type, title, message, buttons, closeDialog, doSav
         </div>
         <div className="dialog-content">
           <img src={`/assets/${type}.svg`} alt={type} />
-          <div>
-            <p>
-              {message}
-              {doSave && (
-                <>
-                  <br />
-                  <br />
-                  Do you want to save the changes?
-                </>
-              )}
-            </p>
-          </div>
+          <div>{message}</div>
         </div>
         <div className="dialog-options">
           {buttons.map((btn) => (

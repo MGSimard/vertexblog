@@ -22,11 +22,16 @@ export function SignUp() {
   const [pswdVisible, setPswdVisible] = useState(false);
 
   useEffect(() => {
+    console.log(formState?.errors ?? null);
     if (formState?.success === false) {
       dialogManager.showDialog({
         type: "Error",
         title: "Sign Up",
-        message: `${formState.message}${formState.errors ?? null}`,
+        message: (
+          <>
+            <p>{formState.message}</p>
+          </>
+        ),
         buttons: [{ label: "OK" }],
       });
     }
@@ -97,7 +102,7 @@ export function SignIn() {
       dialogManager.showDialog({
         type: "Error",
         title: "Sign In",
-        message: formState.message,
+        message: <p>{formState.message}</p>,
         buttons: [{ label: "OK" }],
       });
     }

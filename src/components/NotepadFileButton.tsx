@@ -74,7 +74,7 @@ function NotepadButtonMenu({
       dialogManager.showDialog({
         type: "Error",
         title: "Notepad",
-        message: message,
+        message: <p>{message}</p>,
         buttons: [{ label: "OK" }],
       });
     }
@@ -86,10 +86,14 @@ function NotepadButtonMenu({
       dialogManager.showDialog({
         type: "Warning",
         title: "Notepad",
-        message: `The text in the C:\\Documents\\${pathName.split("/").pop()}\\${
-          postInfo.postTitle
-        }.txt file has changed.`,
-        doSave: true,
+        message: (
+          <p>
+            The text in the C:\Documents\{pathName.split("/").pop()}\{postInfo.postTitle}.txt file has changed.
+            <br />
+            <br />
+            Do you want to save the changes?
+          </p>
+        ),
         buttons: [
           {
             label: "Save",
@@ -127,7 +131,7 @@ function NotepadButtonMenu({
     dialogManager.showDialog({
       type: "Warning",
       title: "Confirm Post Deletion",
-      message: `Are you sure you want to delete '${postInfo.postTitle}'.txt?`,
+      message: <p>Are you sure you want to delete '{postInfo.postTitle}'.txt?</p>,
       buttons: [
         {
           label: "Delete",
@@ -137,7 +141,7 @@ function NotepadButtonMenu({
               dialogManager.showDialog({
                 type: "Error",
                 title: "Post Deletion",
-                message: deletion.message,
+                message: <p>{deletion.message}</p>,
                 buttons: [{ label: "OK" }],
               });
             }

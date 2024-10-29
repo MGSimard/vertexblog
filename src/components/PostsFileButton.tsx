@@ -53,7 +53,7 @@ function PostsFileMenu({ setMenuOpen, blog }: { setMenuOpen: Dispatch<SetStateAc
     dialogManager.showDialog({
       type: "Warning",
       title: "Confirm Blog Deletion",
-      message: `Are you sure you want to delete blog '${blog}'?`,
+      message: <p>Are you sure you want to delete blog '{blog}'?</p>,
       buttons: [
         {
           label: "Delete",
@@ -63,7 +63,7 @@ function PostsFileMenu({ setMenuOpen, blog }: { setMenuOpen: Dispatch<SetStateAc
               dialogManager.showDialog({
                 type: "Error",
                 title: "Blog Deletion",
-                message: deletion.message,
+                message: <p>{deletion.message}</p>,
                 buttons: [{ label: "OK" }],
               });
             } else {

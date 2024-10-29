@@ -39,10 +39,9 @@ type buttonFormat = {
 export type DialogOptionsTypes = {
   type: (typeof typeEnums)[number];
   title: string;
-  message: string | string[];
+  message: React.ReactNode;
   buttons: buttonFormat[];
   closeDialog?: () => void;
-  doSave?: boolean;
 };
 
 export interface RatelimitReturnTypes {

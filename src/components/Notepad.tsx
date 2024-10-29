@@ -24,7 +24,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
       dialogManager.showDialog({
         type: "Error",
         title: "Notepad",
-        message: message,
+        message: <p>{message}</p>,
         buttons: [{ label: "OK" }],
       });
     }
@@ -40,10 +40,14 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
     dialogManager.showDialog({
       type: "Warning",
       title: "Notepad",
-      message: `The text in the C:\\Documents\\${pathName.split("/").pop()}\\${
-        postInfo.postTitle
-      }.txt file has changed.`,
-      doSave: true,
+      message: (
+        <p>
+          The text in the C:\Documents\{pathName.split("/").pop()}\{postInfo.postTitle}.txt file has changed.
+          <br />
+          <br />
+          Do you want to save the changes?
+        </p>
+      ),
       buttons: [
         {
           label: "Save",

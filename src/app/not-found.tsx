@@ -17,7 +17,7 @@ export default function NotFound() {
     dialogManager.showDialog({
       type: "Error",
       title: "404",
-      message: `Not found. (${pathName})`,
+      message: <p>Not found. ({pathName})</p>,
       buttons: [{ label: "OK", func: () => router.push("/") }],
     });
   }, []);
