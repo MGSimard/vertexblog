@@ -643,6 +643,9 @@ button.shortcut {
   height: 5rem;
   filter: drop-shadow(4px 4px rgba(0, 0, 0, 0.4));
 }
+.dialog-content ul li::before {
+  content: "• ";
+}
 .dialog-options {
   display: flex;
   flex-wrap: wrap;
@@ -688,9 +691,8 @@ button.shortcut {
 .sc-wrap > * {
   flex-grow: 1;
 }
-.system-container ul {
-  list-style: disc;
-  list-style-position: inside;
+.dialog-content ul li::before {
+  content: "• ";
 }
 .system-content {
   flex-grow: 1;
