@@ -86,4 +86,5 @@
 - [x] Sentry mayhaps?
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
 - [x] Make decent 404 page
-- [ ] Metadata, especially important for blog links
+- [x] Metadata, especially important for blog links
+- [ ] Make ogGraph images for diff platforms
