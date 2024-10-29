@@ -186,7 +186,12 @@ export async function signout() {
 }
 
 export async function getBlogs(): Promise<GetBlogsResponseTypes> {
-  // TODO IP/UserID ratelimit
+  const { user } = await validateRequest();
+
+  const { success: rlOK, message: rlMessage } = await ratelimit("fetch", await getClientIP(), user?.id);
+  if (!rlOK) {
+    return { success: false, message: rlMessage };
+  }
 
   try {
     const blogList = await db
@@ -210,7 +215,13 @@ export async function getBlogs(): Promise<GetBlogsResponseTypes> {
 }
 
 export async function getPosts(currentBlog: string): Promise<GetPostsResponseTypes> {
-  // TODO IP/UserID ratelimit
+  const { user } = await validateRequest();
+
+  const { success: rlOK, message: rlMessage } = await ratelimit("fetch", await getClientIP(), user?.id);
+  if (!rlOK) {
+    return { success: false, message: rlMessage };
+  }
+
   try {
     const [blogInfo] = await db.select({ blogId: blogs.id }).from(blogs).where(eq(blogs.title, currentBlog));
 
@@ -403,6 +414,11 @@ export async function savePost(inputId: number, inputText: string | undefined): 
 export async function getCurrentUserBlog(): Promise<string | null> {
   const { user } = await validateRequest();
   if (!user) {
+    return null;
+  }
+
+  const { success: rlOK, message: rlMessage } = await ratelimit("fetch", await getClientIP(), user.id);
+  if (!rlOK) {
     return null;
   }
 
