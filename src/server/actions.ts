@@ -4,7 +4,7 @@ import { db } from "@/server/db";
 import { blogs, posts, userTable } from "@/server/db/schema";
 import { eq, sql, and, isNull } from "drizzle-orm";
 import { generateIdFromEntropySize } from "lucia";
-import { lucia, validateRequest } from "@/server/auth";
+import { lucia, validateRequest } from "@/lib/auth";
 import { hash, verify } from "@node-rs/argon2";
 import { z } from "zod";
 import { ratelimit } from "@/server/ratelimit";
@@ -48,6 +48,7 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
   if (user) {
     return { success: false, message: "AUTH ERROR: User is already logged in." };
   }
+
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
   const getClientIdentifier = () => {
@@ -128,6 +129,7 @@ export async function signin(currentState: FormStatusTypes, formData: FormData) 
   if (user) {
     return { success: false, message: "AUTH ERROR: User is already logged in." };
   }
+
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
   const getClientIdentifier = () => {
@@ -200,7 +202,6 @@ export async function signout() {
   } catch (err: unknown) {
     return { success: false, message: err instanceof Error ? err.message : "UNKNOWN ERROR." };
   }
-
   return { success: true, message: "SUCCESS: User Signed Out." };
 }
 
@@ -267,6 +268,7 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
+
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
   const getClientIdentifier = () => {
@@ -330,6 +332,7 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
+
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
   const getClientIdentifier = () => {
@@ -395,6 +398,7 @@ export async function savePost(inputId: number, inputText: string | undefined): 
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
+
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
   const getClientIdentifier = () => {
@@ -476,6 +480,7 @@ export async function deletePost(inputId: number): Promise<DeletePostResponseTyp
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
+
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
   const getClientIdentifier = () => {
@@ -550,6 +555,7 @@ export async function deleteBlog(blog: string): Promise<DeleteBlogResponseTypes>
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
+
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
   const getClientIdentifier = () => {
