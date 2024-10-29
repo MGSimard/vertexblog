@@ -9,7 +9,7 @@ import { lucia, validateRequest } from "@/lib/auth";
 import { hash, verify } from "@node-rs/argon2";
 import { z } from "zod";
 import { ratelimit } from "@/server/ratelimit";
-import { getClientIP } from "./actionsHelpers";
+import { getClientIP } from "@/server/actionsHelpers";
 import type {
   FormStatusTypes,
   GetBlogsResponseTypes,
