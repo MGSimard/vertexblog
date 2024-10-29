@@ -14,9 +14,11 @@ export function StartMenu({
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   const handleOffsideClick = (e: MouseEvent) => {
+    console.log(e.target);
     if (
       !document.getElementById("start-button")?.contains(e.target as Node) &&
-      !document.getElementById("start-menu")?.contains(e.target as Node)
+      !document.getElementById("start-menu")?.contains(e.target as Node) &&
+      !document.querySelector(".dialog-wrapper")?.contains(e.target as Node)
     ) {
       setMenuOpen(false);
     }

@@ -1,7 +1,8 @@
 "use client";
-import { useActionState, useState } from "react";
+import { useActionState, useState, useEffect } from "react";
 import { signup, signin, signout } from "@/server/actions";
 import { EyeIcon, EyeSlashIcon } from "@/components/icons";
+import { dialogManager } from "@/lib/DialogManager";
 
 export function SignInOrUp() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -19,6 +20,17 @@ export function SignInOrUp() {
 export function SignUp() {
   const [formState, formAction, pending] = useActionState(signup, null);
   const [pswdVisible, setPswdVisible] = useState(false);
+
+  useEffect(() => {
+    if (formState?.success === false) {
+      dialogManager.showDialog({
+        type: "Error",
+        title: "Sign Up",
+        message: `${formState.message}${formState.errors ?? null}`,
+        buttons: [{ label: "OK" }],
+      });
+    }
+  }, [formState]);
 
   return (
     <form action={formAction} className="start-form">
@@ -72,14 +84,6 @@ export function SignUp() {
       <button type="submit" className="outset" disabled={pending} aria-disabled={pending}>
         Sign Up
       </button>
-      {formState?.success === false && formState.message}
-      {formState?.errors && (
-        <ul>
-          {formState.errors.map((err) => (
-            <li key={err}>{err}</li>
-          ))}
-        </ul>
-      )}
     </form>
   );
 }
@@ -87,6 +91,17 @@ export function SignUp() {
 export function SignIn() {
   const [formState, formAction, pending] = useActionState(signin, null);
   const [pswdVisible, setPswdVisible] = useState(false);
+
+  useEffect(() => {
+    if (formState?.success === false) {
+      dialogManager.showDialog({
+        type: "Error",
+        title: "Sign In",
+        message: formState.message,
+        buttons: [{ label: "OK" }],
+      });
+    }
+  }, [formState]);
 
   return (
     <form action={formAction} className="start-form">
@@ -119,8 +134,6 @@ export function SignIn() {
       <button type="submit" className="outset" disabled={pending} aria-disabled={pending}>
         Sign In
       </button>
-      {/* TODO: Put all of these errors in a dismissable warning context window (toast) */}
-      {formState?.success === false && formState.message}
     </form>
   );
 }

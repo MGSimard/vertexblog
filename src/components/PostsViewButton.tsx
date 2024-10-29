@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 import { useIconView } from "@/components/IconViewProvider";
 
@@ -24,6 +25,7 @@ export function PostsViewButton() {
 
 function PostsViewMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<boolean>> }) {
   const { iconView, setIconView } = useIconView();
+  const router = useRouter();
 
   const handleView = (arg: string) => {
     setIconView(arg);
@@ -67,9 +69,8 @@ function PostsViewMenu({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<b
         className={iconView === "list" ? "applied" : ""}>
         List
       </button>
-      {/* TODO: DO I REALLY WANT A REFRESH BUTTON HERE? */}
-      <button type="button" onClick={() => handleView("refresh")} role="menuitem">
-        TODO: Refresh
+      <button type="button" onClick={() => router.refresh()} role="menuitem">
+        Refresh
       </button>
     </div>
   );

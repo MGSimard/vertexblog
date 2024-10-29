@@ -25,8 +25,6 @@ export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
     if (formState) {
       if (formState.success) {
         setIsCreatingPost(false);
-        // TODO: Not sure what I want here in place of alert, windows doesn't open newly created files
-        alert("Post successfully created.");
       } else {
         dialogManager.showDialog({
           type: "Error",
