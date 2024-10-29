@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation"; // Removed useRouter since we don't use it
+import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { savePost } from "@/server/actions";
 import { dialogManager } from "@/lib/DialogManager";
@@ -87,7 +87,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
       window.removeEventListener("popstate", handlePopState);
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [isDirty]); // Now we just need isDirty in the dependency array
+  }, [isDirty]);
 
   return (
     <>
