@@ -1,4 +1,4 @@
-"use server";
+import "server-only";
 import { db } from "@/server/db";
 import { eq, and, isNull } from "drizzle-orm";
 import { ratelimits } from "@/server/db/schema";
