@@ -17,19 +17,6 @@ import type {
   DeleteBlogResponseTypes,
 } from "@/types/types";
 
-const forwardedFor = (await headers()).get("x-forwarded-for");
-const realIP = (await headers()).get("x-real-ip");
-
-export function getClientIdentifier() {
-  if (forwardedFor) {
-    return forwardedFor.split(",")[0]!.trim();
-  } else if (realIP) {
-    return realIP.trim();
-  } else {
-    return "0.0.0.0";
-  }
-}
-
 const CreateUserSchema = z
   .object({
     username: z
@@ -61,7 +48,17 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
   if (user) {
     return { success: false, message: "AUTH ERROR: User is already logged in." };
   }
-
+  const forwardedFor = (await headers()).get("x-forwarded-for");
+  const realIP = (await headers()).get("x-real-ip");
+  const getClientIdentifier = () => {
+    if (forwardedFor) {
+      return forwardedFor.split(",")[0]!.trim();
+    } else if (realIP) {
+      return realIP.trim();
+    } else {
+      return "0.0.0.0";
+    }
+  };
   const { success: rlOK, message: rlMessage } = await ratelimit("auth", getClientIdentifier());
   if (!rlOK) {
     return { success: false, message: rlMessage };
@@ -131,7 +128,17 @@ export async function signin(currentState: FormStatusTypes, formData: FormData) 
   if (user) {
     return { success: false, message: "AUTH ERROR: User is already logged in." };
   }
-
+  const forwardedFor = (await headers()).get("x-forwarded-for");
+  const realIP = (await headers()).get("x-real-ip");
+  const getClientIdentifier = () => {
+    if (forwardedFor) {
+      return forwardedFor.split(",")[0]!.trim();
+    } else if (realIP) {
+      return realIP.trim();
+    } else {
+      return "0.0.0.0";
+    }
+  };
   const { success: rlOK, message: rlMessage } = await ratelimit("auth", getClientIdentifier());
   if (!rlOK) {
     return { success: false, message: rlMessage };
@@ -260,7 +267,17 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
-
+  const forwardedFor = (await headers()).get("x-forwarded-for");
+  const realIP = (await headers()).get("x-real-ip");
+  const getClientIdentifier = () => {
+    if (forwardedFor) {
+      return forwardedFor.split(",")[0]!.trim();
+    } else if (realIP) {
+      return realIP.trim();
+    } else {
+      return "0.0.0.0";
+    }
+  };
   const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
@@ -313,7 +330,17 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
-
+  const forwardedFor = (await headers()).get("x-forwarded-for");
+  const realIP = (await headers()).get("x-real-ip");
+  const getClientIdentifier = () => {
+    if (forwardedFor) {
+      return forwardedFor.split(",")[0]!.trim();
+    } else if (realIP) {
+      return realIP.trim();
+    } else {
+      return "0.0.0.0";
+    }
+  };
   const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
@@ -368,7 +395,17 @@ export async function savePost(inputId: number, inputText: string | undefined): 
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
-
+  const forwardedFor = (await headers()).get("x-forwarded-for");
+  const realIP = (await headers()).get("x-real-ip");
+  const getClientIdentifier = () => {
+    if (forwardedFor) {
+      return forwardedFor.split(",")[0]!.trim();
+    } else if (realIP) {
+      return realIP.trim();
+    } else {
+      return "0.0.0.0";
+    }
+  };
   const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
@@ -439,7 +476,17 @@ export async function deletePost(inputId: number): Promise<DeletePostResponseTyp
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
-
+  const forwardedFor = (await headers()).get("x-forwarded-for");
+  const realIP = (await headers()).get("x-real-ip");
+  const getClientIdentifier = () => {
+    if (forwardedFor) {
+      return forwardedFor.split(",")[0]!.trim();
+    } else if (realIP) {
+      return realIP.trim();
+    } else {
+      return "0.0.0.0";
+    }
+  };
   const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
@@ -503,7 +550,17 @@ export async function deleteBlog(blog: string): Promise<DeleteBlogResponseTypes>
   if (!user) {
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
-
+  const forwardedFor = (await headers()).get("x-forwarded-for");
+  const realIP = (await headers()).get("x-real-ip");
+  const getClientIdentifier = () => {
+    if (forwardedFor) {
+      return forwardedFor.split(",")[0]!.trim();
+    } else if (realIP) {
+      return realIP.trim();
+    } else {
+      return "0.0.0.0";
+    }
+  };
   const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
