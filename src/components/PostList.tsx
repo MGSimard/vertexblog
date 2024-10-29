@@ -134,7 +134,7 @@ export function PostList({ postList, currentBlog }: { postList: GetPostsResponse
       {!success && message}
       <ul ref={iconGroupRef} className={`shortcut-area view-${iconView}`}>
         <CreatePostForm currentBlog={currentBlog} />
-        {renderedItems?.map((post, index) => (
+        {renderedItems?.map((post) => (
           <li key={post.postId}>
             <TextFile postInfo={post} />
           </li>

@@ -44,7 +44,7 @@ export function WindowFrame({ children, isNotepad }: PropTypes) {
     }
   };
 
-  const handleMouseUp = (e: MouseEvent | TouchEvent) => {
+  const handleMouseUp = () => {
     if (dragging) setDragging(false);
   };
 

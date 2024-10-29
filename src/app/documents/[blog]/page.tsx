@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CurrentPath } from "@/components/CurrentPath";
