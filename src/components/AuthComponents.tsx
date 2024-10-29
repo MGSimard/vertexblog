@@ -112,7 +112,21 @@ export function SignIn() {
       dialogManager.showDialog({
         type: "Error",
         title: "Sign In",
-        message: <p>{formState.message}</p>,
+        message: (
+          <>
+            <p>{formState.message}</p>
+            {formState.errors && (
+              <>
+                <br />
+                <ul>
+                  {formState.errors.map((err) => (
+                    <li key={err}>{err}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </>
+        ),
         buttons: [{ label: "OK" }],
       });
     }

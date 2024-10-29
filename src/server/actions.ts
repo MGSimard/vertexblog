@@ -122,6 +122,7 @@ export async function signin(currentState: FormStatusTypes, formData: FormData) 
     return {
       success: false,
       message: "VALIDATION ERROR: Invalid fields.",
+      errors: validated.error.issues.map((issue) => issue.message),
     };
   }
 
