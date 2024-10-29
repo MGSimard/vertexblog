@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { db } from "@/server/db";
 import { blogs, posts, userTable } from "@/server/db/schema";
@@ -8,7 +8,6 @@ import { lucia, validateRequest } from "@/server/auth";
 import { hash, verify } from "@node-rs/argon2";
 import { z } from "zod";
 import { ratelimit } from "@/server/ratelimit";
-import { getClientIdentifier } from "@/server/actionsHelpers";
 import type {
   FormStatusTypes,
   GetBlogsResponseTypes,
@@ -17,6 +16,19 @@ import type {
   DeletePostResponseTypes,
   DeleteBlogResponseTypes,
 } from "@/types/types";
+
+const forwardedFor = (await headers()).get("x-forwarded-for");
+const realIP = (await headers()).get("x-real-ip");
+
+export function getClientIdentifier() {
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0]!.trim();
+  } else if (realIP) {
+    return realIP.trim();
+  } else {
+    return "0.0.0.0";
+  }
+}
 
 const CreateUserSchema = z
   .object({
