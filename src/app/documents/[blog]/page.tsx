@@ -1,3 +1,4 @@
+import { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CurrentPath } from "@/components/CurrentPath";
@@ -7,6 +8,16 @@ import { PostsFileButton } from "@/components/PostsFileButton";
 import { PostsSortButton } from "@/components/PostsSortButton";
 import { PostsViewButton } from "@/components/PostsViewButton";
 import { SearchInputPosts } from "@/components/SearchInputPosts";
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ blog: string }> },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const blogName = decodeURIComponent((await params).blog);
+  return {
+    title: `C:\\VERTEXBLOG\\Documents\\${blogName}`,
+  };
+}
 
 const PostListWrapper = async ({ currentBlog }: { currentBlog: string }) => {
   const postList = await getPosts(currentBlog);

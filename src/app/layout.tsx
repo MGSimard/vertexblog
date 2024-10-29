@@ -14,8 +14,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Vertex Blog",
-  description: "Greatest bad idea I've ever had",
+  title: "C:\\VERTEXBLOG",
+  description: "Blogging platform based on the Windows 95 UI experience, as a file explorer directory.",
   icons: [
     {
       rel: "icon",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     },
     {
       rel: "mask-icon",
-      color: "#f75049",
+      color: "#57a8a8",
       url: "/favicons/safari-pinned-tab.svg",
     },
   ],

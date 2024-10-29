@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 import { getBlogs } from "@/server/actions";
 import { BlogsFileButton } from "@/components/BlogsFileButton";
@@ -6,6 +7,10 @@ import { BlogsSortButton } from "@/components/BlogsSortButton";
 import { CurrentPath } from "@/components/CurrentPath";
 import { BlogList } from "@/components/BlogList";
 import { SearchInputBlogs } from "@/components/SearchInputBlogs";
+
+export const metadata: Metadata = {
+  title: "C:\\VERTEXBLOG\\Documents",
+};
 
 const BlogListWrapper = async () => {
   const blogList = await getBlogs();

@@ -1,9 +1,13 @@
 "use client";
-
-import { dialogManager } from "@/lib/DialogManager";
-import { useEffect } from "react";
+import { Metadata } from "next";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { dialogManager } from "@/lib/DialogManager";
+
+export const metadata: Metadata = {
+  title: "C:\\VERTEXBLOG\\404",
+};
 
 export default function NotFound() {
   const pathName = usePathname();
