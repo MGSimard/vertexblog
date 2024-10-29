@@ -2,6 +2,8 @@
 import { headers } from "next/headers";
 
 export async function getClientIP() {
+  // TODO: Validate this shit since it can be spoofed
+  // Technically database partly handles it with inet constraint
   const headrs = await headers();
   const forwardedFor = headrs.get("x-forwarded-for");
   const realIP = headrs.get("x-real-ip");
