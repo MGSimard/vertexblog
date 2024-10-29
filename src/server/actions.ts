@@ -5,7 +5,7 @@ import { db } from "@/server/db";
 import { blogs, posts, userTable } from "@/server/db/schema";
 import { eq, sql, and, isNull } from "drizzle-orm";
 import { generateIdFromEntropySize } from "lucia";
-import { lucia, validateRequest } from "@/server/auth";
+import { lucia, validateRequest } from "@/lib/auth";
 import { hash, verify } from "@node-rs/argon2";
 import { z } from "zod";
 import { ratelimit } from "@/server/ratelimit";

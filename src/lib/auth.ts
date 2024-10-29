@@ -1,4 +1,3 @@
-import "server-only";
 import { Lucia, type Session, type User } from "lucia";
 import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 import { db } from "@/server/db";
