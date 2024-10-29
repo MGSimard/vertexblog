@@ -1,3 +1,4 @@
+"use server";
 import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { db } from "@/server/db";
