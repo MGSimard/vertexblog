@@ -52,7 +52,7 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
 
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
-  const getUserIdentifier = () => {
+  const getClientIdentifier = () => {
     if (forwardedFor) {
       return forwardedFor.split(",")[0]!.trim();
     } else if (realIP) {
@@ -61,7 +61,7 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
       return "0.0.0.0";
     }
   };
-  const { success: rlOK, message: rlMessage } = await ratelimit("auth", getUserIdentifier());
+  const { success: rlOK, message: rlMessage } = await ratelimit("auth", getClientIdentifier());
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -133,7 +133,7 @@ export async function signin(currentState: FormStatusTypes, formData: FormData) 
 
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
-  const getUserIdentifier = () => {
+  const getClientIdentifier = () => {
     if (forwardedFor) {
       return forwardedFor.split(",")[0]!.trim();
     } else if (realIP) {
@@ -142,7 +142,7 @@ export async function signin(currentState: FormStatusTypes, formData: FormData) 
       return "0.0.0.0";
     }
   };
-  const { success: rlOK, message: rlMessage } = await ratelimit("auth", getUserIdentifier());
+  const { success: rlOK, message: rlMessage } = await ratelimit("auth", getClientIdentifier());
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -273,7 +273,7 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
 
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
-  const getUserIdentifier = () => {
+  const getClientIdentifier = () => {
     if (forwardedFor) {
       return forwardedFor.split(",")[0]!.trim();
     } else if (realIP) {
@@ -282,8 +282,7 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
       return "0.0.0.0";
     }
   };
-  // TODO: Replace auth with mutation here, just testing something
-  const { success: rlOK, message: rlMessage } = await ratelimit("auth", getUserIdentifier(), user.id);
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -338,7 +337,7 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
 
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
-  const getUserIdentifier = () => {
+  const getClientIdentifier = () => {
     if (forwardedFor) {
       return forwardedFor.split(",")[0]!.trim();
     } else if (realIP) {
@@ -347,7 +346,7 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
       return "0.0.0.0";
     }
   };
-  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getUserIdentifier(), user.id);
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -404,7 +403,7 @@ export async function savePost(inputId: number, inputText: string | undefined): 
 
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
-  const getUserIdentifier = () => {
+  const getClientIdentifier = () => {
     if (forwardedFor) {
       return forwardedFor.split(",")[0]!.trim();
     } else if (realIP) {
@@ -413,7 +412,7 @@ export async function savePost(inputId: number, inputText: string | undefined): 
       return "0.0.0.0";
     }
   };
-  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getUserIdentifier(), user.id);
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -486,7 +485,7 @@ export async function deletePost(inputId: number): Promise<DeletePostResponseTyp
 
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
-  const getUserIdentifier = () => {
+  const getClientIdentifier = () => {
     if (forwardedFor) {
       return forwardedFor.split(",")[0]!.trim();
     } else if (realIP) {
@@ -495,7 +494,7 @@ export async function deletePost(inputId: number): Promise<DeletePostResponseTyp
       return "0.0.0.0";
     }
   };
-  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getUserIdentifier(), user.id);
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -561,7 +560,7 @@ export async function deleteBlog(blog: string): Promise<DeleteBlogResponseTypes>
 
   const forwardedFor = (await headers()).get("x-forwarded-for");
   const realIP = (await headers()).get("x-real-ip");
-  const getUserIdentifier = () => {
+  const getClientIdentifier = () => {
     if (forwardedFor) {
       return forwardedFor.split(",")[0]!.trim();
     } else if (realIP) {
@@ -570,7 +569,7 @@ export async function deleteBlog(blog: string): Promise<DeleteBlogResponseTypes>
       return "0.0.0.0";
     }
   };
-  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getUserIdentifier(), user.id);
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }

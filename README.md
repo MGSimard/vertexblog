@@ -82,6 +82,8 @@
 - [x] Sentry mayhaps?
 - [ ] Honestly might go for Posthog, Plausible only has 30D free trial.
 - [x] Style new list setup for multi-errors in dialog window
+- [x] IP-based ratelimit for guest users
+- [ ] Now clean up repeated code for getClientIdentifier, then add ratelimit to fetch actions
 - [ ] Save warning doesn't work on ahref click and browser back
 - [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks (Introduce IP)
 - [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
