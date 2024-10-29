@@ -16,7 +16,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "C:\\VERTEXBLOG",
   description: "Blogging platform based on Windows 95 UI experience, as a file explorer directory.",
-  openGraph: { images: ["/favicons/android-chrome-512x512.png"] },
+  openGraph: { images: ["/twitter-image.jpg"] },
   icons: [
     {
       rel: "icon",
