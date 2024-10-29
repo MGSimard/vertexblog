@@ -1,9 +1,11 @@
 "use server";
 import { headers } from "next/headers";
 
-const forwardedFor = (await headers()).get("x-forwarded-for");
-const realIP = (await headers()).get("x-real-ip");
-export function getClientIP() {
+export async function getClientIP() {
+  const headrs = await headers();
+  const forwardedFor = headrs.get("x-forwarded-for");
+  const realIP = headrs.get("x-real-ip");
+
   if (forwardedFor) {
     return forwardedFor.split(",")[0]!.trim();
   } else if (realIP) {

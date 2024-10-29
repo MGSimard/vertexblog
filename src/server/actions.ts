@@ -1,5 +1,5 @@
 "use server";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { db } from "@/server/db";
 import { blogs, posts, userTable } from "@/server/db/schema";
@@ -51,7 +51,7 @@ export async function signup(currentState: FormStatusTypes, formData: FormData):
     return { success: false, message: "AUTH ERROR: User is already logged in." };
   }
 
-  const { success: rlOK, message: rlMessage } = await ratelimit("auth", getClientIP());
+  const { success: rlOK, message: rlMessage } = await ratelimit("auth", await getClientIP());
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -121,7 +121,7 @@ export async function signin(currentState: FormStatusTypes, formData: FormData) 
     return { success: false, message: "AUTH ERROR: User is already logged in." };
   }
 
-  const { success: rlOK, message: rlMessage } = await ratelimit("auth", getClientIP());
+  const { success: rlOK, message: rlMessage } = await ratelimit("auth", await getClientIP());
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -249,7 +249,7 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
 
-  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIP(), user.id);
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", await getClientIP(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -302,7 +302,7 @@ export async function createPost(currentState: FormStatusTypes, formData: FormDa
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
 
-  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIP(), user.id);
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", await getClientIP(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -357,7 +357,7 @@ export async function savePost(inputId: number, inputText: string | undefined): 
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
 
-  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIP(), user.id);
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", await getClientIP(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -428,7 +428,7 @@ export async function deletePost(inputId: number): Promise<DeletePostResponseTyp
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
 
-  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIP(), user.id);
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", await getClientIP(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
@@ -492,7 +492,7 @@ export async function deleteBlog(blog: string): Promise<DeleteBlogResponseTypes>
     return { success: false, message: "AUTH ERROR: Unauthorized." };
   }
 
-  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getClientIP(), user.id);
+  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", await getClientIP(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
