@@ -29,7 +29,21 @@ export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
         dialogManager.showDialog({
           type: "Error",
           title: "Post Creation",
-          message: formState.errors ?? formState.message,
+          message: (
+            <>
+              <p>{formState.message}</p>
+              {formState.errors && (
+                <>
+                  <br />
+                  <ul>
+                    {formState.errors.map((err) => (
+                      <li key={err}>{err}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </>
+          ),
           buttons: [{ label: "OK" }],
         });
       }

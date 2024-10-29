@@ -42,7 +42,21 @@ export const CreateBlogForm = memo(function CreateBlogForm() {
         dialogManager.showDialog({
           type: "Error",
           title: "Blog Creation",
-          message: formState.errors ?? formState.message,
+          message: (
+            <>
+              <p>{formState.message}</p>
+              {formState.errors && (
+                <>
+                  <br />
+                  <ul>
+                    {formState.errors.map((err) => (
+                      <li key={err}>{err}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </>
+          ),
           buttons: [{ label: "OK" }],
         });
       }
