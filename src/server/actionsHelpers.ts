@@ -1,4 +1,3 @@
-import "server-only";
 import { headers } from "next/headers";
 const forwardedFor = (await headers()).get("x-forwarded-for");
 const realIP = (await headers()).get("x-real-ip");
