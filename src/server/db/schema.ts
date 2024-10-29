@@ -95,6 +95,7 @@ export const ratelimits = createTable(
   {
     id: serial("id").primaryKey(),
     limitType: ratelimitTypeEnum("limit_type").notNull(),
+    clientIP: varchar("client_ip"),
     userId: varchar("user_id", { length: 20 }).references(() => userTable.id),
     actions: integer("actions").default(1).notNull(),
     expiration: timestamp("expiration")

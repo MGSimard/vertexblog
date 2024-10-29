@@ -1,6 +1,6 @@
 "use server";
 import { db } from "@/server/db";
-import { eq, and } from "drizzle-orm";
+import { eq, and, isNull } from "drizzle-orm";
 import { ratelimits } from "@/server/db/schema";
 import type { RatelimitReturnTypes } from "@/types/types";
 import type { ratelimitEnums } from "@/lib/enums";
@@ -13,7 +13,8 @@ const rateConfig = {
 
 export async function ratelimit(
   limitType: (typeof ratelimitEnums)[number],
-  userId: string
+  clientIP: string,
+  userId?: string
 ): Promise<RatelimitReturnTypes> {
   const config = rateConfig[limitType];
 
@@ -25,24 +26,42 @@ export async function ratelimit(
   try {
     const result = await db.transaction(async (tx) => {
       // Get user's current ratelimit record at limitType (auth, mutation, fetch).
+      // Get by userId if present, otherwise get by clientIP where no userID.
       const [entryExists] = await tx
         .select()
         .from(ratelimits)
-        .where(and(eq(ratelimits.userId, userId), eq(ratelimits.limitType, limitType)));
+        .where(
+          and(
+            userId ? eq(ratelimits.userId, userId) : and(eq(ratelimits.clientIP, clientIP), isNull(ratelimits.userId)),
+            eq(ratelimits.limitType, limitType)
+          )
+        );
 
       // If row (user + limit type) not exist, create it, return success.
+      // Create as clientIP is no userId - else create as clientIP + userId
       if (!entryExists) {
-        await tx.insert(ratelimits).values({ userId, limitType, actions: 1, expiration: newExpiration });
+        await tx
+          .insert(ratelimits)
+          .values({ clientIP, userId: userId ?? null, limitType, actions: 1, expiration: newExpiration });
         return { success: true, message: `Ratelimit row created.` };
       }
 
       if (entryExists.expiration > currTime) {
         if (entryExists.actions < config.actions) {
           // If time unexpired & available actions, increment actions, return success.
+          // If no userId update where clientIP & userId is null, otherwise update where clientId
           await tx
             .update(ratelimits)
-            .set({ actions: entryExists.actions + 1 })
-            .where(and(eq(ratelimits.userId, userId), eq(ratelimits.limitType, limitType)));
+            .set({ clientIP, actions: entryExists.actions + 1 })
+            .where(
+              and(
+                userId
+                  ? eq(ratelimits.userId, userId)
+                  : and(eq(ratelimits.clientIP, clientIP), isNull(ratelimits.userId)),
+                eq(ratelimits.limitType, limitType)
+              )
+            );
+
           return { success: true, message: `SUCCESS: Ratelimit passed.` };
         } else {
           // Else if reached actions limit, throw error.
@@ -50,10 +69,18 @@ export async function ratelimit(
         }
       } else {
         // If expired, reset action count to 1, update new expiration, return success.
+        // If no userId update where clientIP & userId is null, otherwise update where clientId
         await tx
           .update(ratelimits)
-          .set({ actions: 1, expiration: newExpiration })
-          .where(and(eq(ratelimits.userId, userId), eq(ratelimits.limitType, limitType)));
+          .set({ clientIP, actions: 1, expiration: newExpiration })
+          .where(
+            and(
+              userId
+                ? eq(ratelimits.userId, userId)
+                : and(eq(ratelimits.clientIP, clientIP), isNull(ratelimits.userId)),
+              eq(ratelimits.limitType, limitType)
+            )
+          );
         return { success: true, message: `Expired, new expiration time updated.` };
       }
     });
