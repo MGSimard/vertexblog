@@ -1,5 +1,5 @@
 import { getCurrentUserBlog } from "@/server/actions";
-import { validateRequest } from "@/lib/auth";
+import { validateRequest } from "@/server/auth";
 import { StartButton } from "@/components/StartButton";
 import { CurrentTime } from "@/components/CurrentTime";
 

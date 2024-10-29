@@ -1,11 +1,10 @@
-import "server-only";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { db } from "@/server/db";
 import { blogs, posts, userTable } from "@/server/db/schema";
 import { eq, sql, and, isNull } from "drizzle-orm";
 import { generateIdFromEntropySize } from "lucia";
-import { lucia, validateRequest } from "@/lib/auth";
+import { lucia, validateRequest } from "@/server/auth";
 import { hash, verify } from "@node-rs/argon2";
 import { z } from "zod";
 import { ratelimit } from "@/server/ratelimit";
