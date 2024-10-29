@@ -691,11 +691,11 @@ button.shortcut {
 .sc-wrap > * {
   flex-grow: 1;
 }
-.dialog-content ul li::before {
-  content: "• ";
-}
 .system-content {
   flex-grow: 1;
+}
+.system-content ul li::before {
+  content: "• ";
 }
 .system-content a {
   color: var(--clr-primary);
