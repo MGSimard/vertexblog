@@ -131,7 +131,7 @@ function NotepadButtonMenu({
     dialogManager.showDialog({
       type: "Warning",
       title: "Confirm Post Deletion",
-      message: <p>Are you sure you want to delete '{postInfo.postTitle}'.txt?</p>,
+      message: <p>Are you sure you want to delete &#39;{postInfo.postTitle}&#39;.txt?</p>,
       buttons: [
         {
           label: "Delete",

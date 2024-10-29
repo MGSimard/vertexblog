@@ -30,6 +30,16 @@ export function SignUp() {
         message: (
           <>
             <p>{formState.message}</p>
+            {formState.errors && (
+              <>
+                <br />
+                <ul>
+                  {formState.errors.map((err) => (
+                    <li key={err}>{err}</li>
+                  ))}
+                </ul>
+              </>
+            )}
           </>
         ),
         buttons: [{ label: "OK" }],

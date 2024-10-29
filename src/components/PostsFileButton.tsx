@@ -53,7 +53,7 @@ function PostsFileMenu({ setMenuOpen, blog }: { setMenuOpen: Dispatch<SetStateAc
     dialogManager.showDialog({
       type: "Warning",
       title: "Confirm Blog Deletion",
-      message: <p>Are you sure you want to delete blog '{blog}'?</p>,
+      message: <p>Are you sure you want to delete blog &#39;{blog}&#39;?</p>,
       buttons: [
         {
           label: "Delete",

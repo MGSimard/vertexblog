@@ -64,27 +64,27 @@
 - [x] Some form of pagination for blogs and maybe posts, dragging performance sucks once there are a lot of files in the div - (Settled on virtualization from scratch)
 - [x] Implement virtualized list scrolling from scratch
 - [x] Now that we have virtualization, need to fix file creation if scroll isn't at the top already
-- [ ] Optimize its performance
 - [x] Suspense the page loads, allow shortcut render popin
-- [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks (Introduce IP)
-- [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
 - [x] Use the isDirty prompting thing if user tries to navigate away from page
-- [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
 - [x] Look into date locale mismatching between server and user client
 - [x] Create a shortcut for a dxdiag type thing that lists info about the site
 - [x] Post deletion
 - [x] Works, now make action tighter and use transactions
 - [x] Now run the delete button onto a confirmation lol
 - [x] DISABLE ALL EVENTS OUTSIDE OF CONFIRMATION & ERROR POPUPS. CURRENTLY YOU CAN SPAM ENTER TO MAKE NEW POPUPS (no effect, would just be cleaner to prevent it)
-- [ ] Consider focus trap in dialog (right now can exit it, then re-entering site focuses first dom node and can't re-enter dialog)
 - [x] Blog deletion
 - [x] Make sure deletion also uses dialog prompts/confirm/error
 - [x] Set up blog & post search filtering
 - [x] Now make it look good and responsive
-- [x] Analytics (Posthog?) - No, Plausible. Not proxying either, if you block you block.
-- [ ] Honestly might go for Posthog, Plausible only has 30D free trial.
-- [x] Sentry mayhaps?
-- [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
 - [x] Make decent 404 page
 - [x] Metadata, especially important for blog links
+- [x] Analytics (Posthog?) - No, Plausible. Not proxying either, if you block you block.
+- [x] Sentry mayhaps?
+- [ ] Honestly might go for Posthog, Plausible only has 30D free trial.
+- [ ] Style new list setup for multi-errors in dialog window
+- [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks (Introduce IP)
+- [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
+- [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
+- [ ] Consider focus trap in dialog (right now can exit it, then re-entering site focuses first dom node and can't re-enter dialog)
+- [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
 - [ ] Make ograph images for diff platforms
