@@ -282,7 +282,8 @@ export async function createBlog(currentState: FormStatusTypes, formData: FormDa
       return "0.0.0.0";
     }
   };
-  const { success: rlOK, message: rlMessage } = await ratelimit("mutation", getUserIdentifier(), user.id);
+  // TODO: Replace auth with mutation here, just testing something
+  const { success: rlOK, message: rlMessage } = await ratelimit("auth", getUserIdentifier(), user.id);
   if (!rlOK) {
     return { success: false, message: rlMessage };
   }
