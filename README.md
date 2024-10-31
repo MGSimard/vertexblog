@@ -16,7 +16,7 @@ Full Cycle Next.js App
 
 ![Screenshot](https://i.imgur.com/jjlaSb3.png)
 
-VertexBlog is a blogging platform based on the Windows 95 user interface. It runs as a file explorer directory, where blogs are set up as folders within /Documents, and posts are text files within their respective blogs.
+VertexBlog is a blogging platform based on the Windows 95 user interface. It runs as a file explorer directory where blogs are set up as folders within /Documents, and posts are text files within their respective blogs.
 
 ### Features
 
