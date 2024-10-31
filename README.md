@@ -23,9 +23,9 @@ VertexBlog is a blogging platform based on the Windows 95 user interface. It run
 - System Info
 - Blog Creation & Deletion
 - Post Creation, Modification & Deletion
-- Auth
 - Virtualized list scrolling (from scratch)
 - Ratelimiting (User & IP-based, from scratch)
+- Auth
 
 <details>
 <summary><h2>Application Flow: Authentication</h2></summary>
@@ -35,6 +35,7 @@ VertexBlog is a blogging platform based on the Windows 95 user interface. It run
 2. Authentication goes through Lucia auth, which stores entries in our PostgreSQL database.
 3. Passwords are hashed with Argon2.
 4. Blogs & Text file mutation is auth-protected.
+
 </details>
 
 <details>
