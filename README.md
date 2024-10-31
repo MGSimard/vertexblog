@@ -127,7 +127,7 @@ VertexBlog is a blogging platform based on the Windows 95 user interface. It run
 3. Files can be sorted by name, earliest creation date & last updated.
 4. File display can be changed between large icons, small icons & single-column list.
 5. Files are displayed as a virtualized list written from scratch, which allows the "rendering" of thousands of files at once without impacting scroll or window dragging performance.
-6. We do this by calculating the intended height occupation if all files were rendered depending on their current view mode (large, small, list). Then we detect which chunk of files should be rendered in the window depending on the current scroll position.
+6. We do this by calculating the intended height occupation if all files were rendered depending on their current view mode (large, small, list). Then we detect which chunk of files should be rendered in the window depending on the current scroll position, and position that chunk in the correct position.
 
 </details>
 
