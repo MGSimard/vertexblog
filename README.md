@@ -1,9 +1,163 @@
-- This is a terrible good idea
-- Yes I'm making a blogging platform in the shape of an OS file directory
-- Yes I'm tweaking after spending so much time working on VertexDB while learning everything about Nextjs, Backend and all its related technologies
-- No I don't care, ooga booga monke
+## THIS APP IS IN ACTIVE DEVELOPMENT
 
-## TASK LIST
+<br/>
+<div align="center">
+
+<h3 align="center">VertexBlog</h3>
+<p align="center">
+Full Cycle Next.js App
+<br/>
+<br/>
+<a href="https://vertexblog.vercel.app/">View Live Project</a>
+</p>
+</div>
+
+## About The Project
+
+![Screenshot](https://i.imgur.com/jjlaSb3.png)
+
+VertexBlog is a blogging platform based on the Windows 95 user interface. It runs as a file explorer directory, where blogs are set up as folders within /Documents, and posts are text files within their respective blogs.
+
+### Features
+
+- System Info
+- Blog Creation & Deletion
+- Post Creation, Modification & Deletion
+- Auth
+- Virtualized list scrolling (from scratch)
+- Ratelimiting (User & IP-based, from scratch)
+
+<details>
+<summary><h2>Application Flow: Authentication</h2></summary>
+<p>Generic sign up, sign in & sign out process faciliated by Lucia auth.</p>
+
+1. Users can sign up, in & out from within the start menu.
+2. Authentication goes through Lucia auth, which stores entries in our PostgreSQL database.
+3. Passwords are hashed with Argon2.
+4. Blogs & Text file mutation is auth-protected.
+</details>
+
+<details>
+<summary><h2>Application Flow: Blog Actions</h2></summary>
+<p>Users may create their own blogs (folders) within /Documents.</p>
+
+<h3>Blog Creation</h3>
+
+1. In /Documents, pressing file > new blog opens a file creation prompt.
+2. After entering a blog title, the user may submit this "file" creation.
+3. Upon submission, it will be added to the database if it passes the following checks:
+   - User is authorized.
+   - User is not rate limited.
+   - Input passes validation.
+   - User does not have an existing blog & blog name isn't taken.
+4. revalidatePath().
+
+<h3>Blog Deletion</h3>
+
+1. From within the blog itself: File > Delete Blog.
+2. Confirmation prompt will appear with the options "Delete", "Cancel" and "X".
+3. Cancel & X close the prompt. Delete checks the following:
+   - User is authorized.
+   - User is not rate limited.
+   - Input passes validation.
+   - Softdelete blog if exists & correct author (Softdelete to prevent blog name hijack after deletion for impersonation).
+   - Hard delete posts - not transactional as post deletion bugging shouldn't prevent blog deletion no matter what.
+4. revalidatePath()
+
+</details>
+
+<details>
+<summary><h2>Application Flow: Post Actions</h2></summary>
+<p>Users may create posts from within their own blog folders.</p>
+
+<h3>Post Creation</h3>
+
+1. In blog, pressing file > new post opens a file creation prompt.
+2. After entering a post title, the user may submit this "file" creation.
+3. Upon submission, it will be added to the database if it passes the following checks:
+   - User is authorized.
+   - User is not rate limited.
+   - Input passes validation.
+   - Blog exists & correct author.
+   - Set blog to active (for filled folder icon).
+4. revalidatePath().
+
+<h3>Post Saving</h3>
+
+1. Users can type within post text files.
+2. isDirty state is tracked for exit warnings and save prompting.
+3. File > Save will save the file if the following checks pass:
+   - User is authorized.
+   - User is not rate limited.
+   - Input passes validation.
+   - Verify existence & ownership.
+   - Updates post content.
+4. revalidatePath().
+
+<h3>Post Deletion</h3>
+
+1. In post > File > Delete.
+2. Confirmation prompt will appear with the options "Delete", "Cancel" and "X".
+3. Cancel & X close the prompt. Delete checks the following:
+   - User is authorized.
+   - User is not rate limited.
+   - Input passes validation.
+   - Verify existence & ownership.
+   - Delete post, if no more posts set blog to inactive (empty folder icon).
+4. revalidatePath().
+
+</details>
+
+<details>
+<summary><h2>Application Flow: Windows</h2></summary>
+
+1. Windows can be dragged by their header areas.
+2. Windows can be resized & maximized.
+3. Windows can be closed.
+4. A context provider retains a z-index value - when a window is clicked the value is incremented and given to the target window. This allows accurate layer history to focus specific windows when interacted with.
+
+</details>
+
+<details>
+<summary><h2>Application Flow: File rendering (Virtualized Lists)</h2></summary>
+
+1. Files are rendered as flex lists within draggable windows.
+2. Files can be filtered by search.
+3. Files can be sorted by name, earliest creation date & last updated.
+4. File display can be changed between large icons, small icons & single-column list.
+5. Files are displayed as a virtualized list written from scratch, which allows the "rendering" of thousands of files at once without impacting scroll or window dragging performance.
+6. We do this by calculating the intended height occupation if all files were rendered depending on their current view mode (large, small, list). Then we detect which chunk of files should be rendered in the window depending on the current scroll position.
+
+</details>
+
+### Built With
+
+- [Based on T3 Stack](https://create.t3.gg/)
+- [Next.js 15](https://nextjs.org/)
+- [React 19.0.0-rc-69d4b800-20241021](https://react.dev/)
+- [TypeScript 5.6.3](https://www.typescriptlang.org/)
+- [Drizzle (PostgreSQL)](https://orm.drizzle.team/)
+- [Lucia (Auth)](https://lucia-auth.com/)
+- [Argon2 (Hashing)](https://www.npmjs.com/package/@node-rs/argon2)
+- [Sentry (Error Management)](https://sentry.io/)
+- [Plausible (Analytics)](https://plausible.io/)
+- [Zod 3.23.8 (Validation)](https://zod.dev/)
+- [heroicons (Basic Icons)](https://heroicons.com/)
+- [Vercel Hosting](https://vercel.com/)
+
+## Usage
+
+- Go to https://vertexblog.vercel.app/
+
+## Contact
+
+MGSimard - g.marcgs@gmail.com  
+[@MGSimard on X](https://x.com/MGSimard)
+
+For more info, view my portfolio at [mgsimard.github.io](https://mgsimard.github.io). Resume attached.
+
+<details>
+<summary><h2>TASK LIST<h2></summary>
 
 - [x] Update to latest Nextjs, react etc canaries
 - [x] Deploy to vercel
@@ -84,10 +238,12 @@
 - [x] Style new list setup for multi-errors in dialog window
 - [x] IP-based ratelimit for guest users
 - [x] Now clean up repeated code for getClientIdentifier, then add ratelimit to fetch actions
+- [ ] Yeah, thinking about it get off Plausible. Posthog is free forever for dead projects like this, better.
 - [ ] Save warning doesn't work on ahref click and browser back
-- [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks (Introduce IP)
-- [ ] Look into making file creation input infinitely vertically-expanding so user can see what they've entered at all times
+- [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks
 - [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
-- [ ] Consider focus trap in dialog (right now can exit it, then re-entering site focuses first dom node and can't re-enter dialog)
+- [ ] Consider focus trap in dialog (right now can exit it, then re-entering site focuses first dom node and can't re-enter dialog with tab because background event disabled on purpose)
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
 - [ ] Make ograph images for diff platforms
+
+</details>

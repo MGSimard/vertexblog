@@ -530,7 +530,10 @@ export async function deleteBlog(blog: string): Promise<DeleteBlogResponseTypes>
     // DELETE BLOGS + POSTS - no TX, don't want a post delete fail to rollback blog delete.
     // Users being able to kill blog no matter what is most important.
     // Can handle stale posts from potential errors with a cron job if anything (all posts belong to deletedAt blog)
-    const [blogInfo] = await db.select({ blogId: blogs.id }).from(blogs).where(eq(blogs.title, targetBlog));
+    const [blogInfo] = await db
+      .select({ blogId: blogs.id })
+      .from(blogs)
+      .where(and(eq(blogs.title, targetBlog), isNull(blogs.deletedAt)));
     if (!blogInfo) throw new Error(`DATABASE ERROR: Blog not found. (${targetBlog})`);
 
     await db
