@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import { Providers } from "@/components/Providers";
+import { DxDiag } from "@/components/DxDiag";
 import { Taskbar } from "@/components/Taskbar";
 import { Handjet } from "next/font/google";
 import "@/styles/globals.css";
-import { Providers } from "@/components/Providers";
-import { DxDiag } from "@/components/DxDiag";
-import PlausibleProvider from "next-plausible";
 
 const handjet = Handjet({ subsets: ["latin"] });
 
@@ -49,12 +48,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <head>
-        <PlausibleProvider domain="vertexblog.vercel.app" />
-      </head>
-      <body className={handjet.className}>
-        <Providers>
+    <Providers>
+      <html lang="en">
+        <body className={handjet.className}>
           <header>
             <nav>
               <ul className="shortcut-area">
@@ -74,8 +70,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </header>
           {children}
           <div id="portal" />
-        </Providers>
-      </body>
-    </html>
+        </body>
+      </html>
+    </Providers>
   );
 }

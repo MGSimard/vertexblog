@@ -126,12 +126,6 @@ export function DxDiag() {
                 <table className="system-table">
                   <tbody>
                     <tr>
-                      <th>Analytics:</th>
-                      <td>
-                        <a href="https://plausible.io/">Plausible</a>
-                      </td>
-                    </tr>
-                    <tr>
                       <th>Rate Limiting:</th>
                       <td>Self (Database)</td>
                     </tr>
