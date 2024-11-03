@@ -237,7 +237,6 @@ For more info, view my portfolio at [mgsimard.github.io](https://mgsimard.github
 - [x] IP-based ratelimit for guest users
 - [x] Now clean up repeated code for getClientIdentifier, then add ratelimit to fetch actions
 - [ ] Save warning doesn't work on ahref click and browser back
-- [ ] Consider granular control for ratelimiting in instances where guest users share corporate networks
 - [ ] Look into duplicated re-renders on save, exit, onchange etc notepad
 - [ ] Consider focus trap in dialog (right now can exit it, then re-entering site focuses first dom node and can't re-enter dialog with tab because background event disabled on purpose)
 - [ ] position fixed bottom stuff has been broken on firefox mobile for years, look into it because that breaks taskbar when zoom + drag
