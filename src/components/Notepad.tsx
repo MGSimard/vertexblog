@@ -122,6 +122,8 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
       // TODO: Rework this to only push to documents if no other notepad is dirty
       // So basically just make a function that checks dirtypostscontext for length
       // And only push on length detected, otherwise run onClose()
+      // What are you doing bro lol this hijacks every single a link
+      // Instead router push to a link target
       handleWarn(() => router.push("/documents"));
     }
   };
