@@ -1,6 +1,6 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
-import { useState, useRef, useEffect, useMemo } from "react";
+import { usePathname } from "next/navigation";
+import { useState, useRef, useEffect } from "react";
 import { savePost } from "@/server/actions";
 import { dialogManager } from "@/lib/DialogManager";
 import { WindowFrame } from "@/components/WindowFrame";
@@ -14,8 +14,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   const [isDirty, setIsDirty] = useState(false);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const pathName = usePathname();
-  const router = useRouter();
-  const { dirtyPosts, setDirtyPosts } = useDirtyPosts();
+  const { setDirtyPosts } = useDirtyPosts();
 
   const handleSaveFile = async () => {
     console.log("HANDLESAVEFILE TRIGGERED.");
@@ -73,56 +72,14 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
     }
   };
 
-  const handleNavigate = () => {
-    console.log("HANDLENAVIGATE TRIGGERED.");
-  };
-
-  // Move this to context along with event listener?
-  const handlePopState = (event: PopStateEvent) => {
-    console.log("HANDLEPOPSTATE TRIGGERED.");
-    if (!isDirty) return;
-    event.preventDefault();
-    window.history.pushState(null, "", window.location.href);
-  };
-
-  // Move this to context along with event listener?
-  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-    console.log("HANDLEBEFOREUNLOAD TRIGGERED.");
-    if (!isDirty) return;
-    event.preventDefault();
-    event.returnValue = "";
-  };
-
-  // Beforeunload doesn't handle internal SPA navigation, need this.
-  const interceptLinkClicks = (e: MouseEvent) => {
-    const link = (e.target as HTMLAnchorElement).closest("a");
-
-    if (link && isDirty && link.target !== "_blank") {
-      e.preventDefault();
-      // TODO: Rework this to only push to documents if no other notepad is dirty
-      // So basically just make a function that checks dirtypostscontext for length
-      // And only push on length detected, otherwise run onClose()
-      console.log("TEST:", dirtyPosts);
-      // handleWarn(() => router.push(link.href));
-    }
-  };
-
   useEffect(() => {
     if (isDirty) {
       setDirtyPosts((prevState) => [...prevState, postInfo.postId]);
-      window.history.pushState(null, "", window.location.href);
     } else {
       setDirtyPosts((prevState) => prevState.filter((postId) => postId !== postInfo.postId));
     }
 
-    document.addEventListener("click", interceptLinkClicks, true);
-    window.addEventListener("popstate", handlePopState);
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
     return () => {
-      document.removeEventListener("click", interceptLinkClicks, true);
-      window.removeEventListener("popstate", handlePopState);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
       setDirtyPosts((prevState) => prevState.filter((postId) => postId !== postInfo.postId));
     };
   }, [isDirty]);
