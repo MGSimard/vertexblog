@@ -17,7 +17,13 @@ export function SearchInputPosts() {
   return (
     <div className="window-search">
       <span>Search</span>
-      <input type="search" placeholder="Search Posts..." value={postSearch} onChange={handleSearch} />
+      <input
+        id="searchposts-field"
+        type="search"
+        placeholder="Search Posts..."
+        value={postSearch}
+        onChange={handleSearch}
+      />
     </div>
   );
 }
