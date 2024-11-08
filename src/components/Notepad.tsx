@@ -116,15 +116,13 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   const interceptLinkClicks = (e: MouseEvent) => {
     console.log("INTERCEPTLINKCLICKS TRIGGERED.");
     const link = (e.target as HTMLAnchorElement).closest("a");
-    if (link && isDirty) {
-      console.log("TARGET LINK & IS DIRTY");
+
+    if (link && isDirty && link.target !== "_blank") {
       e.preventDefault();
       // TODO: Rework this to only push to documents if no other notepad is dirty
       // So basically just make a function that checks dirtypostscontext for length
       // And only push on length detected, otherwise run onClose()
-      // What are you doing bro lol this hijacks every single a link
-      // Instead router push to a link target
-      handleWarn(() => router.push("/documents"));
+      handleWarn(() => router.push(link.href));
     }
   };
 
