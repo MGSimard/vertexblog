@@ -135,6 +135,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   // 3. Think about unique identifiers, as posts are allowed to have the same title. Include title & post ID.
   // 4. On all these navigation attempts and such, check against the context rather than the local state?
   // 5. Or since the only "forced" nav on confirmation is the ahref click, only move that one to the context?
+  // 6. Although currently browser back attempts will close notepad on save, rather than execute navigation on save
 
   return (
     <>
