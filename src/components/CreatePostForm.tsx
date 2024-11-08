@@ -64,7 +64,15 @@ export function CreatePostForm({ currentBlog }: { currentBlog: string }) {
         <form onSubmit={handleSubmit} className="shortcut">
           <img src="/assets/Notepad.svg" alt="Folder" />
           <div>
-            <input name="postTitle" type="text" autoFocus spellCheck="false" maxLength={60} required />
+            <input
+              id="create-post-field-title"
+              name="postTitle"
+              type="text"
+              autoFocus
+              spellCheck="false"
+              maxLength={60}
+              required
+            />
             <button type="submit" disabled={pending} aria-disabled={pending}>
               <AddTxtIcon />
             </button>

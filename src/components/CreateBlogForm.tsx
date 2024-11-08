@@ -69,7 +69,15 @@ export const CreateBlogForm = memo(function CreateBlogForm() {
       <form onSubmit={handleSubmit} className="shortcut">
         <img src="/assets/EmptyFolder.svg" alt="Folder" />
         <div>
-          <input name="blogTitle" type="text" autoFocus spellCheck="false" maxLength={40} required />
+          <input
+            id="create-blog-field-title"
+            name="blogTitle"
+            type="text"
+            autoFocus
+            spellCheck="false"
+            maxLength={40}
+            required
+          />
           <button type="submit" disabled={pending} aria-disabled={pending}>
             <AddFolderIcon />
           </button>
