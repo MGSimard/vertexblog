@@ -7,6 +7,7 @@ import { WindowFrame } from "@/components/WindowFrame";
 import { MaximizeButton } from "@/components/MaximizeButton";
 import { NotepadFileButton } from "@/components/NotepadFileButton";
 import { CloseIcon } from "@/components/icons";
+import { useDirtyPosts } from "@/components/DirtyPostsContextProvider";
 import type { PostInfoTypes } from "@/types/types";
 
 export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClose: () => void }) {
@@ -14,8 +15,10 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   const textRef = useRef<HTMLTextAreaElement>(null);
   const pathName = usePathname();
   const router = useRouter();
+  const { dirtyPosts, setDirtyPosts } = useDirtyPosts();
 
   const handleSaveFile = async () => {
+    console.log("HANDLESAVEFILE TRIGGERED.");
     const { postId } = postInfo;
     const newText = textRef.current?.value;
     const { success, message } = await savePost(postId, newText);
@@ -32,12 +35,8 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
     return success;
   };
 
-  const handleExit = () => {
-    if (!isDirty) {
-      onClose();
-      return;
-    }
-
+  const handleWarn = (doThis: () => void) => {
+    console.log("HANDLEWARN TRIGGERED");
     dialogManager.showDialog({
       type: "Warning",
       title: "Notepad",
@@ -55,34 +54,51 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
           func: async () => {
             const success = await handleSaveFile();
             if (success) {
-              onClose();
+              doThis();
             }
           },
         },
-        { label: "Don't Save", func: () => onClose() },
+        { label: "Don't Save", func: doThis },
         { label: "Cancel" },
       ],
     });
   };
 
-  const handlePopState = (event: PopStateEvent) => {
-    if (!isDirty) return;
+  const handleClose = () => {
+    console.log("HANDLECLOSE TRIGGERED.");
+    if (!isDirty) {
+      onClose();
+    } else {
+      handleWarn(onClose);
+    }
+  };
 
+  const handleNavigate = () => {
+    console.log("HANDLENAVIGATE TRIGGERED.");
+  };
+
+  // Move this to context along with event listener?
+  const handlePopState = (event: PopStateEvent) => {
+    console.log("HANDLEPOPSTATE TRIGGERED.");
+    if (!isDirty) return;
     event.preventDefault();
-    handleExit();
     window.history.pushState(null, "", window.location.href);
   };
 
+  // Move this to context along with event listener?
   const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+    console.log("HANDLEBEFOREUNLOAD TRIGGERED.");
     if (!isDirty) return;
-
     event.preventDefault();
     event.returnValue = "";
   };
 
   useEffect(() => {
     if (isDirty) {
+      setDirtyPosts((prevState) => [...prevState, { id: postInfo.postId, title: postInfo.postTitle }]);
       window.history.pushState(null, "", window.location.href);
+    } else {
+      setDirtyPosts((prevState) => prevState.filter((post) => post.id !== postInfo.postId));
     }
 
     document.addEventListener("click", interceptLinkClicks, true);
@@ -93,49 +109,22 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
       document.removeEventListener("click", interceptLinkClicks, true);
       window.removeEventListener("popstate", handlePopState);
       window.removeEventListener("beforeunload", handleBeforeUnload);
+      setDirtyPosts((prevState) => prevState.filter((post) => post.id !== postInfo.postId));
     };
   }, [isDirty]);
 
   const interceptLinkClicks = (e: MouseEvent) => {
+    console.log("INTERCEPTLINKCLICKS TRIGGERED.");
     const link = (e.target as HTMLAnchorElement).closest("a");
     if (link && isDirty) {
+      console.log("TARGET LINK & IS DIRTY");
       e.preventDefault();
-      dialogManager.showDialog({
-        type: "Warning",
-        title: "Notepad",
-        message: (
-          <p>
-            The text in the C:\Documents\{pathName.split("/").pop()}\{postInfo.postTitle}.txt file has changed.
-            <br />
-            <br />
-            Do you want to save the changes?
-          </p>
-        ),
-        buttons: [
-          {
-            label: "Save",
-            func: async () => {
-              const success = await handleSaveFile();
-              if (success) {
-                () => router.push("/documents");
-              }
-            },
-          },
-          { label: "Don't Save", func: () => router.push("/documents") },
-          { label: "Cancel" },
-        ],
-      });
+      // TODO: Rework this to only push to documents if no other notepad is dirty
+      // So basically just make a function that checks dirtypostscontext for length
+      // And only push on length detected, otherwise run onClose()
+      handleWarn(() => router.push("/documents"));
     }
   };
-
-  // Planned logic move to a page Context for isDirty statechecks against navigation attempts
-  // (Confirming one popup on navigation attempt will run navigation, even if there is another popup for a second file)
-  // 1. on isDirty, update the context to include a global isDirty along with an array of dirty filenames
-  // 2. When no longer dirty, update the context to remove entry from context array
-  // 3. Think about unique identifiers, as posts are allowed to have the same title. Include title & post ID.
-  // 4. On all these navigation attempts and such, check against the context rather than the local state?
-  // 5. Or since the only "forced" nav on confirmation is the ahref click, only move that one to the context?
-  // 6. Although currently browser back attempts will close notepad on save, rather than execute navigation on save
 
   return (
     <>
@@ -150,7 +139,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
           </span>
           <div className="window-header-buttons">
             <MaximizeButton />
-            <button type="button" className="outset" onClick={handleExit} aria-label="Close notepad window">
+            <button type="button" className="outset" onClick={handleClose} aria-label="Close notepad window">
               <CloseIcon />
             </button>
           </div>
