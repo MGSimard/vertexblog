@@ -12,26 +12,24 @@ import { DirtyPostsContextProvider } from "@/components/DirtyPostsContextProvide
 export default function FileExplorerLayout({ children }: { children: React.ReactNode }) {
   return (
     <SearchContextProvider>
-      <DirtyPostsContextProvider>
-        <WindowFrame>
-          <div className="window-header" data-dragcontrol="true">
-            <span className="window-header-left">
-              <img src="/assets/FolderOpen.svg" alt="" />
-              <CurrentFolder />
-            </span>
-            <div className="window-header-buttons">
-              <MaximizeButton />
-              <Link href="/" className="link-as-button outset" aria-label="Close explorer window">
-                <CloseIcon />
-              </Link>
-            </div>
+      <WindowFrame>
+        <div className="window-header" data-dragcontrol="true">
+          <span className="window-header-left">
+            <img src="/assets/FolderOpen.svg" alt="" />
+            <CurrentFolder />
+          </span>
+          <div className="window-header-buttons">
+            <MaximizeButton />
+            <Link href="/" className="link-as-button outset" aria-label="Close explorer window">
+              <CloseIcon />
+            </Link>
           </div>
-          {children}
-          <div className="window-footer">
-            <span></span>
-          </div>
-        </WindowFrame>
-      </DirtyPostsContextProvider>
+        </div>
+        <DirtyPostsContextProvider>{children}</DirtyPostsContextProvider>
+        <div className="window-footer">
+          <span></span>
+        </div>
+      </WindowFrame>
     </SearchContextProvider>
   );
 }
