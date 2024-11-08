@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { savePost } from "@/server/actions";
 import { dialogManager } from "@/lib/DialogManager";
@@ -13,6 +13,7 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   const [isDirty, setIsDirty] = useState(false);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const pathName = usePathname();
+  const router = useRouter();
 
   const handleSaveFile = async () => {
     const { postId } = postInfo;
@@ -84,14 +85,48 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
       window.history.pushState(null, "", window.location.href);
     }
 
+    document.addEventListener("click", interceptLinkClicks, true);
     window.addEventListener("popstate", handlePopState);
     window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
+      document.removeEventListener("click", interceptLinkClicks, true);
       window.removeEventListener("popstate", handlePopState);
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [isDirty]);
+
+  const interceptLinkClicks = (e: MouseEvent) => {
+    const link = (e.target as HTMLAnchorElement).closest("a");
+    if (link && isDirty) {
+      e.preventDefault();
+      dialogManager.showDialog({
+        type: "Warning",
+        title: "Notepad",
+        message: (
+          <p>
+            The text in the C:\Documents\{pathName.split("/").pop()}\{postInfo.postTitle}.txt file has changed.
+            <br />
+            <br />
+            Do you want to save the changes?
+          </p>
+        ),
+        buttons: [
+          {
+            label: "Save",
+            func: async () => {
+              const success = await handleSaveFile();
+              if (success) {
+                () => router.push("/documents");
+              }
+            },
+          },
+          { label: "Don't Save", func: () => router.push("/documents") },
+          { label: "Cancel" },
+        ],
+      });
+    }
+  };
 
   return (
     <>
