@@ -128,6 +128,14 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
     }
   };
 
+  // Planned logic move to a page Context for isDirty statechecks against navigation attempts
+  // (Confirming one popup on navigation attempt will run navigation, even if there is another popup for a second file)
+  // 1. on isDirty, update the context to include a global isDirty along with an array of dirty filenames
+  // 2. When no longer dirty, update the context to remove entry from context array
+  // 3. Think about unique identifiers, as posts are allowed to have the same title. Include title & post ID.
+  // 4. On all these navigation attempts and such, check against the context rather than the local state?
+  // 5. Or since the only "forced" nav on confirmation is the ahref click, only move that one to the context?
+
   return (
     <>
       <WindowFrame isNotepad>
