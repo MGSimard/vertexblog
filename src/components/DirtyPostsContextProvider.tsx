@@ -12,22 +12,51 @@ const DirtyPostsContext = createContext<IsDirtyTypes | undefined>(undefined);
 
 export function DirtyPostsContextProvider({ children }: { children: React.ReactNode }) {
   const [dirtyPosts, setDirtyPosts] = useState<DirtyPosts>([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("PROVIDER MOUNTED");
-    const handlePopState = (e: PopStateEvent) => {
-      e.preventDefault();
-      console.log("HANDLEPOPSTATE TRIGGERED.");
-    };
-    window.addEventListener("popstate", handlePopState);
-    window.history.pushState(null, "", window.location.href);
+  // useEffect(() => {
+  //   console.log("PROVIDER MOUNTED");
+  //   if (dirtyPosts.length) {
+  //     window.history.pushState(null, "", window.location.href);
+  //   } else {
+  //     window.history.replaceState(null, "", window.location.href);
+  //   }
 
-    return () => {
-      console.log("PROVIDER UNMOUNTED");
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, []);
+  //   const handlePopState = (e: PopStateEvent) => {
+  //     console.log("HANDLEPOPSTATE TRIGGERED.");
+  //     if (dirtyPosts.length > 0 && !dialogOpen) {
+  //       setDialogOpen(true);
+  //       dialogManager.showDialog({
+  //         type: "Warning",
+  //         title: "Notepad",
+  //         // TODO: Come up with more interesting text for this
+  //         message: (
+  //           <p>
+  //             Some files have unsaved changes.
+  //             <br />
+  //             <br />
+  //             Are you sure you want to leave this blog?
+  //           </p>
+  //         ),
+  //         buttons: [
+  //           {
+  //             label: "Leave",
+  //             func: () => router.back(),
+  //           },
+  //           { label: "Cancel" },
+  //         ],
+  //       });
+  //     }
+  //   };
+
+  //   window.addEventListener("popstate", handlePopState);
+
+  //   return () => {
+  //     console.log("PROVIDER UNMOUNTED");
+  //     window.removeEventListener("popstate", handlePopState);
+  //   };
+  // }, [dirtyPosts, dialogOpen]);
 
   useEffect(() => {
     const handleNavigate = (link: string) => {

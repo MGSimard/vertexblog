@@ -10,6 +10,7 @@ const coreConfig = {
     appIsrStatus: false,
   },
   serverExternalPackages: ["@node-rs/argon2"],
+  reactStrictMode: false,
   // typescript: {
   //   ignoreBuildErrors: true,
   // },
