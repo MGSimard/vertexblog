@@ -15,8 +15,18 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
   const router = useRouter();
 
   useEffect(() => {
-    // TODO: POPSTATE STUFF, window history stuff.
-    // Console log some history stacks to figure out how to avoid writing duplicated history entries so that back works
+    const handlePopState = (e: PopStateEvent) => {
+      e.preventDefault();
+      console.log("HANDLEPOPSTATE TRIGGERED.");
+    };
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleNavigate = (link: string) => {
       if (!dirtyPosts.length) {
         router.push(link);
@@ -53,14 +63,6 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
       }
     };
 
-    const handlePopState = (event: PopStateEvent) => {
-      event.preventDefault();
-
-      console.log("HANDLEPOPSTATE TRIGGERED.");
-      // if (!dirtyPosts.length) return;
-      // window.history.pushState(null, "", window.location.href);
-    };
-
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       if (!dirtyPosts.length) return;
       event.preventDefault();
@@ -68,13 +70,11 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
     };
 
     document.addEventListener("click", interceptLinkClicks, true);
-    window.addEventListener("popstate", handlePopState);
     // MDN RECOMMENDATION FOR FIREFOX PERFORMANCE - DON'T ADD LISTENER IF NOT UNSAVED
     if (dirtyPosts.length) window.addEventListener("beforeunload", handleBeforeUnload);
     else window.removeEventListener("beforeunload", handleBeforeUnload); // Silent if doesn't exist
     return () => {
       document.removeEventListener("click", interceptLinkClicks, true);
-      window.removeEventListener("popstate", handlePopState);
       window.removeEventListener("beforeunload", handleBeforeUnload); // Silent if doesn't exist
     };
   }, [dirtyPosts]);

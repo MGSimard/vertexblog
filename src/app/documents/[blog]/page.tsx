@@ -8,7 +8,6 @@ import { PostsFileButton } from "@/components/PostsFileButton";
 import { PostsSortButton } from "@/components/PostsSortButton";
 import { PostsViewButton } from "@/components/PostsViewButton";
 import { SearchInputPosts } from "@/components/SearchInputPosts";
-import { DirtyPostsContextProvider } from "@/components/DirtyPostsContextProvider";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ blog: string }> },
@@ -29,7 +28,7 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
   const currentBlog = decodeURIComponent((await params).blog);
 
   return (
-    <DirtyPostsContextProvider>
+    <>
       <div className="window-options winbtns">
         <Link href="/documents" className="aasbtn">
           &lt;=
@@ -53,6 +52,6 @@ export default async function Page({ params }: { params: Promise<{ blog: string 
           <PostListWrapper currentBlog={currentBlog} />
         </Suspense>
       </div>
-    </DirtyPostsContextProvider>
+    </>
   );
 }
