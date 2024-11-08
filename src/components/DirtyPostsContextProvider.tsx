@@ -15,13 +15,16 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
   const router = useRouter();
 
   useEffect(() => {
+    console.log("PROVIDER MOUNTED");
     const handlePopState = (e: PopStateEvent) => {
       e.preventDefault();
       console.log("HANDLEPOPSTATE TRIGGERED.");
     };
     window.addEventListener("popstate", handlePopState);
+    window.history.pushState(null, "", window.location.href);
 
     return () => {
+      console.log("PROVIDER UNMOUNTED");
       window.removeEventListener("popstate", handlePopState);
     };
   }, []);
