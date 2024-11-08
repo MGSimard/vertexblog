@@ -33,10 +33,10 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
   //         // TODO: Come up with more interesting text for this
   //         message: (
   //           <p>
-  //             Some files have unsaved changes.
+  //             Your files have unsaved changes.
   //             <br />
   //             <br />
-  //             Are you sure you want to leave this blog?
+  //             Are you sure you want to leave without saving?
   //           </p>
   //         ),
   //         buttons: [
@@ -69,10 +69,10 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
           // TODO: Come up with more interesting text for this
           message: (
             <p>
-              You have unsaved files.
+              Your files have unsaved changes.
               <br />
               <br />
-              Are you sure you want to leave this blog?
+              Are you sure you want to leave without saving?
             </p>
           ),
           buttons: [
