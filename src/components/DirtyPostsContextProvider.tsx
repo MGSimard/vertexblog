@@ -5,7 +5,6 @@ import { dialogManager } from "@/lib/DialogManager";
 
 type DirtyPosts = number[];
 interface IsDirtyTypes {
-  dirtyPosts: DirtyPosts;
   setDirtyPosts: Dispatch<SetStateAction<DirtyPosts>>;
 }
 
@@ -17,6 +16,29 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
 
   const handleNavigate = (link: string) => {
     console.log("HANDLENAVIGATE TRIGGERED:", link);
+    if (!dirtyPosts.length) {
+      router.push(link);
+    } else {
+      dialogManager.showDialog({
+        type: "Warning",
+        title: "Notepad",
+        message: (
+          <p>
+            You have unsaved files.
+            <br />
+            <br />
+            Are you sure you want to leave this blog?
+          </p>
+        ),
+        buttons: [
+          {
+            label: "Leave",
+            func: () => router.push(link),
+          },
+          { label: "Cancel" },
+        ],
+      });
+    }
   };
 
   const handlePopState = (event: PopStateEvent) => {
@@ -33,10 +55,6 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
 
     if (link && link.target !== "_blank") {
       e.preventDefault();
-      // TODO: Rework this to only push to documents if no other notepad is dirty
-      // So basically just make a function that checks dirtypostscontext for length
-      // And only push on length detected, otherwise run onClose()
-
       handleNavigate(link.href);
     }
   };
@@ -62,7 +80,7 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
     };
   }, [dirtyPosts]);
 
-  return <DirtyPostsContext.Provider value={{ dirtyPosts, setDirtyPosts }}>{children}</DirtyPostsContext.Provider>;
+  return <DirtyPostsContext.Provider value={{ setDirtyPosts }}>{children}</DirtyPostsContext.Provider>;
 }
 
 export function useDirtyPosts() {
