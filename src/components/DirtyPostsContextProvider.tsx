@@ -22,6 +22,7 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
       dialogManager.showDialog({
         type: "Warning",
         title: "Notepad",
+        // TODO: Come up with more interesting text for this
         message: (
           <p>
             You have unsaved files.
@@ -63,7 +64,7 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
     console.log("HANDLEBEFOREUNLOAD TRIGGERED.");
     if (!dirtyPosts.length) return;
     event.preventDefault();
-    event.returnValue = "";
+    event.returnValue = true; // Legacy
   };
 
   useEffect(() => {
@@ -72,11 +73,14 @@ export function DirtyPostsContextProvider({ children }: { children: React.ReactN
     console.log("DIRTYPOSTS CHANGED:", dirtyPosts);
     document.addEventListener("click", interceptLinkClicks, true);
     window.addEventListener("popstate", handlePopState);
-    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // MDN RECOMMENDATION FOR FIREFOX PERFORMANCE - DON'T ADD LISTENER IF NOT UNSAVED
+    if (dirtyPosts.length) window.addEventListener("beforeunload", handleBeforeUnload);
+    else window.removeEventListener("beforeunload", handleBeforeUnload); // Silent if doesn't exist
     return () => {
       document.removeEventListener("click", interceptLinkClicks, true);
       window.removeEventListener("popstate", handlePopState);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload); // Silent if doesn't exist
     };
   }, [dirtyPosts]);
 
