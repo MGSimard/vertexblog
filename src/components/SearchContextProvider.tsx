@@ -11,11 +11,7 @@ interface SearchTypes {
 const SearchContext = createContext<SearchTypes | undefined>(undefined);
 
 export function SearchContextProvider({ children }: { children: React.ReactNode }) {
-  // Set blog search default value to this
-  // Don't clear on unmount documents page unmount - in windows when returning to folder search is still there.
-  // Maybe clear on window layout unmount though?
   const [blogSearch, setBlogSearch] = useState("");
-  // However, for POST search, we should clear on blog page unmount (set to empty string).
   const [postSearch, setPostSearch] = useState("");
 
   return (

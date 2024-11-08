@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { savePost } from "@/server/actions";
 import { dialogManager } from "@/lib/DialogManager";
 import { WindowFrame } from "@/components/WindowFrame";
@@ -93,12 +93,26 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
     event.returnValue = "";
   };
 
+  // Beforeunload doesn't handle internal SPA navigation, need this.
+  const interceptLinkClicks = (e: MouseEvent) => {
+    const link = (e.target as HTMLAnchorElement).closest("a");
+
+    if (link && isDirty && link.target !== "_blank") {
+      e.preventDefault();
+      // TODO: Rework this to only push to documents if no other notepad is dirty
+      // So basically just make a function that checks dirtypostscontext for length
+      // And only push on length detected, otherwise run onClose()
+      console.log("TEST:", dirtyPosts);
+      // handleWarn(() => router.push(link.href));
+    }
+  };
+
   useEffect(() => {
     if (isDirty) {
-      setDirtyPosts((prevState) => [...prevState, { id: postInfo.postId, title: postInfo.postTitle }]);
+      setDirtyPosts((prevState) => [...prevState, postInfo.postId]);
       window.history.pushState(null, "", window.location.href);
     } else {
-      setDirtyPosts((prevState) => prevState.filter((post) => post.id !== postInfo.postId));
+      setDirtyPosts((prevState) => prevState.filter((postId) => postId !== postInfo.postId));
     }
 
     document.addEventListener("click", interceptLinkClicks, true);
@@ -109,22 +123,9 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
       document.removeEventListener("click", interceptLinkClicks, true);
       window.removeEventListener("popstate", handlePopState);
       window.removeEventListener("beforeunload", handleBeforeUnload);
-      setDirtyPosts((prevState) => prevState.filter((post) => post.id !== postInfo.postId));
+      setDirtyPosts((prevState) => prevState.filter((postId) => postId !== postInfo.postId));
     };
   }, [isDirty]);
-
-  const interceptLinkClicks = (e: MouseEvent) => {
-    console.log("INTERCEPTLINKCLICKS TRIGGERED.");
-    const link = (e.target as HTMLAnchorElement).closest("a");
-
-    if (link && isDirty && link.target !== "_blank") {
-      e.preventDefault();
-      // TODO: Rework this to only push to documents if no other notepad is dirty
-      // So basically just make a function that checks dirtypostscontext for length
-      // And only push on length detected, otherwise run onClose()
-      handleWarn(() => router.push(link.href));
-    }
-  };
 
   return (
     <>

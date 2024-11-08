@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useState, useContext, useEffect, type Dispatch, type SetStateAction } from "react";
 
-type DirtyPosts = { id: number; title: string }[];
+type DirtyPosts = number[];
 interface IsDirtyTypes {
   dirtyPosts: DirtyPosts;
   setDirtyPosts: Dispatch<SetStateAction<DirtyPosts>>;
