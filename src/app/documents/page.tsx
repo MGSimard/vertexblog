@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
+import { Suspense, use } from "react";
 import { getBlogs } from "@/server/actions";
 import { BlogsFileButton } from "@/components/BlogsFileButton";
 import { BlogsViewButton } from "@/components/BlogsViewButton";
