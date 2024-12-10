@@ -13,7 +13,7 @@ export function NotepadFileButton({
   setIsDirty,
 }: {
   postInfo: PostInfoTypes;
-  textRef: React.RefObject<HTMLTextAreaElement>;
+  textRef: React.RefObject<HTMLTextAreaElement | null>;
   onClose: () => void;
   isDirty: boolean;
   setIsDirty: Dispatch<SetStateAction<boolean>>;
@@ -55,7 +55,7 @@ function NotepadButtonMenu({
   setIsDirty,
 }: {
   postInfo: PostInfoTypes;
-  textRef: React.RefObject<HTMLTextAreaElement>;
+  textRef: React.RefObject<HTMLTextAreaElement | null>;
   onClose: () => void;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
   isDirty: boolean;
