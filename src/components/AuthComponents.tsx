@@ -22,7 +22,6 @@ export function SignUp() {
   const [pswdVisible, setPswdVisible] = useState(false);
 
   useEffect(() => {
-    console.log(formState?.errors ?? null);
     if (formState?.success === false) {
       dialogManager.showDialog({
         type: "Error",

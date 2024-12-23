@@ -17,7 +17,6 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   const { setDirtyPosts } = useDirtyPosts();
 
   const handleSaveFile = async () => {
-    console.log("HANDLESAVEFILE TRIGGERED.");
     const { postId } = postInfo;
     const newText = textRef.current?.value;
     const { success, message } = await savePost(postId, newText);
@@ -35,7 +34,6 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   };
 
   const handleWarn = (doThis: () => void) => {
-    console.log("HANDLEWARN TRIGGERED");
     dialogManager.showDialog({
       type: "Warning",
       title: "Notepad",
@@ -64,7 +62,6 @@ export function Notepad({ postInfo, onClose }: { postInfo: PostInfoTypes; onClos
   };
 
   const handleClose = () => {
-    console.log("HANDLECLOSE TRIGGERED.");
     if (!isDirty) {
       onClose();
     } else {
