@@ -1,19 +1,15 @@
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import drizzle from "eslint-plugin-drizzle";
-import tsParser from "@typescript-eslint/parser";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
+/** @ts-expect-error - @eslint/eslintrc is untyped */
 import { FlatCompat } from "@eslint/eslintrc";
+import tsEslint from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+/** @ts-expect-error - eslint-plugin-drizzle is untyped */
+import drizzle from "eslint-plugin-drizzle";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
+  baseDirectory: import.meta.dirname,
 });
 
+/** @type {import("eslint").Linter.Config[]} */
 export default [
   ...compat.extends(
     "next/core-web-vitals",
@@ -22,24 +18,20 @@ export default [
   ),
   {
     plugins: {
-      "@typescript-eslint": typescriptEslint,
+      "@typescript-eslint": tsEslint,
       drizzle,
     },
-
     languageOptions: {
       parser: tsParser,
-      ecmaVersion: 5,
-      sourceType: "script",
-
+      ecmaVersion: "latest",
+      sourceType: "module",
       parserOptions: {
         project: true,
       },
     },
-
     rules: {
       "@typescript-eslint/array-type": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
-
       "@typescript-eslint/consistent-type-imports": [
         "warn",
         {
@@ -47,16 +39,13 @@ export default [
           fixStyle: "inline-type-imports",
         },
       ],
-
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
           argsIgnorePattern: "^_",
         },
       ],
-
       "@typescript-eslint/require-await": "off",
-
       "@typescript-eslint/no-misused-promises": [
         "error",
         {
@@ -65,14 +54,12 @@ export default [
           },
         },
       ],
-
       "drizzle/enforce-delete-with-where": [
         "error",
         {
           drizzleObjectName: ["db", "ctx.db"],
         },
       ],
-
       "drizzle/enforce-update-with-where": [
         "error",
         {
