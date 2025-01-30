@@ -151,10 +151,12 @@ VertexBlog is a blogging platform based on the Windows 95 user interface. It run
 
 ## Contact
 
-MGSimard - mgsimard.dev@gmail.com
-[@MGSimard on X](https://x.com/MGSimard)
+MGSimard  
+X: [@MGSimard](https://x.com/MGSimard)  
+GitHub: [@MGSimard](https://github.com/MGSimard)  
+Mail: [mgsimard.dev@gmail.com](mailto:mgsimard.dev@gmail.com)
 
-For more info, view my portfolio at [mgsimard.dev](https://mgsimard.dev). Resume attached.
+For more info, view my portfolio at [mgsimard.dev](https://mgsimard.dev).
 
 <details>
 <summary><h2>TASK LIST<h2></summary>
